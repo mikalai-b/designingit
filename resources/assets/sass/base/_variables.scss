@@ -1,0 +1,133 @@
+// -------------------
+// Variables
+// -------------------
+
+// Colors
+// -------------------
+$white:								rgb(255,255,255) !default;
+$black:								rgb(34,34,34) !default;
+
+$cosmeticrx-blue: 					rgb(31,87,122) !default;
+$cosmeticrx-blue--light: 			rgb(12,185,176) !default;
+$cosmeticrx-blue--really-light:		rgb(234,250,247) !default;
+
+$cosmeticrx-purple: 				rgb(60,66,90) !default;
+$cosmeticrx-purple--light: 			rgb(72,103,192) !default;
+$cosmeticrx-purple--dark: 			rgb(68,43,106) !default;
+$cosmeticrx-purple--really-dark: 	rgb(36,49,83) !default;
+
+$cosmeticrx-skin: 					rgb(255,150,125) !default;
+
+$cosmeticrx-gray:					rgb(148,148,148) !default;
+$cosmeticrx-gray--dark:				rgb(96,96,96) !default;
+$cosmeticrx-gray--light: 			rgb(242,242,242) !default;
+
+$cosmeticrx-red:					rgb(255,49,0) !default;
+
+
+// Component colors
+$color-border:						$cosmeticrx-purple--really-dark;
+$color-border--field:				#ddd;
+$color-link:						$cosmeticrx-blue;
+$color-text:						$black;
+$color-placeholder:					#494949;
+$color-nav:							$cosmeticrx-purple--really-dark;
+$color-hero-bg:						#F3F8FC;
+$color-danger:						$cosmeticrx-red;
+$color-purple-new: #F9EAE5;
+$color-span:#243153;
+
+// boldrx product colors
+$color-Light_Gray_BG: #F7F7F7;
+$color-Dark_Gray:#8B8B8B;
+$blue:#4867C0;
+
+// Header
+$color-header-border:				$cosmeticrx-gray--light;
+
+// Cards
+$color-card-border:					darken($cosmeticrx-gray--light, 3%);
+$color-card-header-bg:				$cosmeticrx-purple--really-dark;
+$color-card-header-text:			$white;
+$color-card-body-bg:				$white;
+$color-card-body-copy:				$cosmeticrx-gray--dark;
+$color-card-body-title:				$cosmeticrx-gray--dark;
+$color-card-body-label-open:		$cosmeticrx-blue--light;
+$color-card-body-label-new:		    $cosmeticrx-skin;
+$color-card-body-label-pending:		$cosmeticrx-blue;
+$color-card-body-label-closed:		$cosmeticrx-blue--light;
+$color-card-body-label-review:		$cosmeticrx-purple;
+$color-card-body-label-declined:	$cosmeticrx-red;
+$color-card-actions-bg:             lighten($cosmeticrx-gray--light, 2%);
+$color-card-action:                 $cosmeticrx-purple--light;
+
+// Portal
+$color-portal-bg:				lighten($cosmeticrx-gray--light, 2%);
+$color-messages-bg:				$cosmeticrx-blue--really-light;
+
+// Typeography & Fonts
+// -------------------
+$font-family--base: 	'Montserrat', sans-serif !default;
+$font-family--serif:	'Playfair Display', serif !default;
+
+$font-size--base:		1rem !default;
+$font-size--large: 		$font-size--base * 1.27 !default;
+$font-size--small: 		$font-size--base * .83 !default;
+
+// Heading font sizes
+$font-size--h1:			$font-size--base * 3.125;
+$font-size--h2:			$font-size--base * 2.5;
+
+// Component font sizes
+$font-size--input:		$font-size--base * 1;
+$font-size--nav:		$font-size--base * 1;
+$font-size--hero:		$font-size--base * 3.75;
+$font-size--section:	$font-size--base * 2.4375;
+
+
+
+
+
+// Components
+// -------------------
+
+// Buttons
+$btn-font-size:			1rem !default;
+$btn-font-size--large:	1.25rem !default;
+$btn-font-size--small:	0.875rem !default;
+$btn-font-size--mini:	0.75rem !default;
+$btn-font-weight:		500 !default;
+
+$btn-border-width: 		1px solid !default;
+$btn-radius:			22px !default;
+$btn-radius--large:		32px !default;
+
+$btn-padding-x:			1.5rem !default;
+$btn-padding-x--small:	1.5rem !default;
+$btn-padding-x--mini:	.75rem !default;
+$btn-padding-y:			1rem !default;
+$btn-padding-y--small:	.75rem !default;
+$btn-padding-y--mini:	.5rem !default;
+$btn-padding-y--large:	1.4375rem !default;
+
+
+// Utilities
+$border-radius:			4px !default;
+$padding-container:		2rem !default;
+
+
+
+// Sizes
+// -------------------
+$max-width:				1140px !default;
+$max-width--header:		1520px !default;
+$max-width--small:		900px !default;
+
+// Breakpoints
+$x-large:		1400px !default;
+$x-medium:		1200px !default;
+$large:			1040px !default;
+$ipad:         992px !default;
+$medium:		715px !default;
+$small:			480px !default;
+$x-small:		375px !default;

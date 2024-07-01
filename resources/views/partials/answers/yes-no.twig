@@ -1,0 +1,20 @@
+<div class="consult-answer">
+    <span class="consult-text consult-text--question">{{ answer.question|product_highlighter|raw  }}</span>
+    {% if answer.content == '1' %}
+        <span class="consult-text consult-text--answer">
+            {% if answer.questionConfig and answer.questionConfig.yes %}
+                {{ answer.questionConfig.yes|raw }}
+            {% else %}
+                Yes
+            {% endif %}
+        </span>
+    {% else %}
+        <span class="consult-text consult-text--answer">
+            {% if answer.questionConfig and answer.questionConfig.no %}
+                {{ answer.questionConfig.no|raw }}
+            {% else %}
+                No
+            {% endif %}
+        </span>
+    {% endif %}
+</div>

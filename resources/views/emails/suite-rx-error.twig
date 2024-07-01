@@ -1,0 +1,36 @@
+<p>
+    There was an error fulfilling the following prescription.  This error may have been caused by a failure to transmit the prescription or a failure to process the patient's card.
+</p>
+<p>
+    <b>Error:</b> {{ error }}
+</p>
+<ul>
+    <li>
+        <b>Medication:</b> {{ prescription }}
+    </li>
+    <li>
+        <b>Person ID:</b> {{ prescription.consultation.order.person.id }}
+    </li>
+    <li>
+        <b>Date Started:</b> {{ prescription.dateStart.format('m/d/Y') }}
+    </li>
+    <li>
+        <b>Expires:</b> {{ prescription.dateEnd.format('m/d/Y') }}
+    </li>
+    <li>
+        {% if prescription.consultation.order.isOpen %}
+            <b>Last Refill Date:</b> {{ prescription.dateLastRefilled.format('m/d/Y') }}
+        {% else %}
+            <b>Last Refill Date:</b> Never
+        {% endif %}
+    </li>
+    <li>
+        <b>Filled:</b> {{ prescription.filled }}
+    </li>
+    <li>
+        <b>Refills:</b> {{ prescription.refills }}
+    </li>
+    <li>
+        <b>Card:</b> {{ prescription.creditCard }}
+    </li>
+</ul>

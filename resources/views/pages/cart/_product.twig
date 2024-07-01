@@ -1,0 +1,12 @@
+<div class="portal-product">
+    <div class="portal-product-image">
+        <img src="{{ product.thumbnail }}" alt="{{ product.name }}">
+    </div>
+    <div class="portal-product-info--wrapper">
+        <div class="portal-product-info">
+            <span class="portal-product-text">{{ product }}, {{ product.quantity }}{% if product.prescriptionOnly %}, Rx only{% endif %} {{ product.info }})</span>
+            <span>${{ product.price|number_format(2) }}</span>
+        </div>
+        <a class="cart-action--light" href="{{ route('cart.update', {item: item.rowId}) }}" class="button button-primary"><span class="remove">X</span> Remove {{ product.name }} {{ product.strength }}</a>
+    </div>
+</div>

@@ -1,0 +1,127 @@
+{% set portalTitle = 'Consultations' %}
+{% extends 'layouts/full-width' %}
+
+{% set current_section = 'consultations' %}
+{% set page = criteria.page %}
+{% set last_page = (criteria.totalMatchCount / criteria.limit)|round(0, 'ceil') %}
+{% set sort_field = request.input('sortField') %}
+{% set sort_direction = request.input('sortDirection') %}
+{% set filter_value = request.input('filterValue') %}
+{% set has_filters = filter_value is not null %}
+
+{% block scripts %}
+    {% if (sort_field) %}
+        <script>
+            $(document).ready(function(){
+                $('.list').sortHighlighter('{{ sort_field }}', '{{ sort_direction }}');
+            })
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block primary %}
+<section class="portal">
+    <div class="container">
+        <div class="portal-headline">
+            <div class="breadcrumbs">
+                <a href="/dashboard" class="breadcrumb-item">Dashboard</a>
+                <span class="breadcrumb-item">Consultations</span>
+            </div>
+            <h1>
+                Consultations
+            </h1>
+        </div>
+        <div class="panel-with-sidebar">
+            <aside class="panel-sidebar {% if has_filters %}filters-active{% endif %}">
+                <h2>Filters</h2>
+                <form class="filters" method="GET" action="{{ url.full }}">
+                    <div class="form-group">
+                        <input type="hidden" name="filter" value="keyword" />
+                        <label for="keyword">Keyword:</label>
+                        <input type="text" name="filterValue" placeholder="Name, email address, etc..." value="{{ request.input('filterValue', NULL) }}" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="consultation-status">Consultation Status:</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox">
+                                <input type="checkbox" name="consultationStatus[]" value="incomplete" id="consultation-status-incomplete" {{ criteria.hasState('incomplete') ? 'checked' : '' }} />
+                                <label for="consultation-status-incomplete">Started / Incomplete</label
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" name="consultationStatus[]" value="open" id="consultation-status-open" {{ criteria.hasState('open') ? 'checked' : '' }} />
+                                <label for="consultation-status-open">Open</label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" name="consultationStatus[]" value="prescribed" id="consultation-status-prescribed" {{ criteria.hasState('prescribed') ? 'checked' : '' }} />
+                                <label for="consultation-status-prescribed">Complete and prescribed</label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" name="consultationStatus[]" value="declined" id="consultation-status-declined" {{ criteria.hasState('declined') ? 'checked' : '' }} />
+                                <label for="consultation-status-declined">Complete and declined</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="button button-primary" type="submit">Set Filters</button>
+                </form>
+            </aside>
+            <div class="panel-content">
+                {% if results|length %}
+                    <p>
+                        {% if (last_page == 1) %}
+                            Showing all {{ criteria.totalMatchCount }} result(s).
+                        {% else %}
+                            Showing page {{ page }} of {{ last_page }}
+                            ({{ criteria.totalMatchCount }} total results)
+                        {% endif %}
+                    </p>
+
+                    <table class="list" width="100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="name"><a href="{{ url.full|replace_query_string_parameter(['sortField', 'sortDirection'], ['name', 'asc']) }}">Name</a></th>
+                                <th class="state">State</th>
+                                <th class="consultName">Consult</th>
+                                <th class="date consultDate"><a href="{{ url.full|replace_query_string_parameter(['sortField', 'sortDirection'], ['consultDate', 'desc']) }}">Consult Date</a></th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        {% for result in results %}
+                            <tr class="user">
+                                <td class="actions">
+                                    {% if Gate.allows('update', result) %}
+                                        <a href="{{ route('consultation', {id: result.consultation.id}) }}?action=update"><i class="fas fa-edit"></i></a>
+                                    {% endif %}
+                                </td>
+                                <td class="name"><a href="{{ route('patient', {id: result.person.id}) }}">{{ result.person }}</a></td>
+                                <td class="state">{{ result.person.state ? result.person.state.id : 'N/A' }}</td>
+                                <td class="consult">
+                                    {% if result.consultation %}
+                                        <a href="{{ route('consultation', {id: result.consultation.id}) }}">{{ result.consultation }}</a>
+                                    {% else %}
+                                        {{ result }}
+                                    {% endif %}
+                                </td>
+                                <td class="consultDate">{{ result.dateCreated|date('m/d/Y') }}</td>
+                                <td class="consultStatus">{{ result.consultation ? result.consultation.statusWithResult : 'Incomplete' }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {% include 'partials/nav/pagination' %}
+                {% elseif criteria|length %}
+                    <p>
+                        No consultations matching your filters could be found at this time.  Try removing some of your filters and searching again.
+                    </p>
+                {% else %}
+                    <p>
+                        No consultations could be found at this time.
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

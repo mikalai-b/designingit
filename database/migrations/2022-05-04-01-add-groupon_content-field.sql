@@ -1,0 +1,1 @@
+ALTER TABLE products ADD groupon_content LONGTEXT DEFAULT NULL;

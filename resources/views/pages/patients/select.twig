@@ -1,0 +1,122 @@
+{% set portalTitle = 'Patients' %}
+{% extends 'layouts/portal' %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% set current_section = 'patients' %}
+
+{% block primary %}
+<section class="portal">
+    <div class="container">
+        <div class="portal-headline">
+            <div class="breadcrumbs">
+                <a href="{{ route('dashboard') }}" class="breadcrumb-item">Dashboard</a>
+                <a href="{{ route('patients') }}" class="breadcrumb-item">Patients</a>
+                <span class="breadcrumb-item">{{ person }}</span>
+            </div>
+            <h1>{{ person }}</h1>
+        </div>
+        <div class="portal-columns">
+            <div class="portal-column--first">
+                {% if person.orders|length %}
+                    <div class="card">
+                        <header class="card-header">
+                            <span class="card-header--title">Patient Consultations</span>
+                        </header>
+
+                        {% for consultation in people.consultations.findForPatient(person) %}
+                            {% set order = consultation.order %}
+                            <div class="card-body">
+                                <div class="card--two-columns items-center">
+                                    <div class="card-column card-column--vertical">
+                                        <span class="card-body--subtitle-dark">{{ consultation.dateCreated|date("F j, Y") }}</span>
+                                        <span class="card-body--title card-body--title-dark">{{ consultation }}</span>
+                                        <div class="card-body--label-{{ consultation.status|lower }}">
+                                            {{ consultation.status }}
+                                        </div>
+                                    </div>
+                                    <div class="card-column">
+                                        <div class="card-action">
+                                            <a href="{{ route('consultation', {id: consultation.id}) }}" class="button button-primary--small button-block">Review Consult</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="card-body card-body--messages">
+                               This patient does not currently have any new consultations to review.
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {# Patient Account Info #}
+                <div class="card">
+                    <header class="card-header">
+                        <span class="card-header--title">
+                            <span>Account Details</span>
+                            <a class="button button-product--small" href="{{ route('patient', {id: person.id}) }}?action=update">Edit</a>
+                        </span>
+
+                    </header>
+                    <div class="card-body">
+                        <div class="card--two-columns">
+                            <div class="card-column card-column--vertical">
+                                <div class="card-info">
+                                    <span class="card-info--title">Personal Info</span>
+                                    <span class="card-info--text card-info--text-large">{{ person.fullName }}</span>
+                                    {% if person.email %}
+                                        <span class="card-info--text">{{ person.email }}</span>
+                                    {% endif %}
+                                    {% if person.dateOfBirth %}
+                                        <span class="card-info--text">{{ person.dateOfBirth|date("F j, Y")}}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if person.addressLine1 %}
+                                <div class="card-column card-column--vertical">
+                                    <div class="card-info">
+                                        <span class="card-info--title">Shipping Info</span>
+                                        <span class="card-info--text card-info--text-large">{{ person.addressLine1 }}</span>
+                                        {% if person.addressLine2 %}
+                                            <span class="card-info--text card-info--text-large">{{ person.addressLine2 }}</span>
+                                        {% endif %}
+                                        <span class="card-info--text">{{ person.city }}, {{ person.state.id }} {{ person.postalCode }}</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+
+                {# Patient open prescriptions #}
+                {% if open_prescriptions|length %}
+                    <div class="card">
+                        <header class="card-header">
+                            <span class="card-header--title">Prescriptions</span>
+                        </header>
+                        <div class="card-body">
+                            {% for prescription in open_prescriptions %}
+                                {{ prescription.lineItem.product }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="portal-column--last">
+                <div class="card">
+                    <header class="card-header">
+                        <span class="card-header--title">Messages</span>
+                    </header>
+                    <v-conversation my-person-id="{{ user.id }}" other-person-id="{{ person.id }}"></v-conversation>
+                </div>                    
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

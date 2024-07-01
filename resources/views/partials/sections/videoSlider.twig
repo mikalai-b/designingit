@@ -1,0 +1,44 @@
+<section class="before-after-carousel">
+  <div class="container">
+    {% if block.tagline %}
+      <h3 class="before-after-carousel__tagline">{{ block.tagline }}</h3>
+    {% endif %}
+    {% if block.blockTitle %}
+      <h2 class="before-after-carousel__title">{{ block.blockTitle }}</h2>
+    {% endif %}
+    {% if block.subheadline %}
+      <div class="before-after-carousel__subheadline">{{ block.subheadline }}</div>
+    {% endif %}
+  </div>
+  {% set items = block.videoSlides %}
+  {% if items|length %}
+  <div class="container">
+    <div class="before-after-carousel__container">
+      <div class="before-after-carousel__carousel">
+        {% for item in items %}
+          {% set preview = item.previewImage %}
+          {% set videoFile = item.videoFile %}
+          <div class="before-after-carousel__item videoCarousel--item">
+            <div class="before-after-carousel__item__inner">
+                <span class="play--button"></span>
+                {% if preview|length %}
+                    <div class="before-after-carousel__item__preview">
+                        <img src="{{ preview.first().url }}">
+                    </div>  
+                {% endif %} 
+                {% if videoFile|length %}
+                    <div class="before-after-carousel__item__video">
+                        <video width="100%" height="100%" controls playsinline>
+                            <source src="{{ videoFile.first().url }}" type="video/mp4">
+                            Your browser does not support HTML video.
+                        </video>
+                    </div>  
+                {% endif %}
+            </div> 
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</section>

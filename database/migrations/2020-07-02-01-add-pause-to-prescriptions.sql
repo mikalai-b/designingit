@@ -1,0 +1,1 @@
+ALTER TABLE prescriptions ADD status VARCHAR(255) DEFAULT 'Active' NOT NULL;

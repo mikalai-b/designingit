@@ -1,0 +1,28 @@
+{% set portalTitle = 'Campaigns' %}
+{% extends 'layouts/full-width' %}
+
+{% set current_section = 'campaigns' %}
+
+{% block primary %}
+<section class="portal">
+    <div class="container">
+        {% include 'partials/messaging/flash.twig' %}
+        <div class="portal-headline">
+            <div class="breadcrumbs">
+                <a href="/dashboard" class="breadcrumb-item">Dashboard</a>
+                <a href="/dashboard/campaigns" class="breadcrumb-item">Campaigns</a>
+                <span class="breadcrumb-item">Edit Campaign</span>
+            </div>
+            <h1>
+                Edit Campaign
+            </h1>
+        </div>
+        <div class="panel-content">
+            <form class="campaign-form" method="POST" action="{{ url.current }}">
+                {% include 'pages.campaigns._form' %}
+            </form>
+            <offer-manager :campaign-id="{{ campaign.id }}"></offer-manager>
+        </div>
+    </div>
+</section>
+{% endblock %}

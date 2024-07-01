@@ -1,0 +1,1 @@
+UPDATE consultations SET status = 'Started' WHERE status = 'New';

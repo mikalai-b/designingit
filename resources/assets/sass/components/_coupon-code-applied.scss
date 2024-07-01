@@ -1,0 +1,11 @@
+.couponCodeApplied {
+    background: transparentize($cosmeticrx-blue--light, 0.9);
+    padding: 1em 0;
+    
+    strong {
+        color: $cosmeticrx-blue--light !important;
+    }
+    .container {
+        text-align: left;
+    }
+}

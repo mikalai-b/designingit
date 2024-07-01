@@ -1,0 +1,39 @@
+<section class="priceComparison">
+    <div class="container">
+        {% if entry.priceComparisonTitle %}
+            <h3 class="priceComparison__title">{{ entry.priceComparisonTitle }}</h3>
+        {% endif %}
+        <div class="priceComparison__inner">
+            {% if entry.priceComparisonIntro %}
+                <div class="priceComparison__intro">{{ entry.priceComparisonIntro }}</div>
+            {% endif %}
+            <div class="priceComparison__priceGroups">
+                {% for block in entry.priceComparison %}
+                    <div class="priceComparison__priceGroup priceGroup {{ block.isCompetitor.contains('1') ? '-competitor' : '-us' }}">
+                        <h4 class="priceGroup__company">{{ block.companyName }}</h4>
+                        {% if block.price1 or block.price1Type %}
+                            <div class="priceGroup__priceWrapper {% if block.price1 is null %}-noPrice{% endif %}">
+                                <div class="priceGroup__price">
+                                    {{ block.price1 }}
+                                </div>
+                                <div class="priceGroup__type">
+                                    {{ block.price1Type }}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if block.price2 or block.price2Type %}
+                            <div class="priceGroup__priceWrapper {% if block.price2 is empty %}-noPrice{% endif %}">
+                                <div class="priceGroup__price">
+                                    {{ block.price2|default('not sold') }}
+                                </div>
+                                <div class="priceGroup__type">
+                                    {{ block.price2Type }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,42 @@
+<script type="text/javascript">
+    var stripe   = Stripe('{{ env('STRIPE_PUB_KEY') }}');
+    var elements = stripe.elements();
+    var card     = elements.create('card');
+    var form     = document.getElementById('billing');
+
+    card.mount('#card-element');
+
+    form.addEventListener('submit', function(event) {
+        var data = new FormData(form);
+
+        if (data.get('card[id]') == 'new') {
+            event.preventDefault();
+
+            stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                    //
+                    // We will do nothing with the error and validate the card token instead.
+                    // Look at stripe's original examples if you want how to handle errors.
+                    //
+
+                } else {
+                    var card_name  = document.createElement('input');
+                    var card_token = document.createElement('input');
+
+                    card_name.setAttribute('type',  'hidden');
+                    card_name.setAttribute('name',  'card[name]');
+                    card_name.setAttribute('value', result.token.card.brand + ' Ending In ' + result.token.card.last4);
+
+                    card_token.setAttribute('type',  'hidden');
+                    card_token.setAttribute('name',  'card[token]');
+                    card_token.setAttribute('value', result.token.id);
+
+                    form.appendChild(card_name);
+                    form.appendChild(card_token);
+                    form.submit();
+                }
+
+            });
+        }
+    });
+</script>

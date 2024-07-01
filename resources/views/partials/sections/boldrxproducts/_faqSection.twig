@@ -1,0 +1,21 @@
+<div class="brxFaqSection">
+    <div class="container">
+        <div class="brxFaqSection__inner">
+            {% if block.faqTitle %}
+                <h2>{{ block.faqTitle }}</h2>
+            {% endif %}
+            {% if block.faqBlocks %}
+                <div class="brxAccordeon">
+                    {% for accord in block.faqBlocks %}
+                        <div class="brxAccordeon__item">
+                            <h3>{{ accord.question }}</h3>
+                            <div class="accordHidden">
+                                <p>{{ accord.answer }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

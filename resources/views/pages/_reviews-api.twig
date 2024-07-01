@@ -1,0 +1,30 @@
+{% set pageLimit = reviews.reviewsCountToLoad %}
+
+{% if craft.request.isPost %}
+	{% set currentPage = craft.request.getParam('page') %}
+{% else %}
+	{% set currentPage = 1 %}
+{% endif %}
+
+{% set entries = craft.entries.section('reviews').limit(pageLimit).offset((currentPage - 1) * pageLimit) %}
+{% set entryArray = [] %}
+
+{% paginate entries as pageInfo, pageEntries %}
+{% set pages = pageInfo.totalPages %}
+
+{% for entry in entries %}
+	{% set dates = entry.postDate | date("m/d/Y") %}
+	{% for item in entry.reviewsFields %}
+		{% set entryArray = entryArray|merge([{
+			'id': entry.id,
+			'rating': item.rating,
+			'avatar': item.authorImage ? item.authorImage.first().url : '',
+			'reviewText': item.reviewText,
+			'reviewAuthor': item.reviewAuthor,
+			'date': dates,
+			'pages': pages
+		}]) %}
+	{% endfor %}
+{% endfor %}
+
+{{ entryArray|json_encode|raw }}

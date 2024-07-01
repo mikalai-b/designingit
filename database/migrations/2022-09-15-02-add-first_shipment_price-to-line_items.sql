@@ -1,0 +1,1 @@
+ALTER TABLE line_items ADD first_shipment_price DOUBLE PRECISION NOT NULL;

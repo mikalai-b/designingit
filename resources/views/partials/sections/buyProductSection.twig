@@ -1,0 +1,33 @@
+<div class="buyProductSection">
+    <div class="container">
+        <div class="buyProductSection__inner">
+            {% if block.buyProdImage %}
+                <div class="buyProductSection__image">
+                    <img src="{{ block.buyProdImage.first().url }}" />
+                    <div class="buyProductSection__image__item">
+                        {% if block.buyTitle %}
+                            <strong>{{ block.buyTitle }}</strong>
+                        {% endif %}
+                        {% if block.buyPrice %}
+                            <span>{{ block.buyPrice }}*</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="buyProductSection__text">
+                {% if block.buyTitle %}
+                    <h3>{{ block.buyTitle }}</h3>
+                {% endif %}
+                {% if block.buyPrice %}
+                    <span class="buyPrice">{{ block.buyPrice }}</span>
+                {% endif %}
+                {% if block.buyText %}
+                    {{ block.buyText }}
+                {% endif %}
+                {% if block.buyUrl %}
+                    <a href="{{ block.buyUrl }}" class="button button-primary">{{ block.butButtonText }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

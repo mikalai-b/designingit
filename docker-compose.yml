@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  db:
+    image: mariadb:10.3
+    environment:
+      - "MYSQL_DATABASE=craft"
+      - "MYSQL_USER=craft"
+      - "MYSQL_PASSWORD=craft"
+      - "MYSQL_RANDOM_ROOT_PASSWORD=yes"
+    volumes:
+        - "db:/var/lib/mysql"
+        - "./my.cnf:/root/.my.cnf"
+
+  craft:
+    image: imarcagency/php-apache:1
+    environment:
+      - "APACHE_ROOT=/var/www/public"
+    volumes:
+      - "./docker-bootstrap.sh:/opt/bootstrap"
+      - "./:/var/www/"
+      - "storage:/var/www/craft/storage"
+      - "uploads:/var/www/public/writable"
+
+volumes:
+  storage:
+  uploads:
+  db:

@@ -1,0 +1,62 @@
+{% set portalTitle = 'Compose message' %}
+{% extends 'layouts/full-width' %}
+
+{% block scripts %}
+    {% include 'scripts.quill' %}
+{% endblock %}
+
+{% block primary %}
+    <section class="portal">
+        <div class="container">
+            <div class="portal-headline">
+                <div class="breadcrumbs">
+                    <a href="/dashboard" class="breadcrumb-item">Dashboard</a>
+                    <span class="breadcrumb-item">Compose Message</span>
+                </div>
+                <h1>Compose a New Message</h1>
+            </div>
+            {% if contacts|length > 0 %}
+                <form class="container" method="POST" action="{{ url.full }}">
+
+                    {% if recipient %}
+                        <input type="hidden" name="recipient" value="{{ recipient.id }}" />
+                    {% elseif contacts|length == 1 %}
+                        <input type="hidden" name="recipient" value="{{ contacts[0].id }}" />
+                    {% else %}
+                        <div class="form-group">
+                            <label for="recipient">Recipient</label>
+                            <select name="recipient" id="recipient">
+                                {% for contact in contacts %}
+                                    <option value="{{ contact.id }}">{{ contact }}</option>
+                                {% endfor %}
+                            </select>
+                            {% include 'partials.messaging.error' with {field: 'recipient'} %}
+                        </div>
+                    {% endif %}
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" value="{{ message.subject }}" />
+                        {% include 'partials.messaging.error' with {field: 'subject'} %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="body">Body</label>
+                        <input type="hidden" name="body" />
+                        <div class="editor" data-input="[name=body]" id="body">{{ message.body|raw }}</div>
+                        {% include 'partials.messaging.error' with {field: 'body'} %}
+                    </div>
+
+                    {{ csrf_field() }}
+                    <button class="button button-primary push-up" type="submit">Send Message</button>
+
+                </form>
+
+            {% else %}
+                <p>
+                    You do not currently have any active message recipients.
+                </p>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

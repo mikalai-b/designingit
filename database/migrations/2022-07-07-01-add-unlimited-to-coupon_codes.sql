@@ -1,0 +1,1 @@
+ALTER TABLE coupon_codes ADD unlimited TINYINT(1) DEFAULT '0' NOT NULL;

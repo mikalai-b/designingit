@@ -1,0 +1,37 @@
+<div class="card-body">
+    <div class="card--two-columns refills">
+        <div class="card-column card-column--vertical refill-content">
+            <span class="card-body--title">{{ prescription.lineItem.product }}</span>
+            {% if prescription.canceled %}
+                <p><strong>This prescription has been canceled</strong>.</p>
+            {% elseif prescription.isExpired or prescription.remainingRefills == 0 %}
+                <p><strong>This prescription has expired</strong>.</p>
+            {% else %}
+                <p class="card-body--copy">You have <span class="bold-callout">{{ prescription.remainingRefills }}</span> remaining refills</p>
+                {% if prescription.period %}
+                    <p class="card-body--copy">
+                        {% if prescription.paused %}
+                            <strong>Refills are currently paused for this prescription.</strong>
+                        {% else %}
+                            Refills are set to ship every {{ prescription.period|days_to_months }}.
+                            Your next refill will be automatically fulfilled on {{ prescription.nextRefillDate|date('m/d/Y') }}
+                        {% endif %}
+                    </p>
+                {% else %}
+                    <p class="card-body--copy">
+                        <strong>This prescription currently does not have a refill frequency. Click the "Refill Settings" link below to set a refill frequency and resume automatic shipments.</strong>
+                    </p>
+                {% endif %}
+
+            {% endif %}
+        </div>
+        <div class="card-column refill-image">
+            <div class="card-column--image">
+                <img src="{{ prescription.lineItem.product.thumbnail }}" alt="{{ prescription.lineItem.product.name }} Container">
+            </div>
+        </div>
+    </div>
+    {% if prescription.canceled != true %}
+        {% include 'partials/prescriptions/card-actions' %}
+    {% endif %}
+</div>

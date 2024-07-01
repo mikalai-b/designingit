@@ -1,0 +1,164 @@
+Person:
+    type: entity
+    table: people
+    repositoryClass: People
+    entityListeners:
+        PeopleListener: {  }
+        ModifiableListener: {  }
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        dateCreated:
+            type: datetime
+            nullable: false
+            column: date_created
+        dateModified:
+            type: datetime
+            nullable: true
+            column: date_modified
+        firstName:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: first_name
+        middleName:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: middle_name
+        lastName:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: last_name
+        gender:
+            type: string
+            nullable: true
+            length: null
+            options:
+              fixed: false
+        title:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        credentials:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        dateOfBirth:
+            type: date
+            nullable: true
+            column: date_of_birth
+        email:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        phone:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        addressLine1:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: address_line_1
+        addressLine2:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: address_line_2
+        city:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        postalCode:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: postal_code
+        avatar:
+            type: string
+            nullable: true
+            length: null
+        rememberToken:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: remember_token
+    oneToOne:
+        account:
+            targetEntity: Account
+            cascade: [ persist, remove ]
+            fetch: EAGER
+            mappedBy: person
+            inversedBy: person
+            joinColumns: null
+            orphanRemoval: false
+
+    manyToOne:
+        state:
+            targetEntity: State
+            cascade: {  }
+            fetch: EAGER
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                state:
+                    referencedColumnName: id
+        profession:
+            targetEntity: Profession
+            cascade: { }
+            fetch: EAGER
+            inversedBy: null
+            joinColumn:
+              name: profession_id
+              referencedColumnName: id
+    oneToMany:
+        orders:
+            targetEntity: Order
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: person
+            inversedBy: person
+            orderBy: { 'dateCreated': 'DESC' }
+            orphanRemoval: false
+        fulfillments:
+            targetEntity: Order
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: provider
+            inversedBy: provider
+            orphanRemoval: false
+
+    lifecycleCallbacks: {  }

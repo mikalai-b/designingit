@@ -1,0 +1,40 @@
+// -------------------
+// Utilities
+// -------------------
+
+.flex {
+	&-around {
+		justify-content: space-around;
+	}
+	&-between {
+		justify-content: space-between;
+	}
+	&-center {
+		justify-content: center;
+	}
+	&-container {
+		@include respond-to($small) {
+			display: flex;
+			&.side-margin * {
+				margin-right: 1rem;
+			}
+		}
+	}
+}
+
+.items {
+	&-center {
+		align-items: center;
+	}
+	&-end {
+		align-items: flex-end;
+	}
+}
+
+[data-condition]:not([data-visible]) {
+    display: none;
+}
+
+.has-pointer {
+  cursor: pointer;
+}

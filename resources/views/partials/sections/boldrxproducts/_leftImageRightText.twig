@@ -1,0 +1,32 @@
+<div class="brxLeftImage">
+    <div class="container">
+        <div class="brxLeftImage__row">
+            {% if block.leftImage %}
+                <div class="brxLeftImage__image">
+                    <img src="{{ block.leftImage.first().url }}">
+                </div>
+            {% endif %}
+            <div class="brxLeftImage__text">
+                {% if block.topText %}
+                    <span>{{ block.topText|nl2br }}</span>
+                {% endif %}
+                {% if block.rating %}
+                    <div class="reviews-rate__rating yellor--rating" style="--rating: {{ block.rating }};"></div>
+                {% endif %}
+                {% if block.textUnderRating %}
+                    <span>{{ block.textUnderRating }}</span>
+                {% endif %}
+                {% if block.productImage %}
+                    <img src="{{ block.productImage.first().url }}">
+                {% endif %}
+                {% if block.productPrice %}
+                    <strong>{{ block.productPrice }}</strong>
+                {% endif %}
+                {% if block.cartLink %}
+                    <a href="{{ block.cartLink }}">{{ block.linkText }}</a>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>

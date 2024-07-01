@@ -1,0 +1,71 @@
+{% set portalTitle = 'Reset Password' %}
+{% extends 'layouts/full-width' %}
+
+{% block primary %}
+<section>
+    <div class="container-small login-container">
+        <h1>Reset Password</h1>
+        <p>
+            Reset your password using the form below.
+        </p>
+        <form class="form-horizontal" method="POST" action="{{ route('password.reset') }}">
+            {{ csrf_field() }}
+
+            <input type="hidden" name="token" value="{{ token }}">
+
+            <div class="form-group{{ errors.has('email') ? ' has-error' : '' }}">
+                <label for="email" class="col-md-4 control-label"></label>
+
+                <div class="col-md-6">
+                    <input id="email" type="email" class="form-control" name="email" value="{{ email ?: old('email') }}" required autofocus>
+                    <i>Email Address</i>
+
+                    {% if errors.has('email') %}
+                        <span class="help-block">
+                            <strong>{{ errors.first('email') }}</strong>
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group{{ errors.has('password') ? ' has-error' : '' }}">
+                <label for="password" class="col-md-4 control-label"></label>
+
+                <div class="col-md-6">
+                    <input id="password" type="password" class="form-control" name="password" required>
+                    <i>Password</i>
+
+                    {% if errors.has('password') %}
+                        <span class="help-block">
+                            <strong>{{ errors.first('password') }}</strong>
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group{{ errors.has('password_confirmation') ? ' has-error' : '' }}">
+                <label for="password-confirm" class="col-md-4 control-label"></label>
+                <div class="col-md-6">
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                    <i>Confirm Password</i>
+
+                    {% if errors.has('password_confirmation') %}
+                        <span class="help-block">
+                            <strong>{{ errors.first('password_confirmation') }}</strong>
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6 col-md-offset-4">
+                    <button type="submit" class="button button-product">
+                        Reset Password
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- /.container-small -->
+</section>
+{% endblock %}

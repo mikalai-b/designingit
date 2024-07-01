@@ -1,0 +1,8 @@
+<div class="consult-answer">
+    <span class="consult-text consult-text--question">{{ answer.question|product_highlighter|raw  }}</span>
+    {% if answer.content == '1' %}
+        <span class="consult-text consult-text--answer">Yes. {{ answer.note }}</span>
+    {% else %}
+        <span class="consult-text consult-text--answer">No</span>
+    {% endif %}
+</div>

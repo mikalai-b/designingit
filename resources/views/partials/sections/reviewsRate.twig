@@ -1,0 +1,20 @@
+<section class="reviews-rate background--skin-tone">
+  <div class="container">
+    {% if block.blockTitle %}
+      <h2 class="reviews-rate__title">{{ block.blockTitle }}</h2>
+    {% endif %}
+    {% if block.subheadline %}
+      <div class="reviews-rate__subheadline">
+        {{ block.subheadline }}
+      </div>
+    {% endif %}
+    {% if block.rateNumber %}
+      <div class="reviews-rate__rating" style="--rating: {{ block.rateNumber }}"></div>
+    {% endif %}
+    {% if block.bottomText %}
+      <div class="reviews-rate__bottom-text">
+        {{ block.bottomText }}
+      </div>
+    {% endif %}
+  </div>
+</section>

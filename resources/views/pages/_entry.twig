@@ -1,0 +1,15 @@
+{% switch entry.type %}
+    {% case "ourTeam" %}
+        {% set layout = 'pages/_team' %}
+    {% case "contact" %}
+        {% set layout = 'pages/_contact' %}
+    {% case "products" %}
+        {% set layout = 'pages/_products' %}
+    {% case "productList" %}
+    	{% set layout = 'pages/_products' %}
+    {% case "boldrxProducts" %}
+    	{% set layout = 'pages/_boldrxproducts' %}
+    {% default %}
+        {% set layout = 'pages/_page' %}
+{% endswitch %}
+{% include layout %}

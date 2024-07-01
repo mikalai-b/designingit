@@ -1,0 +1,19 @@
+<div class="card-actions">
+    {% if prescription.remainingRefills > 0 and prescription.isExpired == false %}
+        <v-refill-frequency-setter
+            :available-periods="{{ prescription.lineItem.product.availableDashboardPeriods|json_encode }}"
+            :initial-selected-period="{{ prescription.lineItem.period ? prescription.lineItem.period : 0 }}"
+            :prescription-id="{{ prescription.id }}"
+            :is-paused="{{ prescription.paused ? 'true' : 'false' }}"
+        ></v-refill-frequency-setter>
+
+    {% endif %}
+
+    {% if prescription.isEligibleForReorder %}
+        <form action="/dashboard/reorder/{{ prescription.id }}" method="post">
+            {{ csrf_field() }}
+            <button type="submit" class="card-action"><i class="fas fa-redo-alt"></i>Reorder</button>
+        </form>
+    {% endif %}
+
+</div><!-- .card-actions -->

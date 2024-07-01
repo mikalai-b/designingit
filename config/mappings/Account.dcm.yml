@@ -1,0 +1,92 @@
+Account:
+    type: entity
+    table: accounts
+    repositoryClass: Accounts
+    id:
+        person:
+            associationKey: true
+    fields:
+        dateCreated:
+            type: datetime
+            nullable: false
+            column: date_created
+        dateModified:
+            type: datetime
+            nullable: true
+            column: date_modified
+        dateLastLoggedIn:
+            type: datetime
+            nullable: true
+            column: date_last_logged_in
+        token:
+            type: string
+            nullable: true
+            column: token
+        tokenExpiry:
+            type: datetime
+            nullable: true
+            column: token_expiry
+        password:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        customer:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+    oneToOne:
+        person:
+            targetEntity: Person
+            cascade: [ persist ]
+            fetch: EAGER
+            mappedBy: null
+            inversedBy: account
+            joinColumns:
+                person:
+                    referencedColumnName: id
+                    onDelete: CASCADE
+            orphanRemoval: false
+    manyToMany:
+        roles:
+            targetEntity: Role
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinTable:
+                name: account_roles
+                joinColumns:
+                    -
+                        name: account
+                        referencedColumnName: person
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: role
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orderBy: null
+        permissions:
+            targetEntity: Permission
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinTable:
+                name: account_permissions
+                joinColumns:
+                    -
+                        name: account
+                        referencedColumnName: person
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: permission
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orderBy: null
+    lifecycleCallbacks: {  }

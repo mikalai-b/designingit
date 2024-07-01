@@ -1,0 +1,52 @@
+ProductCategory:
+  type: entity
+  table: product_categories
+  repositoryClass: ProductCategories
+  entityListeners:
+    PeopleListener: {}
+    ModifiableListener: {}
+  id:
+    id:
+      type: integer
+      nullable: false
+      options:
+        unsigned: false
+      id: true
+      generator:
+        strategy: IDENTITY
+  fields:
+    slug:
+      type: string
+      nullable: false
+      length: null
+      options:
+        fixed: false
+      column: slug
+    title:
+      type: string
+      nullable: false
+      length: null
+      options:
+        fixed: false
+      column: title
+    description:
+      type: text
+      nullable: true
+      length: null
+      options:
+        fixed: false
+      column: description
+    dateCreated:
+      type: datetime
+      nullable: false
+      column: date_created
+    dateModified:
+      type: datetime
+      nullable: true
+      column: date_modified
+  oneToMany:
+    products:
+      targetEntity: Product
+      mappedBy: category_id
+      orphanRemoval: false
+  lifecycleCallbacks: {}

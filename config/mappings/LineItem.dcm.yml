@@ -1,0 +1,54 @@
+LineItem:
+    type: entity
+    table: line_items
+    repositoryClass: LineItems
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        period:
+            type: integer
+            nullable: true
+            length: null
+        price:
+            type: float
+            nullable: false
+            length: null
+        firstShipmentPrice:
+            type: float
+            nullable: false
+            length: null
+            column: first_shipment_price
+        secondShipmentPrice:
+          type: float
+          nullable: false
+          length: null
+          column: second_shipment_price
+
+    manyToOne:
+        order:
+            targetEntity: Order
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                order_id:
+                    referencedColumnName: id
+                    onDelete: CASCADE
+        product:
+            targetEntity: Product
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                product:
+                    referencedColumnName: id
+    lifecycleCallbacks: {  }

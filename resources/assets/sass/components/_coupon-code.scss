@@ -1,0 +1,12 @@
+.couponCode {
+    &__success {
+
+    }
+
+    &__code {
+        display: inline-block;
+        border: 2px solid $cosmeticrx-blue--light;
+        background: transparentize($cosmeticrx-blue--light, 0.8);
+        padding: .5rem;
+    }
+}

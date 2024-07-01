@@ -1,0 +1,69 @@
+{% set pageTitle = 'Create an account' %}
+{% extends 'layouts/cart' %}
+
+{% block step %}
+    {% if not Auth.check() %}
+        <form method="POST" action="{{ route('cart.register') }}">
+        <div class="account-header-wrapper">
+            <legend>Submit an Order</legend>
+            <p>
+                Your price is the guaranteed 
+                <span 
+                    class="redactor-underline" 
+                    style="display: inline-block; position: relative; line-height: 1;"
+                >
+                    <span style="position: absolute; top: 95%; left: 0px; width: 100%; height: 70%;">
+                        <svg width="87" height="17" viewBox="0 0 87 17" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display: block; width: 100%; height: 100%;"><path d="M1 6.26596L86 1L11.0511 16L77.8102 10.8936" stroke="currentColor" stroke-width="2"></path></svg>
+                    </span>
+                    lowest price
+                </span>
+                of any US telehealth company – and includes free 2-day shipping
+            </p>
+        </div>
+            <!--<p>
+                Your email and password will be used to access your account. Your information is secure (HIPAA protected) and private.
+            </p>-->
+            <div class="form-group">
+                <label for="email"></label>
+                <input type="text" name="email" value="{{ email|default('') }}" />
+                <i>Email Address</i>
+                {% include 'partials/messaging/error.twig' with {field: 'email'} %}
+            </div>
+
+            <div class="form-group">
+                <label for="email"></label>
+                <input type="password" name="password" />
+                <i>Password</i>
+                {% include 'partials/messaging/error.twig' with {field: 'password'} %}
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="agree">
+                    I agree to the <a href="/terms-and-conditions" target="_blank">terms and conditions</a> and <a href="/privacy-policy" target="_blank">privacy policy</a>.
+                </label>
+                {% include 'partials/messaging/error.twig' with {field: 'agree'} %}
+            </div>
+
+            {{ csrf_field() }}
+
+            <div class="push-up">
+                <button type="submit" class="button button-small button-primary">Create Your Account</button>
+            </div>
+            <p class="already--account">Already have an account? <a href="{{ route('login') }}?return=cart">Log in here</a>
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block adendum %}
+    {#
+
+        We are not suggesting additional products in first round to keep things simple.
+
+        <div class="products" id="products">
+            {% for product in alt_products %}
+                <v-product id="{{ product.id }}" action="Add"></v-product>
+            {% endfor %}
+        </div>
+    #}
+{% endblock %}

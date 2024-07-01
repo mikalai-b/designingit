@@ -1,0 +1,28 @@
+<div class="form-group">
+    <label>
+        <p>
+            {{ answer.question|product_highlighter|raw }}
+        </p>
+    </label>
+    {% if (answer.questionConfig.multi == '1') %}
+        <div class="radio-group">
+            {% for option in answer.questionConfig.options %}
+                <label>
+                    <input type="checkbox" name="answers[{{ answer.key }}][]" value="{{ option }}" {% if option in answer.contentAsArray %} checked {% endif %} />
+
+                    {{ option }}
+                </label>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="radio-group">
+            {% for option in answer.questionConfig.options %}
+                <label>
+                    <input type="radio" name="answers[{{ answer.key }}]" value="{{ option }}" {{ answer.content == option ? 'checked' : '' }}  />
+
+                    {{ option }}
+                </label>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,95 @@
+// -------------------
+// Consultations
+// -------------------
+
+.consultation-detail {
+
+	h1 {
+		font-size: 2rem;
+	}
+	.photos {
+		padding-bottom: 1rem;
+
+		@include respond-to($medium) {
+			overflow-x: auto;
+			white-space: nowrap;
+		}
+
+		.consult-photo-type {
+      margin: 1rem 0;
+
+			@include respond-to($medium) {
+				display: block;
+			}
+
+			.consult-photo {
+				display: block;
+				a {
+					text-decoration: none;
+				}
+				img {
+					width: auto;
+					height: 6rem;
+					border: 2px solid $color-border;
+					border-radius: $border-radius;
+				}
+				.caption {
+					text-decoration: none;
+					font-size: .6rem;
+				}
+			}
+		}
+	}
+}
+
+.consult-panels{
+	margin-bottom: 1rem;
+
+	@include respond-to($medium) {
+		display: flex;
+	}
+	&>div {
+		padding: 0 4rem 0 0;
+	}
+	h2 {
+		font-weight: bold;
+		font-size: 1.2rem;
+	}
+	.personal-info {
+		width: 20em;
+	}
+}
+
+.consult-answer {
+	margin: 1.5rem 0;
+	&:first-child {
+		margin-top: 0;
+	}
+	span {
+		display: block;
+	}
+	.consult-text {
+		&--question {
+			margin-bottom: 0.5rem;
+			color: $cosmeticrx-purple--really-dark;
+			font-style: italic;
+			font-size: .8rem;
+		}
+		&--answer {
+			font-family: monospace;
+		}
+	}
+}
+
+.consult-photos {
+	@include respond-to($medium) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+}
+
+.return-link {
+	display: block;
+	margin-top: 1rem;
+}

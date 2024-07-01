@@ -1,0 +1,87 @@
+{% set persons = block.persons %}
+{% set appRequest = craft.request.lastSegment %}
+{% if persons | length %}
+  <section class="ticker-photos {% if appRequest == 'tretinoin' %}more--padding{% endif %}">
+    <div class="ticker-photos__container">
+        <div class="container">
+          <div class="ticker-photos__text --show-mobile">
+            {% if block.tagline %}
+              <h3 class="ticker-photos__tagline">{{ block.tagline }}</h3>
+            {% endif %}
+            {% if block.blockTitle %}
+              <h2 class="ticker-photos__title">{{ block.blockTitle }}</h2>
+            {% endif %}
+          </div>
+        </div>
+    </div>
+    <div class="ticker-photos__container flickity-ticker">
+      {#   need at least three same items for proper sliding   #}
+      <div class="ticker-photos__item">
+        <div class="ticker-photos__text">
+          {% if block.tagline %}
+            <h3 class="ticker-photos__tagline">{{ block.tagline }}</h3>
+          {% endif %}
+          {% if block.blockTitle %}
+            <h2 class="ticker-photos__title">{{ block.blockTitle }}</h2>
+          {% endif %}
+        </div>
+
+        <div class="ticker-photos__images">
+          {% for person in persons %}
+            <a href="{{ person.linkUrl }}" target="_blank" class="ticker-photos__link">
+              {% set image = person.photoImage.first() %}
+              <div class="ticker-photos__image">
+                <img src="{{ image.url }}" alt="{{ image.title }}">
+              </div>
+              <div class="ticker-photos__caption">@<i>{{ person.linkTitle }}</i></div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="ticker-photos__item">
+        <div class="ticker-photos__text">
+          {% if block.tagline %}
+            <h3 class="ticker-photos__tagline">{{ block.tagline }}</h3>
+          {% endif %}
+          {% if block.blockTitle %}
+            <h2 class="ticker-photos__title">{{ block.blockTitle }}</h2>
+          {% endif %}
+        </div>
+
+        <div class="ticker-photos__images">
+          {% for person in persons %}
+            <a href="{{ person.linkUrl }}" target="_blank" class="ticker-photos__link">
+              {% set image = person.photoImage.first() %}
+              <div class="ticker-photos__image">
+                <img src="{{ image.url }}" alt="{{ image.title }}">
+              </div>
+              <div class="ticker-photos__caption">@<i>{{ person.linkTitle }}</i></div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="ticker-photos__item">
+        <div class="ticker-photos__text">
+          {% if block.tagline %}
+            <h3 class="ticker-photos__tagline">{{ block.tagline }}</h3>
+          {% endif %}
+          {% if block.blockTitle %}
+            <h2 class="ticker-photos__title">{{ block.blockTitle }}</h2>
+          {% endif %}
+        </div>
+
+        <div class="ticker-photos__images">
+          {% for person in persons %}
+            <a href="{{ person.linkUrl }}" target="_blank" class="ticker-photos__link">
+              {% set image = person.photoImage.first() %}
+              <div class="ticker-photos__image">
+                <img src="{{ image.url }}" alt="{{ image.title }}">
+              </div>
+              <div class="ticker-photos__caption">@<i>{{ person.linkTitle }}</i></div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}

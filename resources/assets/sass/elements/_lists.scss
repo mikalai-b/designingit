@@ -1,0 +1,84 @@
+// -------------------
+// Lists
+// -------------------
+
+ul {
+	list-style: none;
+	margin-left: 1rem;
+	padding: 0;
+	li {
+		margin-bottom: 1rem;
+		position: relative;
+		&::before {
+			content: '\2022';
+			color: $cosmeticrx-purple--really-dark;
+			display: inline-block;
+			margin-left: -1.5rem;
+			text-indent: 3px;
+			width: 1.5rem;
+		}
+	}
+}
+
+ul.droplets {
+	li::before {
+		background-image: url('/images/droplet.svg');
+		background-repeat: no-repeat;
+		background-size: 10px 16px;
+	}
+}
+
+table.list {
+	border-collapse: collapse;
+	width: 100%;
+	font-size: .9rem;
+	tr {
+		th {
+			border-bottom: 2px solid $cosmeticrx-blue;
+			padding: .35rem;
+			text-align: left;
+			position: relative;
+			&.sorted {
+				background-color: transparentize($cosmeticrx-blue, 0.9);
+			}
+			.sort-direction-cta {
+				position: absolute;
+				right: .5rem;
+				top: 0;
+				cursor: pointer;
+				&:after {
+					color: $cosmeticrx-blue;
+					@include fontawesome("\f0d8");
+					font-weight: bold;
+					font-size: 1.4rem;
+				}
+			}
+			&.sorted-desc .sort-direction-cta:after {
+				content: "\f0d7";
+			}
+		}
+		td {
+			border-bottom: 1px solid lighten($cosmeticrx-gray, 20%);
+			padding: .35rem;
+			&.sorted {
+				background-color: transparentize($cosmeticrx-blue, 0.92);
+			}
+		}
+		&:nth-child(odd) {
+			td {
+				background-color: transparentize($cosmeticrx-blue, 0.92);
+				&.sorted {
+					background-color: transparentize($cosmeticrx-blue, 0.85);
+				}
+
+			}
+		}
+		td.actions {
+			width: 5rem;
+			white-space: nowrap;
+			i {
+				margin: 0 .25rem;
+			}
+		}
+	}
+}

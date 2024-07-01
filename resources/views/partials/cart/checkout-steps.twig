@@ -1,0 +1,28 @@
+<ul class="checkout-steps">
+	{% set i = 0 %}
+	{% for step,description in checkout.steps %}
+		{% if active_step == step %}
+			<li class="{{ active_step == step ? 'active' : '' }}">
+				<a>
+					<span class="number">{{ i + 1 }}</span>
+					<span class="caption">{{ description }}</span>
+				</a>
+			</li>
+		{% elseif checkout.hasCompletedStep(step) %}
+			<li>
+				<a href="{{ route(step) }}">
+					<span class="number">{{ i + 1 }}</span>
+					<span class="caption">{{ description }}</span>
+				</a>
+			</li>
+		{% else %}
+			<li>
+				<a>
+					<span class="number">{{ i + 1 }}</span>
+					<span class="caption">{{ description }}</span>
+				</a>
+			</li>
+		{% endif %}
+		{% set i = i+1 %}
+	{% endfor %}
+</ul>

@@ -1,0 +1,19 @@
+<div class="form-group">
+	<label>
+		<p>{{ answer.question|product_highlighter|raw }}</p>
+	</label>
+
+	<div class="radio-group">
+		<label>
+			<input type="radio" name="answers[{{ answer.key }}]" value="1" {{ answer.content == '1' ? 'checked' : '' }} />
+			I understand
+		</label>
+
+		<label>
+			<input type="radio" name="answers[{{ answer.key }}]" value="0" {{ answer.content == '0' ? 'checked' : '' }} />
+			I do not understand
+		</label>
+	</div>
+
+    {% include 'partials/messaging/error.twig' with {field: 'answer-' ~ answer.key} %}
+</div>

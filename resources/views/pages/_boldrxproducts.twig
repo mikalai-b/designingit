@@ -1,0 +1,31 @@
+{% import "partials/_macros" as macros %}
+{% extends "layouts/full-width" %}
+{% set unlimited_coupon_code = craft.Rx.getUnlimitedCouponCodeFromCookie %}
+
+{% block primary %}
+
+    {% include 'partials/sections/boldrxproducts/_hero' %}
+    
+    {% if entry.boldrxProductBuilder %}
+        <div class="brxBuilderWrapper">
+            {% for block in entry.boldrxProductBuilder %}
+                {% switch block.type %}
+                    {% case 'titleWith2ColumnText' %}
+                        {% include 'partials/sections/boldrxproducts/_titleWithText' %}
+                    {% case 'imageLeftAndTextRight' %}
+                        {% include 'partials/sections/boldrxproducts/_leftImageRightText' %}
+                    {% case 'howDoesItWorks' %}
+                        {% include 'partials/sections/boldrxproducts/_howItWorks' %}
+                    {% case 'faqSection' %}
+                        {% include 'partials/sections/boldrxproducts/_faqSection' %}
+                    {% case "realReviewsSection" %}
+                        {% include 'partials/sections/reviewsApi' %}
+                    {% case "iconsWithDescription" %}
+                        {% include 'partials/sections/boldrxproducts/_iconsWithDescription' %}
+                    {% case "videosSection" %}
+                        {% include 'partials/sections/videosSlider' %}
+                {% endswitch %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

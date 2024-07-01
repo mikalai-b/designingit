@@ -1,0 +1,32 @@
+{% set portalTitle = 'Users' %}
+{% set portalTitle = 'Remove users' %}
+{% extends 'layouts/full-width' %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% set current_section = 'users' %}
+
+{% block primary %}
+    <section class="portal">
+        <div class="container">
+            <div class="portal-headline">
+                <div class="breadcrumbs">
+                    <a class="breadcrumb-item" href="{{ route('dashboard') }}">Dashboard</a>
+                    <a class="breadcrumb-item" href="{{ route('users') }}">Users</a>
+                    <span class="breadcrumb-item">Remove User</span>
+                </div>
+                <h1>
+                    Remove User
+                </h1>
+            </div>
+            
+            <p>Are you sure you want to remove the user <em>{{ person }}</em>?</p>
+            <form method="post" action="{{ url.full }}">
+                {{ csrf_field() }}
+                <button class="button-primary" type="submit">Yes, Remove User</button> <a class="button-secondary" href="javascript:window.history.back()">Cancel</a>
+            </form>
+        </div>
+    </section>
+{% endblock %}

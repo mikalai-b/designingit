@@ -1,0 +1,11 @@
+<p>
+    Hi {{ notifiable.firstName }},
+</p>
+<p>
+    We attempted to refill your prescription for {{ prescription.lineItem.product.name }} but we are unable to process the payment information you provided. Please follow these instructions to update your payment information:
+</p>
+<ol>
+    <li>Please log into the CosmeticRx dashboard at <a href="{{ route('dashboard') }}">{{ route('dashboard') }}</a>.</li>
+    <li>Scroll down until you see the "Billing Info" section under your Account Details and click <em>Edit</em></li>
+    <li>Click the <em>Change Card</em> or <em>Add Card</em> button, enter your updated credit card information then click <em>Save</em>.</li>
+</ol>

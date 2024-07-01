@@ -1,0 +1,76 @@
+CouponCode:
+    type: entity
+    table: coupon_codes
+    repositoryClass: CouponCodes
+    id:
+        code:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+    fields:
+        campaignDescription:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        unlimited:
+            type: boolean
+            nullable: false
+            length: null
+            options:
+                default: false
+        redeemed:
+            type: boolean
+            nullable: false
+            length: null
+            options:
+                default: FALSE
+        dateRedeemed:
+            type: datetime
+            nullable: true
+            column: date_redeemed
+        redemptionLimit:
+            type: integer
+            nullable: true
+            column: redemption_limit
+            unsigned: true
+        redemptionCount:
+            type: integer
+            default: 0
+            nullable: false
+            unsigned: true
+            column: redemption_count
+    manyToOne:
+        campaign:
+            targetEntity: Campaign
+            cascade: [  ]
+            fetch: LAZY
+            inversedBy: couponCodes
+            joinColumn:
+                campaign_id:
+                    referencedColumnName: id
+                onDelete: SET NULL
+    manyToMany:
+        products:
+            targetEntity: Product
+            cascade: [ persist ]
+            fetch: EAGER
+            mappedBy: null
+            inversedBy: couponCodes
+            orderBy: null
+            joinTable:
+                name: product_coupon_codes
+                joinColumns:
+                    -
+                        name: coupon_code
+                        referencedColumnName: code
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: product
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orphanRemoval: false

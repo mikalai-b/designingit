@@ -1,0 +1,237 @@
+// -------------------
+// Cards
+// -------------------
+
+.card {
+	margin-bottom: 2rem;
+	width: 100%;
+	border: 2px solid $color-card-border;
+	&-header {
+		display: flex;
+		align-items: center;
+		padding: 0 1rem;
+		height: 3.5rem;
+		background-color: $color-card-header-bg;
+
+		@include respond-to(960px) {
+			padding: 0 2rem;
+			height: 4rem;
+		}
+		&--title {
+			display: flex;
+			align-items: center;
+			flex-grow: 2;
+			justify-content: space-between;
+			color: $color-card-header-text;
+			font-size: 1.6rem;
+
+			-webkit-font-smoothing: antialiased;
+		}
+		.action-icon {
+			display: block;
+			color: white;
+			font-size: 1.3rem;
+		}
+	}
+	&-body {
+		padding: 1rem 1rem 1.5rem 1rem;
+		background-color: $color-card-body-bg;
+		border-bottom: 6px solid $color-card-border;
+
+
+		@include respond-to(960px) {
+			padding: 2rem 2rem 1.5rem 2rem;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+		&--messages {
+			padding: 2rem 1rem;
+			background-color: $color-messages-bg;
+		}
+		&--title {
+			display: block;
+			margin-bottom: 1.5rem;
+			color: $color-card-body-title;
+			font-weight: 500;
+			font-size: 1.875rem;
+			&-dark {
+				color: $black;
+				font-size: 1.5rem;
+			}
+		}
+		&--copy {
+			margin: 0 0 1rem 0;
+			color: $color-card-body-copy;
+			font-size: 1.125rem;
+		}
+		&--subtitle-dark {
+			color: $black;
+			font-weight: 500;
+			font-size: 1.125;
+		}
+		&--label {
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 0.5rem;
+
+			@include respond-to(960px) {
+				flex-direction: row;
+			}
+			*:first-child {
+				margin-right: 0.5rem;
+			}
+			&-open,
+			&-new,
+			&-pending,
+			&-closed,
+			&-review,
+			&-completed {
+				padding: .25rem .5rem;
+				width: 12rem;
+				border-radius: $border-radius;
+				color: $white;
+				text-align: center;
+				text-transform: uppercase;
+				font-size: .8rem;
+			}
+			&-open {
+				background-color: $color-card-body-label-open;
+			}
+			&-new {
+				background-color: $color-card-body-label-new;
+			}
+			&-pending {
+				background-color: $color-card-body-label-pending;
+			}
+      &-closed,
+      &-completed {
+				background-color: $color-card-body-label-closed;
+			}
+			&-review {
+				background-color: $color-card-body-label-review;
+			}
+			&-declined {
+				background-color: $color-card-body-label-declined;
+			}
+		}
+	}
+	&-column {
+		display: flex;
+		&--image {
+			width: 100%; // IE 11 flexbox fix
+		}
+		&--vertical {
+			flex-direction: column;
+		}
+	}
+	&--two-columns {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		@include respond-to(960px) {
+			flex-direction: row;
+		}
+		.card-column {
+			&:first-child {
+				flex-basis: 60%;
+			}
+			&:last-child {
+				flex-basis: 35%;
+			}
+		}
+	}
+	&-info {
+		margin-bottom: 2rem;
+		letter-spacing: 0.01rem;
+    line-height: 1.8;
+
+		@include font-smoothing;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+		&--title {
+			display: block;
+			color: $cosmeticrx-purple--light;
+			text-transform: uppercase;
+			font-weight: 600;
+		}
+		&--text {
+			display: block;
+			font-weight: 500;
+			&-large {
+				font-size: 1.125rem;
+			}
+		}
+		&--edit, &--cta {
+			margin: 0.5rem 0 0 0.5rem;
+			color: $cosmeticrx-blue--light;
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 0.875rem;
+		}
+		&--edit {
+			&::before {
+				display: inline-block;
+				margin-right: 0.25rem;
+				width: 0.8rem;
+				height: 0.8rem;
+        background-image: url('../images/edit-icon.svg');
+        background-repeat: no-repeat;
+				content: '';
+			}
+		}
+	}
+
+	&-actions {
+		margin: 1.5rem -1rem -1.5rem -1rem;
+		background: $color-card-actions-bg;
+		padding: 1.5rem 1rem;
+
+		@include respond-to(960px) {
+			margin: 1.5rem -2rem -1.5rem -2rem;
+		}
+
+		@include respond-to(600px) {
+			display: flex;
+		}
+	}
+
+	&-action {
+		font-size: .95rem;
+		background: none;
+		border: none;
+		color: $color-card-action !important;
+		font-weight: bold;
+		text-transform: uppercase;
+		text-decoration: none;
+		padding: 0 1rem;
+		display: block;
+		width: 100%;
+		margin: .5rem 0;
+		cursor: pointer;
+
+		@include respond-to(600px) {
+			display: inline;
+			vertical-align: middle;
+			width: auto;
+			margin: 0;
+		}
+
+		i {
+			margin-right: .4em;
+			margin-bottom: .15em;
+			font-size: 1.5em;
+			vertical-align: middle;
+			width: 1.5em;
+			text-align: center;
+		}
+
+		&--cancel {
+			color: $cosmeticrx-skin !important;
+		}
+	}
+}

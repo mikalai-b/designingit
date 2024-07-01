@@ -1,0 +1,14 @@
+<div class="photo">
+    <div class="preview">
+        {% if photo.file %}
+            <img src="{{ s3url(photo.file) }}" />
+            <label>
+                <input type="checkbox" name="remove[]" value="{{ photo.id }}" />
+                Remove
+            </label>
+        {% else %}
+            <img src="//via.placeholder.com/480x640" />
+        {% endif %}
+    </div>
+    <input type="file" name="photos[{{ type.id }}][]" accept="image/*;capture=camera" />
+</div>

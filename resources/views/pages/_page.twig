@@ -1,0 +1,197 @@
+{% import "partials/_macros" as macros %}
+{% extends "layouts/full-width" %}
+{% set wrapper_class = null %}
+
+{% block hero %}
+    {{ macros.hero(entry, entry.generalHeadline) }}
+{% endblock %}
+
+{% block primary %}
+    <div class="contentWrapper {{ wrapper_class }}">
+        {% for block in entry.pageStructuredContent %}
+            <section class="{{ block.type }}{% if block.type == "fullWidth" and block.backgroundColor == "lightBlue" %} background--light-blue{% endif %}{% if block.type == "fullWidth" and block.backgroundColor == "skinTone" %} background--skin-tone{% endif %}{% if block.type == "twoColumns" and block.backgroundColor == "lightBlue" %} background--light-blue{% endif %}{% if block.type == "twoColumns" and block.backgroundColor == "skinTone" %} background--skin-tone{% endif %}{% if block.type == "threeColumns" and block.backgroundColor == "lightBlue" %} background--light-blue{% endif %}{% if block.type == "threeColumns" and block.backgroundColor == "skinTone" %} background--skin-tone{% endif %} {{ block.type == "steps" ? 'how-it-works' : '' }}">
+                <div class="{{ block.type == "fullWidth" ? 'container-small' : 'container' }}">
+                    {% if block.type != "testimonial" and block.type != "steps" and block.type != "imageWithText" %}
+                        {% if block.blockTitle|length %}
+                            <h2>{{ block.blockTitle }}</h2>
+                        {% endif %}
+                    {% elseif block.type == "steps" %}
+                        {% if steps.generalTitle|length %}
+                            <h2>{{ steps.generalTitle }}</h2>
+                        {% endif %}
+                    {% endif %}
+                    {% switch block.type %}
+                        {% case "fullWidth" %}
+                            {{ block.blockContent }}
+                        {% case "twoColumns" %}
+                            <div class="columns">
+                                <div>{{ block.leftContent }}</div>
+                                <div>{{ block.rightContent }}</div>
+                            </div>
+                        {% case "threeColumns" %}
+                            <div class="columns">
+                                <div>{{ block.leftContent }}</div>
+                                <div>{{ block.centerContent }}</div>
+                                <div>{{ block.rightContent }}</div>
+                            </div>
+                        {% case "imageWithText" %}
+                            <div class="columns{% if block.position == 'right' %} reverse{% endif %}">
+                                <div class="copy">
+                                    <h2>
+                                        {{ block.blockTitle }}
+                                        <span>{{ block.blockSubheadline }}</span>
+                                    </h2>
+                                    {{ block.blockContent }}
+                                    {% if block.action|length %}
+                                        <div class="action">
+                                            <a href="{{ block.action.url }}" class="button button-product">{{ block.action.text }}</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="image">
+                                    {% if block.headlineAboveImage|length %}
+                                        <h3>{{ block.headlineAboveImage }}</h3>
+                                    {% endif %}
+                                    <img src="{{ block.image.first().url }}" alt="{{ block.blockTitle }}">
+                                </div>
+                            </div>
+                        {% case "testimonial" %}
+                            <blockquote>
+                                <p class="quote">{{ block.quote }}</p>
+                                <footer>
+                                    <cite>
+                                        <div class="name">{{ block.person }}</div>
+                                        <div class="title">{{ block.jobTitle }}</div>
+                                    </cite>
+                                </footer>
+                            </blockquote>
+                        {% case "faqs" %}
+                            {% if block.generalFaqs %}
+                                {% set generalFaq = craft.entries.section('faqs').slug('general-faqs').first().faqs %}
+                                {% for faq in generalFaq %}
+                                    <div class="accordion">
+                                        <div class="question">
+                                            <div class="header">
+                                                <span>{{ faq.question }}</span>
+                                            </div>
+                                            <div class="content">
+                                                <span>{{ faq.answer }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if block.legalFaqs %}
+                                {% set legalFaq = craft.entries.section('faqs').slug('legal-faqs').first().faqs %}
+                                {% for faq in legalFaq %}
+                                    <div class="accordion">
+                                        <div class="question">
+                                            <div class="header">
+                                                <span>{{ faq.question }}</span>
+                                            </div>
+                                            <div class="content">
+                                                <span>{{ faq.answer }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if block.latisseFaqs %}
+                                {% set latisseFaq = craft.entries.section('faqs').slug('latisse-faqs').first().faqs %}
+                                {% for faq in latisseFaq %}
+                                    <div class="accordion">
+                                        <div class="question">
+                                            <div class="header">
+                                                <span>{{ faq.question }}</span>
+                                            </div>
+                                            <div class="content">
+                                                <span>{{ faq.answer }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if block.tretinoinFaqs %}
+                                {% set tretinoinFaq = craft.entries.section('faqs').slug('tretinoin-faqs').first().faqs %}
+                                {% for faq in tretinoinFaq %}
+                                    <div class="accordion">
+                                        <div class="question">
+                                            <div class="header">
+                                                <span>{{ faq.question }}</span>
+                                            </div>
+                                            <div class="content">
+                                                <span>{{ faq.answer }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if block.brilliantDistinctionsFaqs %}
+                                {% set brilliantDistinctionsFaq = craft.entries.section('faqs').slug('brilliant-distinctions-faqs').first().faqs %}
+                                {% for faq in brilliantDistinctionsFaq %}
+                                    <div class="accordion">
+                                        <div class="question">
+                                            <div class="header">
+                                                <span>{{ faq.question }}</span>
+                                            </div>
+                                            <div class="content">
+                                                <span>{{ faq.answer }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            
+                            
+                            
+                        {% case "steps" %}
+                            {% if block.stepsEntry %}
+                                <div class="steps">
+                                    {% if steps.step1Description|length %}
+                                        <div class="step">
+                                            <span class="number">1</span>
+                                            <p>
+                                                {{ steps.step1Description }}
+                                            </p>
+                                            <img src="{{ steps.step1Image.first().url }}" alt="Latisse and Tretinoin">
+                                        </div>
+                                    {% endif %}
+                                    {% if steps.step2Description|length %}
+                                        <div class="step">
+                                            <span class="number">2</span>
+                                            <p>
+                                                {{ steps.step2Description }}
+                                            </p>
+                                            <img src="{{ steps.step2Image.first().url }}" alt="">
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if steps.step3Description|length %}
+                                        <div class="step">
+                                            <span class="number">3</span>
+                                            <p>
+                                                {{ steps.step3Description }}
+                                            </p>
+                                            <div class="step3-image">
+                                                <img src="{{ steps.step3Image.first().url }}" alt="">
+                                                <div class="chat">
+                                                    <div class="chat-bubble">
+                                                        <span class="chat-name">{{ steps.step3Dermatologist.first().title }}</span>
+                                                        <span class="chat-text">{{ steps.step3Quote }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}      
+                    {% endswitch %}
+                </div>
+            </section>
+        {% endfor %}
+    </div>
+{% endblock %}

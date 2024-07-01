@@ -1,0 +1,34 @@
+{% set portalTitle = pageTitle %}
+{% extends 'layouts/master' %}
+
+{% block layout %}
+    <main class="portal-main">
+        <div class="container">
+            {% include 'partials/messaging/flash.twig' %}
+            {% if active_step is defined and cart.content|length %}
+                {% include 'partials.cart.checkout-steps' %}
+            {% endif %}
+
+            {% if cart.content|length %}
+                <div class="portal-columns">
+                    <div class="portal-column--last">
+                        {% if not env('DISABLE_CART') %}
+                            {% include 'pages/cart/_products.twig' %}
+                        {% endif %}
+                    </div>
+                    <div class="portal-column--first">
+                        {% block step %}
+
+                        {% endblock %}
+                    </div>
+                </div>
+            {% else %}
+                {% include 'pages.cart._empty' %}
+            {% endif %}
+
+            {% block adendum %}
+
+            {% endblock %}
+        </div>
+    </main>
+{% endblock %}

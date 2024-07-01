@@ -1,0 +1,1 @@
+ALTER TABLE photo_types MODIFY description TEXT DEFAULT NULL;

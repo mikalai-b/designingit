@@ -1,0 +1,20 @@
+<div class="message message-new">
+	<div class="message-top">
+		<div class="message-image">
+			<img src="/images/dermatologist.png" alt="Message from">
+		</div>
+		<span class="message-from">{{ message.sender }}</span>
+		<span class="message-date">{{ message.dateCreated|date("n/j/Y") }}</span>
+	</div>
+	<div class="message-body">
+		<span class="message-subject">{{ message.subject }}</span>
+		<p class="message-copy">
+			{{ message.body|striptags }}
+		</p>
+		{% if (message is same as(message.root)) %}
+			<a href="{{ route('message', {id: message.root.id }) }}" class="message-link">View Full Message</a>
+		{% else %}
+			<a href="{{ route('message', {id: message.root.id }) }}#m{{ message.id }}" class="message-link">View Full Message</a>
+		{% endif %}
+	</div>
+</div>

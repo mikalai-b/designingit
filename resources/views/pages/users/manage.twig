@@ -1,0 +1,100 @@
+{% set portalTitle = 'Users' %}
+{% extends 'layouts/full-width' %}
+
+{% set current_section = 'users' %}
+{% set page = criteria.page %}
+{% set last_page = (criteria.totalMatchCount / criteria.limit)|round(0, 'ceil') %}
+{% set sort_field = request.input('sortField') %}
+{% set sort_direction = request.input('sortDirection') %}
+{% set filter_value = request.input('filterValue') %}
+{% set has_filters = filter_value is not null %}
+
+{% block scripts %}
+
+    {% if (sort_field) %}
+        <script>
+            $(document).ready(function(){
+                $('.list').sortHighlighter('{{ sort_field }}', '{{ sort_direction }}');
+            })
+        </script>
+    {% endif %}
+
+{% endblock %}
+
+{% block primary %}
+
+<section class="portal">
+    <div class="container">
+        <div class="portal-headline">
+            <div class="breadcrumbs">
+                <a href="{{ route('dashboard') }}" class="breadcrumb-item">Dashboard</a>
+                <span clas="breadcrumb-item">Users</span>
+            </div>
+            <h1 class="heading-with-note">
+                Users
+                {% if Gate.allows('create', person) %}
+                    <a href="?action=create" class="button button-primary--mini">Add User</a>
+                {% endif %}
+            </h1>
+            <p class="note">Showing all admins and providers, <a href="{{ route('patients') }}">search for patients here</a>.</p>
+        </div>
+        <div class="panel-with-sidebar">
+            <aside class="panel-sidebar {% if has_filters %}filters-active{% endif %}">
+                <h2>Filters</h2>
+                <form class="filters" method="GET" action="{{ url.full }}">
+                    <div class="form-group">
+                        <input type="hidden" name="filter" value="keyword" />
+                        <label for="keyword">Keyword:</label>
+                        <input type="text" name="filterValue" placeholder="Name, email address, etc..." value="{{ request.input('filterValue', NULL) }}" autocomplete="off">
+                    </div>
+                    <button class="button button-primary" type="submit">Set Filters</button>
+                </form>
+            </aside>
+            <div class="panel-content">
+                {% if results|length %}
+                    <p>
+                        {% if (last_page == 1) %}
+                            Showing all {{ criteria.totalMatchCount }} result(s).
+                        {% else %}
+                            Showing page {{ page }} of {{ last_page }}
+                            ({{ criteria.totalMatchCount }} total results)
+                        {% endif %}
+                    </p>
+
+                    <table class="list" width="100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="name"><a href="{{ url.full|replace_query_string_parameter(['sortField', 'sortDirection'], ['name', 'asc']) }}">Name</a></th>
+                                <th class="role">Role</th>
+                                <th class="email"><a href="{{ url.full|replace_query_string_parameter(['sortField', 'sortDirection'], ['email', 'asc']) }}">Email</a></th>
+                                <th class="date dateCreated"><a href="{{ url.full|replace_query_string_parameter(['sortField', 'sortDirection'], ['dateCreated', 'desc']) }}">Date Created</th>
+                            </tr>
+                        </thead>
+
+                    {% for result in results %}
+                        <tr class="user">
+                            <td class="actions">
+
+                                {% if Gate.allows('update', result) %}
+                                    <a href="{{ route('user', {id: result.id}) }}?action=update"><i class="fas fa-edit"></i></a>
+                                {% endif %}
+                            </td>
+                            <td class="name"><a href="{{ route('user', {id: result.id}) }}">{{ result }}</a></td>
+                            <td class="role">{{ result.roles|join(', ') }}</td>
+                            <td class="email">{{ result.email }}</td>
+                            <td class="date dateCreated">{{ result.dateCreated|date('m/d/Y') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                    {% include 'partials/nav/pagination' %}
+                {% else %}
+                    <p>
+                        No users could be found at this time.
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,49 @@
+Campaign:
+    type: entity
+    table: campaigns
+    repositoryClass: Campaigns
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        startDate:
+            type: date
+            nullable: true
+            column: start_date
+        endDate:
+            type: date
+            nullable: true
+            column: end_date
+        effects:
+            type: json
+            nullable: true
+            column: effects
+        successMessage:
+            type: text
+            nullable: true
+            column: success_message
+    oneToMany:
+        offers:
+            targetEntity: Offer
+            cascade: [ persist, remove ]
+            fetch: LAZY
+            mappedBy: campaign
+            orphanRemoval: true
+        couponCodes:
+            targetEntity: CouponCode
+            cascade: [  ]
+            fetch: LAZY
+            mappedBy: campaign
+            orphanRemoval: true

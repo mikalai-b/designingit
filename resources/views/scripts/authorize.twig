@@ -1,0 +1,128 @@
+<script type="text/javascript">
+    var form = document.getElementById('billing');
+    var cards = document.getElementById('cards');
+    var cardId = document.querySelector('#cards [name="card[id]"]');
+    var addCard = document.querySelector('#add-card');
+
+    var clearButtons = function() {
+        form.querySelectorAll('button').forEach(function(item) {
+            item.disabled = true;
+        });
+    };
+
+    var clearCards = function() {
+        //
+        // Removing exising card and error if they exist
+        //
+
+        var card  = cards.querySelector('.card-review');
+        var error = cards.parentElement.querySelector('.help-block');
+
+        if (card)  { cards.removeChild(card); }
+        if (error) { cards.parentElement.removeChild(error); }
+    };
+
+    var handleAuthResponse = function (response) {
+        clearCards();
+
+        if (response.messages.resultCode === 'Error') {
+            console.log(response);
+            //
+            // TODO: populate errors, so far as I can tell errors are never returned
+            //
+
+        } else {
+            var card            = document.createElement('div');
+            var card_new        = document.createElement('input');
+            var card_name       = document.createElement('input');
+            var card_token      = document.createElement('input');
+            var card_descriptor = document.createElement('input');
+            var card_type       = ccType(response.encryptedCardData.bin);
+            var card_icon_class;
+
+            switch (card_type[0].type) {
+                case 'visa':
+                    card_icon_class = 'fa-cc-visa';
+                    break;
+
+                case 'american-express':
+                    card_icon_class = 'fa-cc-amex';
+                    break;
+
+                case 'mastercard':
+                    card_icon_class = 'fa-cc-mastercard';
+                    break;
+
+               case 'discover':
+                    card_icon_class = 'fa-cc-discover';
+                    break;
+
+                default:
+                    card_icon_class = 'fa-credit-card-front';
+                    break;
+            }
+
+            if (cardId) {
+                cardId.disabled      = true;
+                cardId.style.display = 'none';
+            }
+
+            card.classList.add('card-review');
+            card.classList.add(card_type[0].type);
+            card.innerHTML = '<i class="fab '+card_icon_class+'"></i> '+response.encryptedCardData.cardNumber;
+
+            card_new.setAttribute('type',  'hidden');
+            card_new.setAttribute('name',  'card[id]');
+            card_new.setAttribute('value', 'new');
+
+            card_name.setAttribute('type',  'hidden');
+            card_name.setAttribute('name',  'card[name]');
+            card_name.setAttribute('value', card_type[0].niceType + ' Ending In ' + response.encryptedCardData.cardNumber.slice(-4));
+
+            card_token.setAttribute('type',  'hidden');
+            card_token.setAttribute('name',  'card[token]');
+            card_token.setAttribute('value', response.opaqueData.dataValue);
+
+            card_descriptor.setAttribute('type',  'hidden');
+            card_descriptor.setAttribute('name',  'card[descriptor]');
+            card_descriptor.setAttribute('value', response.opaqueData.dataDescriptor);
+
+            card.appendChild(card_new);
+            card.appendChild(card_name);
+            card.appendChild(card_token);
+            card.appendChild(card_descriptor);
+
+            cards.querySelectorAll('*').forEach(n => n.remove());
+            cards.appendChild(card);
+
+            if (typeof form.submit === 'function') {
+                clearButtons();
+                form.submit();
+            } else {
+                addCard.innerHTML = 'Change Card';
+                addCard.classList.remove('button-primary');
+                addCard.classList.add('button-secondary');
+                form.submit.classList.remove('button-secondary');
+                form.submit.classList.add('button-primary');
+            }
+
+            return true;
+        }
+    };
+
+    form.addEventListener('submit', function(e) {
+        clearButtons();
+    });
+
+    if (cardId) {
+        cardId.addEventListener('change', function(e) {
+            clearCards();
+        });
+    }
+</script>
+
+{% if env('AUTHNET_TEST_MODE') %}
+    <script type="text/javascript" src="https://jstest.authorize.net/v3/AcceptUI.js" charset="utf-8"></script>
+{% else %}
+    <script type="text/javascript" src="https://js.authorize.net/v3/AcceptUI.js" charset="utf-8"></script>
+{% endif %}

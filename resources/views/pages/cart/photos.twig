@@ -1,0 +1,29 @@
+{% set pageTitle = 'Photos' %}
+{% extends 'layouts/cart' %}
+
+{% block step %}
+    <h1 class="cart-heading">Photos</h1>
+    <div class="snapshotText">
+        <h3>Last page!</h3>
+        <p>
+            Then your order can process and ship within 30 minutes – it’s that fast!
+        </p>
+    </div>
+    {% include 'partials/messaging/error.twig' with {field: 'photos'} %}
+    <form method="POST" action="{{ route('cart.photos') }}" enctype="multipart/form-data">
+ 
+        {% for type in types.findForCart(cart) %}
+            <fieldset class="photos" data-type="{{ type.id }}" data-max="{{ type.maxUploads }}">
+                <legend>{{ type.name }}</legend>
+                <p>{{ type.description }}</p>
+                <v-photo-manager type-id="{{ type.id }}" max-uploads="{{ type.maxUploads }}"  consultation-id="{{ consultation.id }}">
+            </fieldset>
+        {% endfor %}
+
+        {{ csrf_field() }}
+        
+        <div class="photos-action">
+            <button type="submit" class="button button-primary">Submit Consultation</button>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,24 @@
+<p>
+    Hi {{ consultation.order.person.firstName }},
+</p>
+<p>
+    Welcome to CosmeticRx!
+</p>
+{% if consultation.products|length %}
+    <p>
+        I have prescribed the following medication:
+    </p>
+    <ul>
+        {% for product in consultation.products %}
+            <li>{{ product }}</li>
+        {% endfor %}
+    </ul>
+    {% for product in consultation.products %}
+        {% include(template_from_string(product.type.approvedTemplate)) %}
+    {% endfor %}
+{% endif %}
+<p>
+    Sincerely,<br />
+    {{ consultation.order.provider }}<br />
+    Board-Certified Dermatologist
+</p>

@@ -1,0 +1,12 @@
+{% if Session is defined %}
+    {% for type in ['success', 'error'] %}
+        {% if Session.has(type) %}
+            <div class="messaging {{ type }}">
+                <div class="container">
+                    {{ Session.get(type) }}
+                </div>
+            </div>
+        {% endif %}
+        {% do Session.forget(type) %}
+    {% endfor %}
+{% endif %}

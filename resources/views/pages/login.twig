@@ -1,0 +1,76 @@
+{% set portalTitle = 'Login' %}
+{% extends 'layouts/full-width' %}
+
+{% block primary %}
+<section>
+    <div class="container-small login-container">
+        <h1>Log in</h1>
+        <p>
+            <strong>Existing patients</strong>, login below to access your dashboard, message your dermatologist, or access your prescriptions.
+        </p>
+
+
+        <div class="card login-form">
+            <div class="card-body">
+                <form class="form" method="POST" action="{{ url.full }}">
+                    {{ csrf_field() }}
+
+                    <div class="form-group{{ errors.has('email') ? ' has-error' : '' }}">
+                        <label for="email"></label>
+                        <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
+                        <i>Email Address</i>
+
+                        {% if errors.has('email') %}
+                            <span class="help-block">
+                                <strong>{{ errors.first('email') }}</strong>
+                            </span>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group{{ errors.has('password') ? ' has-error' : '' }}">
+                        <label for="password" class="col-md-4 control-label"></label>
+                        <input id="password" type="password" name="password" required>
+                        <i>Password</i>
+
+                        {% if errors.has('password') %}
+                            <span class="help-block">
+                                <strong>{{ errors.first('password') }}</strong>
+                            </span>
+                        {% endif %}
+                    </div>
+
+                    <div class="flex-container">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <p class="form-notice">Looking to register? Complete a purchase to create your account.</p>
+                    </div>
+                    <!-- /.flex -->
+
+                    <div class="form-group">
+                        <button type="submit" class="button button-product">
+                            Log in
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <a class="btn btn-link forgot-password" href="{{ route('password.request') }}">
+                            Forgot Your Password?
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        <p>
+            <strong>New to CosmeticRX?</strong> <a href="/about">Learn about our service</a>.
+        <p>
+    </div>
+</section>
+{% endblock %}

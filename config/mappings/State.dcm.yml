@@ -1,0 +1,26 @@
+State:
+    type: entity
+    table: states
+    repositoryClass: States
+    id:
+        id:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+            id: true
+            generator:
+                strategy: NONE
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+    manyToMany:
+        providers:
+            targetEntity: Provider
+            mappedBy: states
+    lifecycleCallbacks: {  }

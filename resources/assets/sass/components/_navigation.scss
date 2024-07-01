@@ -1,0 +1,440 @@
+// -------------------
+// Navigation Styles
+// -------------------
+
+$cartCountWidth: 16px;
+
+.menu {
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+
+	@include respond-to(960px) {
+		position: static;
+		left: auto;
+		z-index: 0;
+		padding: 0;
+		background-color: transparent;
+	}
+	&.menu-active {
+		position: fixed;
+		top: 0;
+		left: 0;
+		display: block !important;
+		padding: 1.5rem 1.5rem 0 1.5rem;
+		background-color: $white;
+	}
+}
+
+nav.primary {
+	display: none;
+	padding-bottom: -1.5rem;
+
+	@include respond-to(960px) {
+		display: block;
+		flex: 0 1 auto;
+		order: 2;
+	}
+	> ul {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin: 2rem 0;
+		padding: .5rem 0 .5rem 0;
+		width: 100%;
+		list-style: none;
+
+		@include respond-to(960px) {
+			align-items: center;
+			flex-direction: row;
+			margin: 0;
+		}
+		> li {
+			margin: 0;
+
+			@include respond-to(960px) {
+				margin: 0 .8rem;
+			}
+			@include respond-to($x-large) {
+				margin: 0 1.2rem;
+			}
+			&::before {
+				content: none;
+			}
+			> a {
+				position: relative;
+				display: block;
+				padding: 1.5rem 0;
+				border-bottom: 1px solid $cosmeticrx-gray--light;
+				color: $color-nav;
+				text-decoration: none;
+				text-transform: capitalize;
+				font-weight: 500;
+				font-size: $font-size--base;
+
+				@include respond-to(960px) {
+					padding: 0;
+					border-bottom: 0;
+					font-size: $font-size--small;
+				}
+				@include respond-to($x-large) {
+					font-size: 1rem;
+        }
+        &:after {
+          transition: 0.15s ease;
+        }
+			}
+      &.active,
+      &:hover {
+        > a:after {
+          @include respond-to(960px) {
+            border-color: $cosmeticrx-blue--light;
+          }
+        }
+      }
+		}
+		li.dashboard-link {
+			display: none;
+		}
+	}
+}
+
+.login {
+	position: absolute;
+	right: 1.5rem;
+	display: flex;
+	align-items: center;
+	order: 3;
+
+	@include respond-to(960px) {
+		right: 0;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		padding: 0 1.5rem 0 0;
+	}
+	.shopping-cart {
+		position: relative;
+		display: inline-block;
+		margin-right: 0.3rem;
+		width: 27px;
+
+		@include respond-to(960px) {
+			display: block;
+			img {
+			}
+		}
+
+		@keyframes cartbubble {
+			from {
+				opacity: 1;
+			}
+			to {
+				opacity: 0;
+				transform: scale(2.0);
+			}
+		}
+		.cart-count {
+			position: absolute;
+			top: 0;
+			right: 0;
+			z-index: 2;
+			margin-top: -.5rem;
+			margin-right: -.5rem;
+			width: $cartCountWidth;
+			height: $cartCountWidth;
+			border-radius: 50%;
+			background-color: $cosmeticrx-blue--light;
+			color: $cosmeticrx-purple--really-dark;
+			text-align: center;
+			font-weight: bold;
+			font-size: 10px;
+			line-height: $cartCountWidth;
+
+			&:after {
+				position: absolute;
+				top: 0;
+				right: 0;
+				z-index: 1;
+				display: block;
+				width: $cartCountWidth;
+				height: $cartCountWidth;
+				border-radius: 50%;
+				background-color: $cosmeticrx-blue--light;
+				content: '';
+				opacity: 0;
+				animation: cartbubble 1s;
+			}
+		}
+	}
+	.login-wrapper {
+    position: relative;
+    display: none;
+
+    @include respond-to(960px) {
+      display: block;
+    }
+
+		.welcome-message {
+			display: none;
+
+			@include respond-to(960px) {
+				position: absolute ;
+				top: 0 ;
+				left: 2rem;
+				display: block;
+				margin-top: -.6rem;
+				width: calc(100% - 2rem);
+				text-align: center;
+				font-size: .7rem;
+			}
+			a {
+				text-decoration: none;
+			}
+		}
+	}
+	.button-login {
+		display: inline-block;
+		padding: 0.75rem .75rem;
+
+		@include respond-to(960px) {
+			display: inline-block;
+			margin-top: .5rem;
+			margin-left: 2rem;
+			padding: 1rem 1.5rem;
+		}
+		&::before {
+			display: inline-block;
+			content: 'Log in';
+		}
+		&--logout::before {
+			content: 'Log out'!important;
+		}
+	}
+}
+
+.menu-active {
+	.login {
+    position: static;
+    align-items: center;
+    justify-content: center;
+    .login-wrapper {
+      display: block;
+    }
+		.shopping-cart {
+			display: none;
+			margin: 0 2rem 0 0;
+			width: 35px;
+    }
+    .button-login {
+      display: block;
+    }
+		.button-login::before {
+			padding: 0.5rem 4.5rem;
+			width: auto;
+			height: auto;
+			background-image: none;
+			content: 'Log in';
+		}
+	}
+}
+
+// Dropdown options
+.has-dropdown {
+	position: relative;
+
+	@include respond-to(960px) {
+		padding: 1rem 0;
+		&:hover {
+			.dropdown-menu {
+				opacity: 1;
+				left: 50%;
+				transform: translate(-50%, 5px);
+				pointer-events: all;
+			}
+		}
+	}
+	 > a {
+		position: relative;
+		&::after {
+			position: absolute;
+			right: 0;
+			bottom: 42%;
+			width: 10px;
+			height: 10px;
+			border-bottom: 2px solid $color-border;
+			border-left: 2px solid $color-border;
+			content: '';
+			transition: all 0.2s ease;
+			transform: rotate(-135deg);
+
+			@include respond-to(960px) {
+				right: -1.5rem;
+				transform: rotate(-45deg);
+			}
+		}
+	}
+	&--active {
+		> a::after {
+			transition: all 0.2s ease;
+			transform: rotate(-45deg);
+		}
+	}
+}
+
+.dropdown-menu {
+	display: none;
+
+	@include respond-to(960px) {
+		position: absolute;
+		top: 2.7rem;
+		z-index: 3;
+		display: block;
+		min-width: 14rem;
+		border-radius: $border-radius;
+		background-color: $white;
+		box-shadow: 0 50px 100px rgba(50,50,93,.1), 0 15px 35px rgba(50,50,93,.15), 0 -5px 18px rgba(0,0,0,.1);
+		opacity: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		transition: all 0.2s ease;
+		pointer-events: none;
+		&::before {
+			position: absolute;
+			top: -8px;
+			right: 6.5rem;
+			width: 0;
+			height: 0;
+			border-right: 8px solid transparent;
+			border-bottom: 8px solid $white;
+			border-left: 8px solid transparent;
+			box-shadow: -3px -3px 5px rgba(82,95,127,.04);
+			content: '';
+		}
+	}
+	&--active {
+		display: block;
+	}
+	> ul.droplets {
+		padding: 1rem 2rem 1rem 1rem;
+		> li {
+			margin-top: 0.5rem;
+			margin-bottom: 1.5rem;
+
+			@include respond-to(960px) {
+				margin-bottom: 1rem;
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+			&::before {
+				margin-left: -1rem;
+				width: 1rem;
+			}
+			> a {
+				padding: 0.5rem 0;
+				color: $cosmeticrx-purple--really-dark;
+				text-decoration: none;
+				font-weight: 500;
+			}
+		}
+	}
+}
+
+
+
+// Nav icon
+.nav-icon {
+	position: absolute;
+	top: 1.5rem;
+	left: 1.5rem;
+	order: 1;
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+	transform: rotate(0deg);
+
+	@include respond-to(960px) {
+		display: none;
+	}
+	span {
+		position: absolute;
+		left: 0;
+		display: block;
+		width: 100%;
+		height: 3px;
+		border-radius: 10px;
+		background: $color-nav;
+		opacity: 1;
+		transition: .25s ease-in-out;
+		transform: rotate(0deg);
+		&:nth-child(1) {
+			top: 0;
+			transform-origin: left center;
+		}
+		&:nth-child(2) {
+			top: 8px;
+			transform-origin: left center;
+		}
+		&:nth-child(3) {
+			top: 16px;
+			transform-origin: left center;
+		}
+	}
+	&.nav-icon--active {
+		span:nth-child(1) {
+			top: -1px;
+			left: 4px;
+			transform: rotate(45deg);
+		}
+		span:nth-child(2) {
+			width: 0%;
+			opacity: 0;
+		}
+		span:nth-child(3) {
+			top: 16px;		left: 4px;	transform: rotate(-45deg);
+			}
+	}
+}
+
+.nav-active {
+	display: block !important;
+}
+
+nav.pagination {
+	ul {
+		margin: 1rem 0;
+		padding: 0;
+		list-style: none;
+
+		li {
+			display: inline-block ;
+			margin: 0 .5rem 0 0 ;
+			padding: 0;
+			list-style: none;
+			a {
+				display: block;
+				width: 2rem;
+				height: 2rem;
+				border: 1px solid $cosmeticrx-blue--light;
+				color: $cosmeticrx-blue--light;
+				text-align: center;
+				text-decoration: none;
+				line-height: 2rem;
+			}
+			&.active {
+				a {
+					background: $cosmeticrx-blue--light;
+					color: #fff;
+				}
+			}
+			&::before {
+				display: none;
+			}
+		}
+	}
+}

@@ -1,0 +1,58 @@
+{% set portalTitle = 'Address Information' %}
+{% extends 'layouts/full-width' %}
+
+{% block primary %}
+    <section class="portal">
+        <div class="container">
+            <div class="portal-headline">
+                {% if person.hasRoleByName('Provider') %}
+                    <div class="breadcrumbs">
+                        <a href="/dashboard" class="breadcrumb-item">Dashboard</a>
+                        <span class="breadcrumb-item">Address</span>
+                    </div>
+                    <h1>Address</h1>
+                {% else %}
+                    <div class="breadcrumbs">
+                        <a href="/dashboard" class="breadcrumb-item">Dashboard</a>
+                        <span class="breadcrumb-item">Shipping Address</span>
+                    </div>
+                    <h1>Shipping Address</h1>
+                {% endif %}
+            </div>
+            <form class="container" method="POST" action="{{ url.full }}">
+                <div class="form-group form-group--medium">
+                    <label>Street Address</label>
+                    <input type="text" name="addressLine1" value="{{ person.addressLine1 }}" placeholder="Street and number, P.O. box" />
+                    {% include 'partials/messaging/error.twig' with {field: 'addressLine1'} %}
+                    <input type="text" name="addressLine2" value="{{ person.addressLine2 }}" placeholder="Apartment, suite, unit, building, floor, etc..." />
+                     {% include 'partials/messaging/error.twig' with {field: 'addressLine2'} %}
+                </div>
+                <div class="form-group form-group--medium">
+                    <label>City</label>
+                    <input type="text" name="city" value="{{ person.city }}" />
+                    {% include 'partials/messaging/error.twig' with {field: 'city'} %}
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <select id="state" name="state">
+                        <option value=""></option>
+                        {% for state in states.findAll() %}
+                            <option value="{{ state.id }}" {{ person.isState(state) ? 'selected' : '' }}>{{ state }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% include 'partials/messaging/error.twig' with {field: 'state'} %}
+
+                <div class="form-group">
+                    <label>Postal Code</label>
+                    <input type="text" name="postalCode" value="{{ person.postalCode }}" style="max-width:10rem" />
+                    {% include 'partials/messaging/error.twig' with {field: 'postalCode'} %}
+                </div>
+
+                {{ csrf_field() }}
+                <button class="button button-primary" type="submit">Save Address</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

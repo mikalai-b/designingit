@@ -1,0 +1,19 @@
+<div class="brxTitleWithText">
+    <div class="container">
+        {% if block.colTitle %}
+            <h2>{{ block.colTitle }}</h2>
+        {% endif %}
+        <div class="brxTitleWithText__row">
+            {% for item in block.colText %}
+                <div class="brxTitleWithText__item">
+                    {{ item.rowText }}
+                </div>
+            {% endfor %}
+        </div>
+        {% if block.centerImage %}
+            <div class="brxTitleWithText__image">
+                <img src="{{ block.centerImage.first().url }}">
+            </div>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,65 @@
+{% import "partials/_macros" as macros %}
+{% extends "layouts/full-width" %}
+
+{% block hero %}
+	{{ macros.hero(entry) }}
+{% endblock %}
+
+{% block primary %}
+{# {{ craft.sproutForms.displayForm('contactForm') }} #}
+	<section class="pageIntro">
+		<div class="container-small">
+			<div class="lede">
+				{{ entry.contactPageIntro }}
+			</div>
+		</div>
+		{% macro errorList(errors) %}
+			{% if errors %}
+				<ul class="form-errors">
+					{% for error in errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endmacro %}
+
+		{% from _self import errorList %}
+		<div class="container">
+			<div class="contact-form">
+				<form method="post" action="" accept-charset="UTF-8">
+					{{ getCsrfInput() }}
+					<input type="hidden" name="action" value="contactForm/sendMessage">
+					<input type="hidden" name="redirect" value="contact/thanks">
+					
+					{# this is a honeypot, leave it alone #}
+					<input class="ignorable" type="text" name="thisiscalledhoneypot">
+
+					<div class="form-group">
+						<label for="fromName">Your Name</label>
+						<input id="fromName" type="text" name="fromName" value="{% if message is defined %}{{ message.fromName }}{% endif %}">
+						{{ message is defined and message ? errorList(message.getErrors('fromName')) }}
+					</div>
+
+					<div class="form-group">
+						<label for="fromEmail">Your Email</label>
+						<input id="fromEmail" type="email" name="fromEmail" value="{% if message is defined %}{{ message.fromEmail }}{% endif %}">
+						{{ message is defined and message ? errorList(message.getErrors('fromEmail')) }}
+					</div>
+					
+					<div class="form-group">
+						<label for="subject">Subject</label>
+						<input id="subject" type="text" name="subject" value="{% if message is defined %}{{ message.subject }}{% endif %}">
+						{{ message is defined and message ? errorList(message.getErrors('subject')) }}
+					</div>
+
+					<div class="form-group">
+						<label for="message">Message</label>
+						<textarea rows="10" cols="40" id="message" name="message">{% if message is defined %}{{ message.message }}{% endif %}</textarea>
+						{{ message is defined and message ? errorList(message.getErrors('message')) }}
+					</div>
+					<input type="submit" value="Send" class="button button-primary">
+				</form>
+			</div>
+		</div>
+	</section>
+{% endblock %}

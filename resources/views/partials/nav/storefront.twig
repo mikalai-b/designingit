@@ -1,0 +1,71 @@
+<nav class="primary">
+    {% set weightEntries = craft.entries.section('weight').search('navigationGroups:"primaryTopNavigation"').all() %}
+    {% set mentalHealthEntries = craft.entries.section('mentalHealth').search('navigationGroups:"primaryTopNavigation"').level(1).all() %}
+    {% set pagesEntries = craft.entries.section('pages').search('navigationGroups:"primaryTopNavigation"').level(1).all() %}
+    {% set weightEntries = weightEntries|merge(mentalHealthEntries) %}
+    {% set mergedEntries = weightEntries|merge(pagesEntries) %}
+
+    {% set underMore = craft.entries.search('navigationGroups:"underMoreInPrimary"').level(1).all() %}
+
+    <ul>
+        {% for page in mergedEntries %}
+            {% set pageUrl = page.url %}
+            {% if page.type == 'weight' %}
+                {% if page.productId %}
+                    {% set pageUrl = '/questions-weight/' %}
+                {% else %}
+                    {% set pageUrl = null %}
+                {% endif %}
+            {% endif %}
+
+            {% if pageUrl %}
+                {% set children = craft.entries.section('pages').descendantOf(page.id) %}
+                <li{% if children|length %} class="has-dropdown"{% endif %}>
+                    <a
+                      href="{{ pageUrl }}"
+                      {% if page.type == 'weight' %}
+                        data-product-id="{{ page.productId }}"
+                        data-product-id-weight
+                      {% endif %}
+                    >
+                      {{ page.title }}
+                    </a>
+                    {% if children|length %}
+                    <div class="dropdown-menu">
+                        <ul class="droplets">
+                            {% for child in children %}
+                                <li>
+                                    <a href="{{ child.url }}">{{ child.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if underMore|length %}
+            <li class="has-dropdown">
+                <a class="menu-item" href="#">More</a>
+                <div class="dropdown-menu">
+                    <ul class="droplets">
+                        {% for page in underMore %}
+                            <li>
+                                <a class="menu-item" href="{{ page.url }}">
+                                    {{ page.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+<div class="login">
+    <span class="shopping-cart">
+        <a href="/cart"><v-cart-count></v-cart-count><img src="/images/shopping-bag.svg" alt="Shopping Bag"></a>
+    </span>
+    <v-login-cta></v-login-cta>
+</div>

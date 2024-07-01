@@ -1,0 +1,180 @@
+// -------------------
+// Hero Styles
+// -------------------
+
+.hero {
+	background-position: 80% 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 2rem 0;
+	text-align: center;
+	@include respond-to($medium) {
+		padding: 4rem 0;
+		background-position: center;
+	}
+	&-subtext {
+		color: rgb(75,75,75);
+	}
+	h1 {
+		margin: 0 0 1rem 0;
+	}
+	&-text {
+		margin: 0 auto;
+		max-width: 30rem;
+		@include respond-to(768px) {
+			max-width: 45rem;
+		}
+	}
+	&-subheadline {
+		font-size: 1.625rem;
+		font-weight: 400;
+	}
+	&-team {
+		padding: 4rem 0 2rem 0;
+	}
+}
+
+.hero-home {
+	background-color: $color-hero-bg;
+	margin: 0 auto;
+	display: none;
+	padding: 1rem 2rem 4rem;
+	position: relative;
+	&::before {
+		content: none;
+		@include respond-to($medium) {
+			background-image: none;
+		}
+	}
+	@include respond-to(415px) {
+		padding: 2rem 2rem 4rem;
+	}
+	@include respond-to($medium) {
+		padding: 5rem 2rem;
+	}
+	@include respond-to(1150px) {
+		padding: 5rem 2rem 8rem 2rem;
+	}
+	@include respond-to(1280px) {
+		padding: 5rem 2rem 16rem 2rem;
+	}
+	h1 {
+		color: $cosmeticrx-purple--really-dark;
+		font-family: $font-family--serif;
+		font-size: 1.9rem;
+		margin-bottom: 2rem;
+		@include respond-to(($x-small) - 50) {
+			font-size: 2.2rem;
+		}
+		@include respond-to($medium) {
+			font-size: 3.3rem;
+		}
+	}
+	.hero-subtext {
+		color: black;
+		margin: 0 auto;
+		@include respond-to($medium) {
+			width: 43rem;
+		}
+		@include respond-to(960px) {
+			padding-bottom: 0;
+		}
+		.lede {
+			font-size: 1rem;
+			font-weight: 500;
+			@include respond-to($medium) {
+				font-size: 1.2rem;
+			}
+		}
+	}
+	.hero-images {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		position: relative;
+		max-width: 1366px;
+		margin-left: auto;
+		margin-right: auto;
+		.hero-image {
+			position: relative;
+			@include respond-to(1150px) {
+				position: absolute;
+			}
+			&--left {
+				order: 1;
+				left: auto;
+				top: auto;
+				@include respond-to(1150px) {
+					left: 0.5rem;
+					top: -10.5rem;
+				}
+				@include respond-to(1366px) {
+					left: 0;
+				}
+				img {
+					height: 225px;
+					@include respond-to(480px) {
+						height: 250px;
+					}
+					@include respond-to(960px) {
+						height: 270px;
+					}
+					@include respond-to(1280px) {
+						height: 350px;
+					}
+					@include respond-to(1366px) {
+						height: 385px;
+					}
+				}
+			}
+			&--right {
+				display: none;
+				@include respond-to($medium) {
+					display: block;
+					order: 2;
+					right: auto;
+					top: auto;
+				}
+				@include respond-to(1150px) {
+					right: 0;
+					top: -11rem;
+				}
+				img {
+					height: 150px;
+					@include respond-to(960px) {
+						height: 250px;
+					}
+					@include respond-to(1280px) {
+						height: 330px;
+					}
+					@include respond-to(1366px) {
+						height: 360px;
+					}
+				}
+			}
+		}
+	}
+	.action {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		flex-grow: 1;
+		justify-content: center;
+		max-width: 30em;
+		margin: 1.5rem auto 0 auto;
+		@include respond-to(415px) {
+			margin: 1.5rem auto;
+		}
+		@include respond-to(570px) {
+			flex-direction: row;
+			margin: 1.5rem auto;
+		}
+		a {
+			margin: 1rem 0;
+			z-index: 1;
+			@include respond-to(570px) {
+				margin: 0 0.5rem .5rem 0;
+			}
+		}
+	}
+}

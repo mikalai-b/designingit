@@ -1,0 +1,7 @@
+{% set productCategory = firstItemCategory %}
+
+{% if productCategory == 'weight' %}
+    <v-weight-products initial-coupon-code="{{ checkout.couponCode }}" :unlimited-coupon-code="{{ checkout.couponCodeIsUnlimited ? 'true' : 'false' }}"></v-weight-products>
+{% else %}
+    <v-products initial-coupon-code="{{ checkout.couponCode }}" :unlimited-coupon-code="{{ checkout.couponCodeIsUnlimited ? 'true' : 'false' }}"></v-products>
+{% endif %}

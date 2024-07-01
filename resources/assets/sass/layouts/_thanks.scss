@@ -1,0 +1,22 @@
+.thanks {
+    text-align: center;
+
+    &__lede {
+        font-size: 1.2rem;
+        font-weight: 500;
+        line-height: 1.6;
+        max-width: 50em;
+        margin: 1em auto;
+    }
+    
+    &__ctaWrapper {
+        margin: 2rem 0;
+    }
+
+    &__boxWrapper {
+        img {
+            max-width: 400px;
+            display: inline-block;
+        }
+    }
+}

@@ -1,0 +1,2 @@
+ALTER TABLE consultations ADD letter LONGTEXT DEFAULT NULL, CHANGE order_id order_id INT DEFAULT NULL, CHANGE date_modified date_modified DATETIME DEFAULT NULL;
+ALTER TABLE product_types ADD instructions_template LONGTEXT DEFAULT NULL, ADD approved_template LONGTEXT DEFAULT NULL, ADD declined_template LONGTEXT DEFAULT NULL, DROP approve_template, DROP decline_template, CHANGE default_refills default_refills INT DEFAULT NULL, CHANGE default_expiration default_expiration INT DEFAULT NULL;

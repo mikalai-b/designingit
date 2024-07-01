@@ -1,0 +1,94 @@
+Order:
+    type: entity
+    table: orders
+    repositoryClass: Orders
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        dateCreated:
+            type: datetime
+            nullable: false
+            column: date_created
+        dateModified:
+            type: datetime
+            nullable: true
+            column: date_modified
+        status:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        couponCode:
+            type: string
+            nullable: true
+            length: null
+    oneToOne:
+        consultation:
+            targetEntity: Consultation
+            cascade: [ persist, remove ]
+            mappedBy: order
+            inversedBy: order
+    manyToOne:
+        person:
+            targetEntity: Person
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                person:
+                    referencedColumnName: id
+                    onDelete: CASCADE
+        state:
+            targetEntity: State
+            cascade: {  }
+            fetch: EAGER
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                state:
+                    referencedColumnName: id
+        provider:
+            targetEntity: Person
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                provider:
+                    referencedColumnName: id
+                    onDelete: SET NULL
+        creditCard:
+            targetEntity: CreditCard
+            cascade: [ persist ]
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                credit_card:
+                    referencedColumnName: id
+                    onDelete: SET NULL
+        parent:
+            targetEntity: Order
+            inversedBy: children
+    oneToMany:
+        lineItems:
+            targetEntity: LineItem
+            cascade: [ persist, remove ]
+            fetch: EAGER
+            mappedBy: order
+            inversedBy: order
+            orphanRemoval: true
+        children:
+            targetEntity: Order
+            mappedBy: parent
+        
+    lifecycleCallbacks: {  }

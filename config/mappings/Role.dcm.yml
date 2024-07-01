@@ -1,0 +1,47 @@
+Role:
+    type: entity
+    table: roles
+    repositoryClass: Roles
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        description:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+    manyToMany:
+        permissions:
+            targetEntity: Permission
+            cascade: {  }
+            fetch: EAGER
+            mappedBy: null
+            inversedBy: null
+            joinTable:
+                name: role_permissions
+                joinColumns:
+                    -
+                        name: role
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: permission
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orderBy: null
+    lifecycleCallbacks: {  }

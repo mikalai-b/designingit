@@ -1,0 +1,78 @@
+{% set pageTitle = 'Shipping Information' %}
+
+{% extends 'layouts/cart' %}
+
+{% block step %}
+    <h1 class="cart-heading">Begin your prescription</h1>
+    <form id="billing" method="POST" action="{{ route(active_step) }}">
+        <p>Select your state and we will match you with providers.</p>
+        <div class="form-group">
+            <label for="provider-state">State</label>
+            <select id="provider-state" name="providerState">
+                <option value="">Choose State...</option>
+                {% for state in checkout.states.findAll() %}
+                    <option value="{{ state.id }}" {{ order.isState(state, person.state) ? 'selected' : '' }}>{{ state }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <fieldset>
+            <legend>Personal Information</legend>
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="firstName" value="{{ order.person.firstName }}" class="medium" />
+                {% include 'partials/messaging/error.twig' with {field: 'firstName'} %}
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="lastName" value="{{ order.person.lastName }}" class="medium" />
+                {% include 'partials/messaging/error.twig' with {field: 'lastName'} %}
+            </div>
+
+            <div class="form-group">
+                <label>Date of Birth</label>
+                <input type="date" name="dateOfBirth" value="{{ order.person.dateOfBirth ? order.person.dateOfBirth|date('Y-m-d') : '' }}" />
+                {% include 'partials/messaging/error.twig' with {field: 'dateOfBirth'} %}
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Shipping Address</legend>
+
+            <div class="form-group">
+                <label>Street Address</label>
+                <input type="text" name="addressLine1" value="{{ order.person.addressLine1 }}" />
+                {% include 'partials/messaging/error.twig' with {field: 'addressLine1'} %}
+                <input type="text" name="addressLine2" value="{{ order.person.addressLine2 }}" placeholder="Apartment, suite, unit, building, floor, etc..." />
+                {% include 'partials/messaging/error.twig' with {field: 'addressLine2'} %}
+            </div>
+
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" name="city" value="{{ order.person.city }}" />
+                {% include 'partials/messaging/error.twig' with {field: 'city'} %}
+            </div>
+
+            <div class="form-group">
+                <label for="state">State</label>
+                <select id="state" name="state">
+                    <option value=""></option>
+                    {% for state in checkout.states.findAll() %}
+                        <option value="{{ state.id }}" {{ order.person.isState(state) ? 'selected' : '' }}>{{ state }}</option>
+                    {% endfor %}
+                </select>
+                {% include 'partials/messaging/error.twig' with {field: 'state'} %}
+            </div>
+
+            <div class="form-group">
+                <label>Postal Code</label>
+                <input type="text" name="postalCode" value="{{ order.person.postalCode }}" class="short" />
+                {% include 'partials/messaging/error.twig' with {field: 'postalCode'} %}
+            </div>
+        </fieldset>
+
+        {{ csrf_field() }}
+
+        <button type="submit" class="button button-primary--small">Submit Shipping Info</button>
+    </form>
+{% endblock %}

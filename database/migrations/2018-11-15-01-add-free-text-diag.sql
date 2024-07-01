@@ -1,0 +1,1 @@
+ALTER TABLE consultations ADD physical_exam LONGTEXT DEFAULT NULL, ADD diagnosis LONGTEXT DEFAULT NULL;

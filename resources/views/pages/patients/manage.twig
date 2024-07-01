@@ -1,0 +1,105 @@
+{% set portalTitle = 'Patients' %}
+{% extends 'layouts/full-width' %}
+
+{% set current_section = 'patients' %}
+{% set page = criteria.page %}
+{% set last_page = (criteria.totalMatchCount / criteria.limit)|round(0, 'ceil') %}
+{% set sort_field = request.input('sortField') %}
+{% set sort_direction = request.input('sortDirection') %}
+{% set filter_value = request.input('filterValue') %}
+{% set has_filters = filter_value is not null %}
+
+{% block scripts %}
+
+    {% if (sort_field) %}
+        <script>
+            $(document).ready(function(){
+                $('.list').sortHighlighter('{{ sort_field }}', '{{ sort_direction }}');
+            })
+        </script>
+    {% endif %}
+
+{% endblock %}
+
+{% block primary %}
+
+<section class="portal">
+    <div class="container">
+        <div class="portal-headline">
+            <div class="breadcrumbs">
+                <a href="/dashboard" class="breadcrumb-item">Dashboard</a>
+                <span class="breadcrumb-item">Patients</span>
+            </div>
+            <h1>
+                Patients
+            </h1>
+        </div>
+        <div class="panel-with-sidebar">
+            <aside class="panel-sidebar {% if has_filters %}filters-active{% endif %}">
+                <h2>Filters</h2>
+                <form class="filters" method="GET" action="{{ url.full }}">
+                    <div class="form-group">
+                        <input type="hidden" name="filter" value="keyword" />
+                        <label for="keyword">Keyword:</label>
+                        <input type="text" name="filterValue" placeholder="Name, email address, etc..." value="{{ request.input('filterValue', NULL) }}" autocomplete="off">
+                    </div>
+                    <button class="button button-primary" type="submit">Set Filters</button>
+                </form>
+            </aside>
+            <div class="panel-content">
+                {% if results|length %}
+                    <p>
+                        {% if (last_page == 1) %}
+                            Showing all {{ criteria.totalMatchCount }} result(s).
+                        {% else %}
+                            Showing page {{ page }} of {{ last_page }}
+                            ({{ criteria.totalMatchCount }} total results)
+                        {% endif %}
+                    </p>
+
+                    <table class="list" width="100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th class="name"><a href="{{ url.full|replace_query_string_parameter(['sortField', 'sortDirection'], ['name', 'asc']) }}">Name</a></th>
+                                <th class="email"><a href="{{ url.full|replace_query_string_parameter(['sortField', 'sortDirection'], ['email', 'asc']) }}">Email</a></th>
+                                <th class="state">State</th>
+                                <th class="consult lastConsult">Last Consult</th>
+                                <th class="date consultDate"><a href="{{ url.full|replace_query_string_parameter(['sortField', 'sortDirection'], ['consultDate', 'desc']) }}">Consult Date</a></th>
+                            </tr>
+                        </thead>
+
+                    {% for result in results %}
+                        <tr class="user">
+                            <td class="actions">
+                                {% if Gate.allows('update', result) %}
+                                    <a href="{{ route('patient', {id: result.id}) }}?action=update"><i class="fas fa-edit"></i></a>
+                                {% endif %}
+                            </td>
+                            <td class="id">{{ result.id }}</td>
+                            <td class="name"><a href="{{ route('patient', {id: result.id}) }}">{{ result }}</a></td>
+                            <td class="email">{{ result.email }}</td>
+                            <td class="state">{{ result.state ? result.state.id : 'N/A' }}</td>
+                            <td class="consult">
+                                {% if result.orders.first.consultation %}
+                                    <a href="{{ route('consultation', {id: result.orders.first.consultation.id}) }}">{{ result.orders.first }}</a>
+                                {% else %}
+                                    {{ result.orders.first }}
+                                {% endif %}
+                            </td>
+                            <td class="consultDate">{{ result.orders.first.dateCreated|date('m/d/Y') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                    {% include 'partials/nav/pagination' %}
+                {% else %}
+                    <p>
+                        No users could be found at this time.
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,103 @@
+{
+    "name": "imarc/padstone",
+    "description": "Padstone is a Craft CMS starter that includes plugins and configuration Imarc has found to be useful defaults.",
+    "homepage": "https://github.com/imarc/padstone",
+    "type": "project",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Kevin Hamer",
+            "email": "kevin@imarc.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "boboldehampsink/tagmanager": "^0.2.0",
+        "dnunez24/craft-laravel-mix": "^0.1.0",
+        "fideloper/proxy": "~3.3",
+        "gloudemans/shoppingcart": "^2.5",
+        "imarc/craft-betterredactor": "0.*",
+        "imarc/craft-googlecustomsearch": "^1.0.2",
+        "imarc/craft-kindling": "^1.0.0",
+        "imarc/craft-sass": "^1.0.0",
+        "imarc/craft-social": "^1.0.0",
+        "imarc/tenet": "^1.5.0",
+        "laravel-doctrine/acl": "^1.0",
+        "laravel-doctrine/migrations": "^1.1",
+        "laravel-doctrine/orm": "^1.4",
+        "laravel/framework": "5.5.*",
+        "laravel/tinker": "~1.0",
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "nerds-and-company/schematic": "^3.8",
+        "nystudio107/retour": "^1.0",
+        "omnipay/authorizenet": "^3.3",
+        "oscarotero/env": "^1.0",
+        "ramsey/uuid-doctrine": "^1.4",
+        "rcrowe/twigbridge": "^0.09.0",
+        "verbb/super-table": "0.4.0",
+        "vlucas/phpdotenv": "^2.0",
+        "wbrowar/adminbar": "^3.0"
+    },
+    "autoload": {
+        "classmap": [
+            "database/seeds",
+            "database/factories",
+            "app"
+        ],
+        "psr-4": {
+            "Imarc\\Padstone\\": "padstone/",
+            "App\\": "app/"
+        },
+        "files": [
+            "app/Support/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "@create-project"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump"
+        ],
+        "create-project": [
+            "@install-craft",
+            "@php -r \"rename('.gitignore-install', '.gitignore');\"",
+            "@php -r \"rename('.env-sample', '.env');\""
+        ],
+        "install-craft": [
+            "Imarc\\Padstone\\Install::run"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+            ]
+        },
+        "installer-paths": {
+            "craft/plugins/mix/": [
+                "dnunez24/craft-laravel-mix"
+            ]
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "7.0"
+        },
+        "allow-plugins": {
+            "composer/installers": true,
+            "kylekatarnls/update-helper": true
+        }
+    },
+    "require-dev": {
+        "fzaninotto/faker": "~1.4",
+        "phpunit/phpunit": "~6.0"
+    }
+}

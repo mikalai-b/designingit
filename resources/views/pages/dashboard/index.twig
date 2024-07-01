@@ -1,0 +1,230 @@
+{% set portalTitle = 'Dashboard' %}
+{% extends 'layouts/portal' %}
+
+{% set current_section = 'dashboard' %}
+
+{% block primary %}
+    <section class="portal">
+        <div class="container">
+            {% include 'partials/messaging/flash.twig' %}
+
+            <div class="portal-headline">
+                {% if user.firstName %}
+                    <h1>Welcome, {{ user.firstName }}!</h1>
+                {% else %}
+                    <h1>Welcome!</h1>
+                {% endif %}
+            </div>
+
+            <div class="portal-columns">
+                <div class="portal-column--first">
+                    {# Open (Active) Prescriptions for customer (refills > 0) #}
+                    {% if prescriptions.findOpenForPerson(user)|length %}
+                        <div class="card">
+                            <header class="card-header">
+                                <span class="card-header--title">Your Refills</h2>
+                            </header>
+                            {% for prescription in prescriptions.findOpenForPerson(user) %}
+                                {% include 'partials/prescriptions/prescription-for-card' %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if prescriptions.findExpiredForPerson(user)|length %}
+                        <div class="card">
+                            <header class="card-header">
+                                <span class="card-header--title">Your Expired Prescriptions</h2>
+                            </header>
+                            {% for prescription in prescriptions.findExpiredForPerson(user) %}
+                                {% include 'partials/prescriptions/prescription-for-card' %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if consultations.findForPatient(user)|length %}
+                        <div class="card">
+                            <header class="card-header">
+                                <span class="card-header--title">Your Consultations</span>
+                            </header>
+                            {% for consultation in consultations.findForPatient(user) %}
+                                {% set order = consultation.order %}
+                                {% set provider = order.provider %}
+                                <div class="card-body">
+                                    <div class="card--two-columns items-center">
+                                        <div class="card-column card-column--vertical">
+                                            <span class="card-body--subtitle-dark">{{ consultation.dateCreated|date("F j, Y") }}</span>
+                                            <span class="card-body--title card-body--title-dark">{{ consultation }}</span>
+                                            {% if provider %}
+                                                <div class="card-body--label">
+                                                    <strong>Dermatologist:</strong>
+                                                    <span>{{ provider.fullName }}, {{ provider.credentials }}</span>
+                                                </div>
+                                            {% endif %}
+                                            {% if consultation.isOpen %}
+                                                <span class="card-body--label-review">
+                                                    In Review
+                                                </span>
+                                            {% elseif consultation.isPending %}
+                                                <span class="card-body--label-pending">
+                                                    Prescription Pending
+                                                </span>
+                                            {% elseif consultation.isCompleted %}
+                                                <span class="card-body--label-closed {% if consultation.isDeclined %}card-body--label-declined{% endif %}">
+                                                    {{ consultation.statusWithResult }}
+                                                </span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-column">
+                                            <div class="card-action">
+                                                <a href="{{ route('consultation', {id: consultation.id}) }}" class="button button-primary--small button-block">View Consult</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if user.hasRoleByName('Provider') %}
+                        <div class="card">
+                            <header class="card-header">
+                                <span class="card-header--title">
+                                    Patient Consultations
+                                </span>
+                            </header>
+                            {% for consultation in consultations.findSubmittedAndUnclosedForProvider(user) %}
+                                {% set order = consultation.order %}
+                                {% set patient = order.person %}
+                                <div class="card-body">
+                                    <div class="card--two-columns items-center">
+                                        <div class="card-column card-column--vertical">
+                                            <span class="card-body--subtitle-dark">{{ consultation.dateCreated|date('F j, Y') }}</span>
+                                            <span class="card-body--title card-body--title-dark">{{ consultation }}</span>
+                                            <div class="card-body--label">
+                                                <strong>Patient:</strong>
+                                                <span>{{ patient.title }}{{ patient.fullName }}</span>
+                                            </div>
+                                            <div class="card-body--label-{{ consultation.status|lower }}">
+                                                {{ consultation.status }}
+                                            </div>
+                                        </div>
+                                        <div class="card-column">
+                                            <div class="card-action">
+                                                <a href="{{ route('consultation', {id: consultation.id}) }}" class="button button-primary--small button-block">Review Consult</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="card-body card-body--messages">
+                                    You do not currently have any new consultations to review.
+                                </div>
+                            {% endfor %}
+                            <div class="card-body card-body--cta">
+                                <a href="{{ route('consultations', {'consultationStatus[]':'incomplete'}) }}" class="card-info--cta"><i class="fa fa-search"></i> View Incomplete Consultations</a>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if orders.findAllIncompleteForPerson(user)|length %}
+                        <div class="card">
+                            <header class="card-header">
+                                <span class="card-header--title">Incomplete Orders</span>
+                            </header>
+                            {% for order in orders.findAllIncompleteForPerson(user) %}
+                                {% set provider = order.provider %}
+                                <div class="card-body">
+                                    <div class="card--two-columns items-center">
+                                        <div class="card-column card-column--vertical">
+                                            <span class="card-body--subtitle-dark">{{ order.dateCreated|date("F j, Y") }}</span>
+                                            <span class="card-body--title card-body--title-dark">Order for {{ order.getProductNames|join(', ') }}</span>
+                                            {% if provider %}
+                                                <div class="card-body--label">
+                                                    <strong>Dermatologist:</strong>
+                                                    <span>{{ provider.fullName }}, {{ provider.credentials }}</span>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-column">
+                                            <div class="card-action">
+                                                <a href="{{ route('cart.resume', {order: order.id}) }}" class="button button-primary--small button-block">Complete Order</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="card">
+                        <header class="card-header">
+                            <span class="card-header--title">Account Details</span>
+                        </header>
+                        <div class="card-body">
+                            <div class="card--two-columns">
+                                <div class="card-column card-column--vertical">
+                                    <div class="card-info">
+                                        <span class="card-info--title">Personal Info <a class="card-info--edit" href="/dashboard/info">Edit</a></span>
+                                        <span class="card-info--text card-info--text-large">{{ user.fullName }}</span>
+                                        <span class="card-info--text">{{ user.email }}</span>
+                                    </div>
+                                    {% if user.addressLine1 %}
+                                        <div class="card-info">
+                                            {% if user.hasRoleByName('Provider') %}
+                                                <span class="card-info--title">Address <a class="card-info--edit" href="/dashboard/address">Edit</a></span>
+                                            {% else %}
+                                                <span class="card-info--title">Shipping Address <a class="card-info--edit" href="/dashboard/address">Edit</a></span>
+                                            {% endif %}
+                                            <span class="card-info--text card-info--text-large">{{ user.addressLine1 }}</span>
+                                            {% if user.addressLine2 %}
+                                                <span class="card-info--text card-info--text-large">{{ user.addressLine2 }}</span>
+                                            {% endif %}
+                                            <span class="card-info--text">{{ user.city }}, {{ user.state.id }} {{ user.postalCode }}</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                {% set cards = creditCards.findActiveForPerson(user) %}
+
+                                <div class="card-column card-column--vertical">
+                                    <div class="card-info">
+                                        <span class="card-info--title">Billing Info <a class="card-info--edit" href="/dashboard/billing">Edit</a></span>
+                                        {% if cards|length %}
+                                            <div>{{ cards.first.name }}</div>
+                                        {% else %}
+                                            <div>No Active Cards</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="card-info">
+                                        <span class="card-info--title">Password <a class="card-info--edit" href="/dashboard/password">Edit</a></span>
+                                        <span class="card-info--text">*********</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="portal-column--last">
+                    {% if user.hasRoleByName('Provider') %}
+                        <div class="card">
+                            <header class="card-header">
+                                <span class="card-header--title">Notifications</span>
+                            </header>
+                            <div class="card-body">
+                                <v-message-watcher></v-message-watcher>
+                            </div>
+                        </div>
+                    {% elseif user.orders|length %}
+                        <div class="card">
+                            <header class="card-header">
+                                <span class="card-header--title">Messages</span>
+                            </header>
+                            <v-conversation my-person-id="{{ user.id }}"></v-conversation>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

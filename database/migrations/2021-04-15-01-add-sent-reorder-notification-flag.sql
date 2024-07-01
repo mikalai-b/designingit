@@ -1,0 +1,1 @@
+ALTER TABLE prescriptions ADD sent_reorder_notification TINYINT(1) DEFAULT '0' NOT NULL;

@@ -1,0 +1,234 @@
+// -------------------
+// Messages
+// -------------------
+
+
+$conversationPadding: .75rem;
+$baseMessageColor:    transparentize($cosmeticrx-blue--light, 0.7);
+$myMessageColor:      transparentize($cosmeticrx-blue, 0.8);
+$loadingDotWidth:     10px;
+$loadingDotColor:     transparentize($cosmeticrx-blue, 0.5);
+
+.conversation {
+
+	position: relative;
+	padding-bottom: 60px;
+
+	@keyframes flashing {
+		0%   { opacity: 0; }
+		50% { opacity: 1; }
+		100% { opacity: 0; }
+	}
+
+	.loading {
+		text-align: center;
+		.dot {
+			display: inline-block;
+			width: $loadingDotWidth;
+			height: $loadingDotWidth;
+			border-radius: $loadingDotWidth / 2;
+			margin: 0 $loadingDotWidth / 2;
+			background: $loadingDotColor;
+			animation: flashing 1.5s infinite;
+
+			&:nth-child(2) {
+				animation-delay: .3s;
+			}
+			&:nth-child(3) {
+				animation-delay: .6s;
+			}
+		}
+	}
+
+	.error {
+		color: $cosmeticrx-blue;
+		font-size: .8rem;
+		text-align: center;
+	}
+
+	.no-messages {
+		padding: 3rem 1.5rem;
+		background-color: $white;
+		i {
+			color: $cosmeticrx-purple--really-dark;
+			display: block;
+			font-size: 5rem;
+			margin-bottom: 1rem;
+			text-align: center;
+		}
+		h2 {
+			color: $cosmeticrx-purple--really-dark;
+			font-size: 1.5rem;
+			text-align: center;
+		}
+		span {
+			display: block;
+			text-align: center;
+		}
+	}
+
+	.messages {
+		background-color: $white;
+		height: 30rem;
+		overflow-y: auto;
+		padding: $conversationPadding;
+	}
+	.message {
+
+		margin: 1rem 0;
+		&--sender {
+			float: right;
+			.avatar {
+				width: 50px;
+			}
+			.name {
+				display: none;
+			}
+		}
+
+
+		&--content {
+			background: $baseMessageColor;
+			border-radius: .5rem;
+			padding: .75rem;
+			margin-right: 70px;
+			font-size: .9rem;
+			position: relative;
+			.name {
+				font-size: .6rem;
+				font-weight: bold;
+				margin-bottom: .5em;
+				color: rgba(0,0,0,0.35);
+			}
+			p {
+				margin: 0;
+			}
+			&:after {
+				content: '';
+				position: absolute;
+				display: block;
+				width: 0;
+				height: 0;
+				top: 18px;
+				right: -12px;
+				border-top: 8px solid transparent;
+				border-left: 12px solid $baseMessageColor;
+				border-bottom: 8px solid transparent;
+			}
+		}
+
+
+		&--meta {
+			text-align: right;
+			margin: .5rem 70px 0 0;
+			.date {
+				color: $cosmeticrx-gray;
+				font-size: .7rem;
+			}
+		}
+
+		&.my-message {
+			.message--sender {
+				float: left;
+			}
+			.message--content {
+				background: $myMessageColor;
+				margin-right: 0;
+				margin-left: 70px;
+
+				&:after {
+					border-left: none;
+					border-right: 12px solid $myMessageColor;
+					right: auto;
+					left: -12px;
+				}
+			}
+			.message--meta {
+				text-align: left;
+				margin-left: 70px;
+				margin-right: 0;
+			}
+		}
+	}
+
+	.new-message {
+		box-sizing: border-box;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		textarea {
+			background-color: #fafafa;
+			border: none;
+			border-top: 1px solid #ccc;
+			height: 60px;
+			box-sizing: border-box;
+			width: 100%;
+			margin: 0;
+			resize: none;
+			font-size: .9rem;
+			&:focus {
+				box-shadow: none;
+			}
+			&::placeholder {
+				color: $cosmeticrx-purple;
+			}
+		}
+	}
+
+}
+
+// Messaging (alerts at top of page)
+
+.messaging {
+	border-radius: 2rem;
+	font-weight: bold;
+	padding: 1rem;
+	margin-bottom: 2rem;
+	text-align: center;
+	width: 100%;
+	&.error {
+		background-color: $cosmeticrx-red;
+		color: $white;
+	}
+	&.success {
+		background-color: $cosmeticrx-blue;
+		color: $white;
+	}
+}
+
+.help-block {
+	margin: .5em 0;
+	border-radius: 0 0 $border-radius $border-radius;
+	background-color: $cosmeticrx-gray--light;
+	color: $cosmeticrx-gray--dark;
+	width: 100%;
+	display: block;
+	position: relative;
+	font-size: .9rem;
+	font-weight: 500;
+	padding: .75rem 1rem .75rem 2.5rem;
+	&:before {
+		content: '!';
+		position: absolute;
+		display: block;
+		font-size: 12px;
+		line-height: 16px;
+		font-weight: bold;
+		height: 16px;
+		width: 16px;
+		border-radius: 8px;
+		background: $color-danger;
+		color: $cosmeticrx-gray--light;
+		text-align: center;
+		margin-left: -1.5rem;
+	}
+}
+
+.ql-editor {
+	font-family: $font-family--base;
+	font-size: 1rem;
+	padding: 30px 15px !important;
+	p {
+		margin-bottom: 0.67rem !important;
+	}
+}

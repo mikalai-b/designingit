@@ -1,0 +1,85 @@
+// -------------------
+// Icon Callout
+// -------------------
+
+.icons {
+	text-align: center;
+	-webkit-font-smoothing: antialiased;
+	h2 {
+		color: $cosmeticrx-purple--really-dark;
+		font-weight: 300;
+		font-size: 3.125rem;
+		margin-bottom: 0;
+	}
+	p.subtitle {
+		font-size: 1.2rem;
+		font-weight: 500;
+		margin-top: 0.5rem;
+		@include respond-to($medium) {
+			font-size: 1.625rem;
+			margin-top: 0;
+		}
+	}
+	.icon-columns {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		margin-top: 2rem;
+		@include respond-to($medium) {
+			align-items: flex-start;
+			flex-direction: row;
+			justify-content: space-evenly;
+		}
+	}
+	.icon-column {
+		flex-grow: 1;
+		margin-bottom: 2rem;
+		@include respond-to($medium) {
+			flex-basis: 20rem;
+			margin-left: 0.5rem;
+			margin-right: 0.5rem;
+		}
+		@include respond-to($large) {
+			flex-basis: 13.75rem;
+			margin-bottom: 0;
+			&:first-child {
+				margin-left: 0;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+		h4 {
+			font-weight: 600;
+			font-size: 1.25rem;
+			margin-bottom: 0.5rem;
+			@include respond-to($large) {
+				font-size: 1.5rem;
+			}
+		}
+		p {
+			font-weight: 300;
+			margin-top: 0;
+		}
+		img {
+			margin: 0 auto 1rem auto;
+			height: 6rem;
+		}
+	}
+	.action {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		@include respond-to(570px) {
+			flex-direction: row;
+		}
+		a {
+			margin: 1rem 0;
+			@include respond-to(570px) {
+				margin: 0 0.5rem;
+			}
+		}
+	}
+}

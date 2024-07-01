@@ -1,0 +1,12 @@
+{% set pageTitle = 'Checkout Unavailable' %}
+{% set portalTitle = pageTitle %}
+{% extends 'layouts/full-width' %}
+
+{% block primary %}
+    <main class="portal-main">
+        <div class="container">
+            <h1 class="cart-heading">Checkout Unavailable</h1>
+            <p>We apologize for the inconvenience, we are not taking orders at this time. Please check back after {{ env('CHECKOUT_UNAVAILABLE_DATE', 'July 1') }} to place new orders.</p>
+        </div>
+    </main>
+{% endblock %}

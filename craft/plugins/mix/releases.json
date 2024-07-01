@@ -1,0 +1,12 @@
+[{
+  "version": "0.1.0",
+  "downloadUrl": "https://github.com/dnunez24/craft-laravel-mix/archive/v0.1.0.zip",
+  "date": "2017-06-26T06:35:00-07:00",
+  "notes": [
+    "# Initial Release",
+    "[Added] Twig `mix` function",
+    "[Added] Twig `mix` filter",
+    "[Added] Craft `mix` variable",
+    "[Added] Support for dev, hot module replacement, and production modes for Mix"
+  ]
+}]

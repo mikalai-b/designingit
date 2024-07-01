@@ -1,0 +1,304 @@
+{% import "partials/_macros" as macros %}
+{% extends "layouts/full-width" %}
+{% set unlimited_coupon_code = craft.Rx.getUnlimitedCouponCodeFromCookie %}
+
+{% block primary %}
+
+    {% set wrapper_class = null %}
+    {% if unlimited_coupon_code %}
+        {% set wrapper_class = 'subOutPrices' %}
+        <div class="couponCodeApplied">
+            <div class="container">
+                The coupon code <strong>{{ unlimited_coupon_code }}</strong> will be automatically applied during the checkout process. Receive a FREE shipment (including free shipping). No commitment - cancel anytime. Refills are good for one year - and are at the lowest price of any major US telehealth company - and free shipping is always included.
+            </div>
+        </div>
+    {% endif %}
+    {% if entry.priceComparison|length %}
+        {% include "partials/products/_price-comparison" %}
+    {% endif %}
+    {% if craft.request.getSegment(1) == 'latisse' %}
+        {% set videoFile = entry.heroVideo %}
+        {% set preloadDesktopImage = entry.heroPreloaderImageDesktop %}
+        {% if videoFile|length %}
+            <div class="heroVideo latisseVideo">
+                {% if preloadDesktopImage|length %}
+                    <img src="{{ preloadDesktopImage.first().url }}" class="heroDesktopImage">
+                {% endif %}
+                {# <span class="heroVideo__soundBtn"></span> #}
+                <video 
+                    width="100%" 
+                    height="100%" 
+                    playsinline
+                    autoplay
+                    muted
+                    loop
+                >
+                    <source src="{{ videoFile.first().url }}" type="video/mp4">
+                    Your browser does not support HTML video.
+                </video>
+            </div>
+        {% endif %}
+    {% endif %}
+    <div class="contentWrapper {{ wrapper_class }}">
+        {% if entry.type == "productList" %}
+            <section>
+                <div class="container">
+                    <div class="columns product-list-columns">
+                        {% for block in entry.productList %}
+                            <div class="product-list-item">
+                                <div class="image">
+                                    <img src="{{ block.productImage.first().url }}" alt="{{ block.productTitle }}" width="100">
+                                </div>
+                                <div class="copy">
+                                    {% if block.productTitle|length %}
+                                        <h2>{{ block.productTitle }}</h2>
+                                    {% endif %}
+                                    {{ block.productDescription }}
+                                    <div class="action">
+                                        <a href="{{ block.productAction.url }}" class="button button-product">{{ block.productAction.text }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        
+        {% if craft.request.lastSegment == 'tretinoin' %}
+
+            {% set whySection = entry.whyTretinoinSection %}
+            {% set dermTeam = entry.expertDermCare %}
+
+            {% if entry.pageStructuredContent|length %}
+                {% for block in entry.pageStructuredContent %}
+                    {% if block.type == 'backgroundVideoWithText' %}
+                        {% include 'partials/sections/backgroundVideoWithText' %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            
+            <section class="why-tretinoin">
+                <div class="container">
+                    <div class="why-tretinoin__inner">
+                        {% if whySection|length %}
+                            {% for item in whySection %}
+                                <div class="why-tretinoin__text">
+                                    {% if item.tretinoinText %}
+                                        <p>{{ item.tretinoinText }}</p>
+                                    {% endif %}
+                                    <div class="why-tretinoin__text__bio">
+                                        {% if item.doctorImage|length %}
+                                            <div class="why-tretinoin__text__bio__img">
+                                                <img src="{{ item.doctorImage.first().url }}">
+                                            </div>
+                                        {% endif %}
+                                        <div class="why-tretinoin__text__bio__content">
+                                            {% if item.doctorName|length %}
+                                                <img src="{{ item.doctorName.first().url }}">
+                                            {% endif %}
+                                            {% if item.doctorPosition %}
+                                                <span>{{ item.doctorPosition }}</span>
+                                            {% endif %}
+                                            {% if item.doctorLocation is defined and item.doctorLocation %}
+                                                <div>
+                                                  <span>{{ item.doctorLocation }}</span>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if item.tretinoinTextCarousel|length %}
+                                    <div class="before-after-slider">
+                                        {% if item.tretinoinTextCarousel|length > 1 %}
+                                            <div class="progress-slider-bar">
+                                                {% for dot in 1..item.tretinoinTextCarousel|length %}
+                                                    <span><i></i></span>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        <div class="before-after-slider__words">
+                                            {% if item.slideWords|length %}
+                                                {% for word in item.slideWords %}
+                                                    {% if word.withAnimation %}
+                                                        <span 
+                                                            class="redactor-circle" 
+                                                            style="display: inline-block; position: relative; padding: 2px;"
+                                                        >
+                                                            <span style="position: absolute; inset: 0px;">
+                                                                <svg width="78" height="36" viewBox="0 0 78 36" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display: block; position: absolute; width: 115%; height: 115%; left: -5%; top: -10%;"><path d="M51.6125 3.64986C39.85 0.105077 -2.98385 8.88081 7.3672 27.8885C13.0676 36.1277 35.2355 37.0858 50.8888 27.8885C66.542 18.6912 78.9379 8.72752 59.1226 3.64986C39.3072 -1.4278 24.1939 1.27025 12.8838 7.68917C1.57364 14.1081 -1.32182 20.7989 2.75049 26.3556C6.88999 32.004 20.5753 36.7025 37.4048 34.4032C54.2343 32.1039 65.8153 28.2872 75.2259 20.1283C79.1768 16.7029 77.9403 9.22206 56.6795 8.91912" stroke="#FF69B4"></path></svg>
+                                                            </span>
+                                                            {{ word.slideWord }}
+                                                        </span>
+                                                    {% else %}
+                                                        <span>{{ word.slideWord }}</span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                            {% if item.sliderTopText %}
+                                                <div class="before-after-slider__topText">
+                                                    <p>{{ item.sliderTopText|nl2br }}</p>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="before-after-slider__inner" id="beforeSlider">
+                                            {% for slide in item.tretinoinTextCarousel %}
+                                                <div class="before-after-slider__image">
+                                                    <img src="{{ slide.slideImage.first().url }}">
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+            {% if entry.pageStructuredContent|length %}
+                {% for block in entry.pageStructuredContent %}
+                    {% if block.type == 'videosSection' %}
+                        {% include 'partials/sections/videosSlider' %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            <section class="product-strengths">
+                {% if entry.strengths|length %}
+                    {% for stren in entry.strengths %}
+                        {% if stren.streTitle %}
+                            <h2><span>{{ stren.streTitle }}</span></h2>
+                        {% endif %}
+                        <div class="reviews-rate__rating" style="--rating: {{ stren.starRating }};"></div>
+                        {% if stren.streText %}
+                            <div class="container-small">
+                                {{ stren.streText }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <div class="container">
+                    <div class="product-selector" id="products">
+                        {% for product in entry.products %}
+                            {% set infoArray = [] %}
+                            {% set videos = [] %}
+                            {% for item in product.productInfoOnHover %}
+                                {% set infoArray = infoArray|merge([
+                                    {
+                                        'title': item.prodInfoTitle,
+                                        'text': item.prodInfoText
+                                    }
+                                ]) %}
+                            {% endfor %}
+                            {% for item in productPopupVideos.productPopupVideos %}
+                                {% set videos = videos|merge([item.productVideo.first().url]) %}
+                            {% endfor %}
+                            <v-product 
+                                id="{{ product.productId }}" 
+                                coupon-code="{{ unlimited_coupon_code }}"
+                                info-title="{{ product.productInfoTitle }}"
+                                :info-text="{{ infoArray|json_encode }}"
+                                :videos="{{ videos|json_encode }}"
+                                :index="{{ loop.index|number_format }}"
+                            ></v-product>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            {% if dermTeam|length %}
+                <section class="expert-derm-team">
+                    <div class="container">
+                        {% for item in dermTeam %}
+                            <div class="expert-derm-team__wrapper">
+                                <div class="expert-derm-team__left">
+                                    {% if item.expertTitle %}
+                                        <h4>{{ item.expertTitle }}</h4>
+                                    {% endif %}
+                                    {% if item.expertText %}
+                                        <div class="expert-derm-team__left__content">
+                                            {{ item.expertText }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                {% if item.expertSlider|length %}
+                                    <div class="before-after-slider">
+                                        {% if item.expertSlider|length > 1 %}
+                                            <div class="progress-slider-bar derm--progress">
+                                                {% for dot in 1..item.expertSlider|length %}
+                                                    <span><i></i></span>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        <div class="before-after-slider__inner" id="slideWithInfo">
+                                            {% for slide in item.expertSlider %}
+                                                <div class="before-after-slider__image">
+                                                    <img src="{{ slide.expertImage.first().url }}">
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="expert-slider-info">
+                                        {% for info in item.expertSlider %}
+                                            <div class="expert-slider-info__item">
+                                                <div class="expert-slider-info__item__top">
+                                                    {% if info.instagramNickname %}
+                                                        <span>{{ info.instagramNickname }}</span>
+                                                    {% endif %}
+                                                    {% if info.infoName %}
+                                                        <h4>{{ info.infoName }}</h4>
+                                                    {% endif %}
+                                                </div>
+                                                {% if info.expertColumns|length %}
+                                                    <div class="expert-slider-info__item__bottom">
+                                                        {% for column in info.expertColumns %}
+                                                            <div class="expert-slider-info__item__bottom__column">
+                                                                {% if column.colTitle %}
+                                                                    <h5>{{ column.colTitle }}</h5>
+                                                                {% endif %}
+                                                                {% if column.colText %}
+                                                                    <p>{{ column.colText|nl2br|raw }}</p>
+                                                                {% endif %}
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                                {% if item.doctorImage|length %}
+                                                    <div class="why-tretinoin__text__bio">
+                                                        <div class="why-tretinoin__text__bio__img">
+                                                            <img src="{{ item.doctorImage.first().url }}">
+                                                        </div>
+                                                        <div class="why-tretinoin__text__bio__content">
+                                                            <img src="{{ item.nameLogo.first().url }}">
+                                                            <span>Board-Certified Dermatologist</span>
+                                                            <div>
+                                                              <span>Miami, Florida</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </section>
+            {% endif %}
+        {% endif %}
+
+        {{ macros.pageBlock(entry.pageStructuredContent) }}
+
+        {% if entry.productsFaqSection|length %}
+            {% for block in entry.productsFaqSection %}
+                {% include 'partials/sections/boldrxproducts/_faqSection' %}
+            {% endfor %}
+        {% endif %}
+
+        
+    </div>
+    
+{% endblock %}

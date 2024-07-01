@@ -1,0 +1,28 @@
+<div class="form-group">
+	<label>
+		<p>
+			{{ answer.question|product_highlighter|raw }}
+		</p>
+	</label>
+	<div class="radio-group">
+		<label>
+			<input type="radio" name="answers[{{ answer.key }}]" value="1" {{ answer.content == '1' ? 'checked' : '' }} />
+
+			{% if answer.questionConfig and answer.questionConfig.yes %}
+				{{ answer.questionConfig.yes|raw }}
+			{% else %}
+				I acknowledge
+			{% endif %}
+		</label>
+
+		<label>
+			<input type="radio" name="answers[{{ answer.key }}]" value="0" {{ answer.content == '0' ? 'checked' : '' }} />
+			{% if answer.questionConfig and answer.questionConfig.no %}
+				{{ answer.questionConfig.no|raw }}
+			{% else %}
+				I do not acknowledge
+			{% endif %}
+		</label>
+	</div>
+    {% include 'partials/messaging/error.twig' with {field: 'answer-' ~ answer.key} %}
+</div>

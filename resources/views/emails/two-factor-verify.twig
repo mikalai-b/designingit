@@ -1,0 +1,12 @@
+<p>
+    Hi {{ person.firstName }},
+</p>
+<p>
+    In order to complete your login you will need to enter the following authentication code:
+</p>
+<p>
+    <strong>{{ token }}</strong>
+</p>
+<p>
+    Authenticate yourself <a href="{{ url(route('2fa')) }}">here</a>.
+</p>

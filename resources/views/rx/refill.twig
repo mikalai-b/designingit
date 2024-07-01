@@ -1,0 +1,210 @@
+{% set provider = providers.find(prescription.consultation.order.provider) %}
+{% set patient  = prescription.consultation.order.person %}
+{% set product  = prescription.lineItem.product %}
+<?xml version="1.0" encoding="utf-8"?>
+<Message xmlns="http://www.ncpdp.org/schema/SCRIPT" version="010" release="006">
+    <Header>
+        {% if app.environment('dev') %}
+            <To Qualifier="P">0000275</To>
+        {% else %}
+            <To Qualifier="P">1533517</To>
+        {% endif %}
+
+        <From Qualifier="D">{{ provider.npiNumber }}</From>
+        <MessageID>{{ msg_id }}</MessageID>
+        <SentTime>{{ 'now'|date('c') }}</SentTime>
+        <Security>
+            <UsernameToken>
+                <Username>{{ user }}</Username>
+                <Password Type="PasswordDigest">{{ digest }}</Password>
+                <Nonce>{{ nonce }}</Nonce>
+                <Created>{{ created }}</Created>
+            </UsernameToken>
+            <Sender />
+            <Receiver />
+        </Security>
+        <PrescriberOrderNumber>{{ prescription.orderNumber }}</PrescriberOrderNumber>
+    </Header>
+    <Body>
+        <Resupply>
+
+            {#
+                Pharamacy
+
+                This information is currently static as we are only dealing with a single
+                pharmacy at the moment.  In the future we may have various pharmacy stragies in
+                which case the pharmacy will be tied to the prescription.
+            #}
+
+            <Pharmacy>
+                {% if app.environment('dev') %}
+                    <Identification>
+                        <NCPDPID>0000275</NCPDPID>
+                        <NPI>1043221625</NPI>
+                    </Identification>
+                    <StoreName>Pharmacy Network Services</StoreName>
+                    <Address>
+                        <AddressLine1>123 ABC Street</AddressLine1>
+                        <City>Lincoln</City>
+                        <State>WA</State>
+                        <ZipCode>98564</ZipCode>
+                    </Address>
+                    <CommunicationNumbers>
+                        <Communication>
+                            <Number>2065461764</Number>
+                            <Qualifier>WP</Qualifier>
+                        </Communication>
+                        <Communication>
+                            <Number>2064564000</Number>
+                            <Qualifier>FX</Qualifier>
+                        </Communication>
+                    </CommunicationNumbers>
+                {% else %}
+                    <Identification>
+                        <NCPDPID>1533517</NCPDPID>
+                        <NPI>1407919806</NPI>
+                    </Identification>
+                    <StoreName>HomeMed Pharmacy</StoreName>
+                    <Address>
+                        <AddressLine1>6210 Technology Center Dr.</AddressLine1>
+                        <City>Indianapolis</City>
+                        <State>IN</State>
+                        <ZipCode>46278</ZipCode>
+                    </Address>
+                    <CommunicationNumbers>
+                        <Communication>
+                            <Number>8664663633</Number>
+                            <Qualifier>WP</Qualifier>
+                        </Communication>
+                        <Communication>
+                            <Number>8662435900</Number>
+                            <Qualifier>FX</Qualifier>
+                        </Communication>
+                    </CommunicationNumbers>
+                {% endif %}
+            </Pharmacy>
+
+            {# Prescriber #}
+
+            <Prescriber>
+                <Identification>
+                    <NPI>{{ provider.npiNumber }}</NPI>
+                </Identification>
+                <Name>
+                    <LastName>{{ provider.person.lastName }}</LastName>
+                    <FirstName>{{ provider.person.firstName }}</FirstName>
+                </Name>
+                <Address>
+                    <AddressLine1>{{ provider.person.addressLine1 }}</AddressLine1>
+                    {% if provider.person.addressLine2 %}
+                        <AddressLine2>{{ provider.person.addressLine2 }}</AddressLine2>
+                    {% endif %}
+                    <City>{{ provider.person.city }}</City>
+                    <State>{{ provider.person.state.id }}</State>
+                    <ZipCode>{{ provider.person.trimmedPostalCode }}</ZipCode>
+                </Address>
+                <CommunicationNumbers>
+                    {% if provider.person.phone %}
+                        <Communication>
+                            <Number>{{ provider.person.phone }}</Number>
+                            <Qualifier>TE</Qualifier>
+                        </Communication>
+                    {% endif %}
+                    {% if provider.person.email %}
+                        <Communication>
+                            <Number>{{ provider.person.email }}</Number>
+                            <Qualifier>EM</Qualifier>
+                        </Communication>
+                    {% endif %}
+                </CommunicationNumbers>
+            </Prescriber>
+
+            <Patient>
+                {# <Identification>
+                    <MedicalRecordIdentificationNumberEHR>19271209-3422</MedicalRecordIdentificationNumberEHR>
+                </Identification> #}
+                <Name>
+                    <LastName>{{ patient.lastName }}</LastName>
+                    <FirstName>{{ patient.firstName }}</FirstName>
+                </Name>
+                <Gender>{{ patient.gender ?: 'U' }}</Gender> {# Specify Unknown Gender if Empty #}
+                <DateOfBirth>
+                    <Date>{{ patient.dateOfBirth|date('Y-m-d') }}</Date>
+                </DateOfBirth>
+                <Address>
+                    <AddressLine1>{{ patient.addressLine1 }}</AddressLine1>
+                    {% if patient.addressLine2 %}
+                        <AddressLine2>{{ patient.addressLine2 }}</AddressLine2>
+                    {% endif %}
+                    <City>{{ patient.city }}</City>
+                    <State>{{ patient.state.id }}</State>
+                    <ZipCode>{{ patient.trimmedPostalCode}}</ZipCode>
+                </Address>
+                <CommunicationNumbers>
+                    {% if patient.phone %}
+                        <Communication>
+                            <Number>{{ patient.phone }}</Number>
+                            <Qualifier>TE</Qualifier>
+                        </Communication>
+                    {% endif %}
+                    {% if patient.email %}
+                        <Communication>
+                            <Number>{{ patient.email }}</Number>
+                            <Qualifier>EM</Qualifier>
+                        </Communication>
+                    {% endif %}
+                </CommunicationNumbers>
+            </Patient>
+
+            {# Prescription #}
+
+            <MedicationPrescribed>
+                <DrugDescription>{{ prescription }}</DrugDescription>
+                <DrugCoded>
+                    <ProductCode>{{ prescription.lineItem.product.ndcNumber }}</ProductCode>
+                    {#
+
+                    Not likely needed, but here for reference.
+
+                    <ProductCodeQualifier>ND</ProductCodeQualifier>
+                    <DrugDBCode>855314</DrugDBCode>
+                    <DrugDBCodeQualifier>SBD</DrugDBCodeQualifier>
+
+                    #}
+                </DrugCoded>
+                <Quantity> {# I believe the below information can stay the same in all cases #}
+                    <Value>1</Value>
+                    <CodeListQualifier>QS</CodeListQualifier>
+                    <UnitSourceCode>AC</UnitSourceCode>
+                    <PotencyUnitCode>C38046</PotencyUnitCode>
+                </Quantity>
+                <Directions>{{ product.type.directions }}</Directions>
+                <Refills>
+                    <Qualifier>PRN</Qualifier> {# R qualifier seems to suggest refills in addition to initial dispensing #}
+                    <Value>{{ prescription.remainingRefills }}</Value>
+                </Refills>
+                <Substitutions>0</Substitutions>
+                <WrittenDate>
+                    <Date>{{ 'now'|date('Y-m-d') }}</Date>
+                </WrittenDate>
+                {#
+
+                Not likely needed, but here for reference.
+
+                <Diagnosis>
+                    <ClinicalInformationQualifier>1</ClinicalInformationQualifier>
+                    <Primary>
+                        <Qualifier>ICD9</Qualifier>
+                        <Value>444.89</Value>
+                    </Primary>
+                    <Secondary>
+                        <Qualifier>ICD9</Qualifier>
+                        <Value>994.3</Value>
+                    </Secondary>
+                </Diagnosis>
+
+                #}
+            </MedicationPrescribed>
+        </Resupply>
+    </Body>
+</Message>

@@ -1,0 +1,88 @@
+.priceComparison {
+    background: #eaeaea;
+
+    &__title {
+        color: $cosmeticrx-blue;
+        margin-bottom: 1rem;
+        margin-top: 0;
+        font-size: 2rem;
+    }
+
+    &__inner {
+        background-color: #fff;
+        padding: 1.5rem;
+        border-radius: 1rem;
+    }
+
+    &__intro {
+        p {
+            margin: 0 0 1.5rem 0;
+        }
+        strong {
+            font-weight: bold;
+            border-bottom: 3px solid $cosmeticrx-blue--light;
+        }
+    }
+
+    &__priceGroups {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+.priceGroup {
+    background-color: $cosmeticrx-gray--light;
+    flex: 1 1;
+    padding: 1rem;
+    border-radius: .75rem;
+    font-size: .9rem;
+    max-width: 250px;
+    min-width: 150px;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+
+    &__company {
+        color: $cosmeticrx-gray--dark;
+        font-weight: bold;
+    }
+
+    &__price {
+        color: $black;
+        font-size: 1.3rem;
+        margin-top: .5rem;
+    }
+
+    &__priceWrapper.-noPrice {
+        .priceGroup__price {
+            color: $cosmeticrx-gray;
+            font-size: 1rem;
+        }
+    }
+
+    &__type {
+        font-size: .75rem;
+        color: $cosmeticrx-gray;
+    }
+
+    &.-us {
+        background-color: $cosmeticrx-blue--light;
+
+        .priceGroup__company {
+            color: $white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .priceGroup__price {
+            color: $white;
+            font-size: 1.75rem;
+            font-weight: bold;
+            display: inline;
+        }
+
+        .priceGroup__type {
+            color: $white;
+            display: inline;
+        }
+    }
+}

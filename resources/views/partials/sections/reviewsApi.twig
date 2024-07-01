@@ -1,0 +1,51 @@
+{% if block|length %}
+    {% set entries = block.realReviews %}
+    <section class="reviews-section" id="reviewSection">
+        <div class="reviews-section__heading">
+            <div class="container">
+                <div class="reviews-section__heading__inner">
+                    {% if block.realReviewTitle %}
+                        <h3>{{ block.realReviewTitle }}</h3>
+                    {% endif %}
+                    <div class="reviews-section__heading__right">
+                        <div class="reviews-rate__rating" style="--rating: {{ block.realRating }};"></div>
+                        {% if block.ratingSubtext %}
+                            <p>{{ block.ratingSubtext }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="reviews-carousel-container">
+            <div class="reviews-carousel splide">
+                <div class="splide__track">
+                    <div class="splide__list">
+                        {% for item in entries %}
+                            <div class="splide__slide slideItem">
+                                <div class="slideItem__top">
+                                    <div class="slideItem__top__image">
+                                        {% if item.authorImage|length %}
+                                            <img src="{{ item.authorImage.first().url }}">
+                                        {% else %}
+                                            <span>{{ item.reviewAuthor|slice(0, 1) }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="slideItem__top__title">
+                                        <h4>
+                                            {{ item.reviewAuthor }}
+                                        </h4>
+                                        <p>Verified review</p>
+                                    </div>
+                                </div>
+                                <div class="slideItem__center">
+                                    <div class="reviews-rate__rating" style="--rating: {{ item.rating }};"></div>
+                                    <p>{{ item.reviewText|nl2br }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}   
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </section>
+{% endif %}

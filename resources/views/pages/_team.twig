@@ -1,0 +1,129 @@
+{% import "partials/_macros" as macros %}
+{% extends "layouts/full-width" %}
+
+{% set body_class = "team-member-page" %}
+
+{% block primary %}
+    {% set teamMembers = craft.entries.section('team') %}
+    {% set cols = 2 %}
+    <section class="team-wrapper">
+        {% for member in teamMembers %}
+            {% if loop.index0 % cols == 0 %}
+                <div class="team-row">
+                    <div class="container">
+                        <div class="team-members">
+            {% endif %}
+                <div class="team-member">
+                    <div class="team-member--image">
+                        <img src="{{ member.teamPhoto.first().url }}" alt="{{ member.title }}">
+                    </div>
+                    <div class="team-member--info">
+                        <span class="team-member--name">{{ member.title }}</span>
+                        <span class="team-member--title">{{ member.teamJobTitle }}</span>
+                        <span class="team-member--location">{{ member.location }}</span>
+
+                        <div class="team-profile-trigger">
+                            
+                        </div>
+
+                        <div class="team-member--bio">
+                            <div class="team-member--bio-text">
+                                {{ member.teamBio }}
+                            </div>
+
+                            {% if member.teamUndergraduate|length %}
+                                <span class="team-member--bio-title">Undergraduate</span>
+                                <span class="team-member--bio-description">{{ member.teamUndergraduate }}</span>
+                            {% endif %}
+
+                            {% if member.teamMedicalSchool|length %}
+                                <span class="team-member--bio-title">Medical School</span>
+                                <span class="team-member--bio-description">{{ member.teamMedicalSchool }}</span>
+                            {% endif %}
+
+                            {% if member.teamInternship|length %}
+                                <span class="team-member--bio-title">Internship</span>
+                                <span class="team-member--bio-description">{{ member.teamInternship }}</span>
+                            {% endif %}
+
+                            {% if member.teamResidency|length %}
+                                <span class="team-member--bio-title">Residency</span>
+                                <span class="team-member--bio-description">{{ member.teamResidency }}</span>
+                            {% endif %}
+
+                            {% if member.teamFellowship|length %}
+                                <span class="team-member--bio-title">Fellowship</span>
+                                <span class="team-member--bio-description">{{ member.teamFellowship }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% if (loop.index0 % cols == cols - 1 or loop.last) %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </section>
+
+
+
+
+            {# <div class="team-members">
+                {% set teamMembers = craft.entries.section('team') %}
+                {% for member in teamMembers %}
+                    {% if loop.index0 % cols == 0 %}
+                        <div class="team-row">
+                    {% endif %}
+                    <div class="team-member">
+                        <div class="team-member--image">
+                            <img src="{{ member.teamPhoto.first().url }}" alt="{{ member.title }}">
+                        </div>
+                        <div class="team-member--info">
+                            <span class="team-member--name">{{ member.title }}</span>
+                            <span class="team-member--title">{{ member.teamJobTitle }}</span>
+                            <span class="team-member--location">{{ member.location }}</span>
+
+                            <div class="team-profile-trigger">
+                                
+                            </div>
+
+                            <div class="team-member--bio">
+                                <div class="team-member--bio-text">
+                                    {{ member.teamBio }}
+                                </div>
+
+                                {% if member.teamUndergraduate|length %}
+                                    <span class="team-member--bio-title">Undergraduate</span>
+                                    <span class="team-member--bio-description">{{ member.teamUndergraduate }}</span>
+                                {% endif %}
+
+                                {% if member.teamMedicalSchool|length %}
+                                    <span class="team-member--bio-title">Medical School</span>
+                                    <span class="team-member--bio-description">{{ member.teamMedicalSchool }}</span>
+                                {% endif %}
+
+                                {% if member.teamInternship|length %}
+                                    <span class="team-member--bio-title">Internship</span>
+                                    <span class="team-member--bio-description">{{ member.teamInternship }}</span>
+                                {% endif %}
+
+                                {% if member.teamResidency|length %}
+                                    <span class="team-member--bio-title">Residency</span>
+                                    <span class="team-member--bio-description">{{ member.teamResidency }}</span>
+                                {% endif %}
+
+                                {% if member.teamFellowship|length %}
+                                    <span class="team-member--bio-title">Fellowship</span>
+                                    <span class="team-member--bio-description">{{ member.teamFellowship }}</span>
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {% if (loop.index0 % cols == cols - 1 or loop.last) %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div> #}
+{% endblock %}

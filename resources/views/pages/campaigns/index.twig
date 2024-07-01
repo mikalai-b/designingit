@@ -1,0 +1,48 @@
+{% set portalTitle = 'Campaigns' %}
+{% extends 'layouts/full-width' %}
+
+{% set current_section = 'campaigns' %}
+
+{% block primary %}
+<section class="portal">
+    <div class="container">
+        {% include 'partials/messaging/flash.twig' %}
+        <div class="portal-headline">
+            <div class="breadcrumbs">
+                <a href="/dashboard" class="breadcrumb-item">Dashboard</a>
+                <span class="breadcrumb-item">Campaigns</span>
+            </div>
+            <h1>
+                Campaigns <a href="/dashboard/campaigns/create" class="button button-primary--mini">Add Campaign</a>
+            </h1>
+        </div>
+        <div class="panel-content">
+            {% if campaigns|length %}
+                <table class="list" width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Title</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    {% for campaign in campaigns %}
+                        <tr>
+                            <td class="actions">
+                                <a href="/dashboard/campaigns/{{ campaign.id }}"><i class="fas fa-edit"></i></a>
+                            </td>
+                            <td>{{ campaign.title }}</td>
+                            <td>{{ campaign.startDate ? campaign.startDate|date('Y-m-d') : 'N/A' }}</td>
+                            <td>{{ campaign.endDate ? campaign.endDate|date('Y-m-d') : 'N/A' }}</td>
+                            <td nowrap="nowrap"><a href="/dashboard/campaigns/{{ campaign.id }}/codes">[manage codes]</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

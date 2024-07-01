@@ -1,0 +1,65 @@
+{% if block.productColumns|length %}
+    <div class="twoColumnProducts">
+        <div class="container">
+            <div class="twoColumnProducts__row showColumnsDesktop">
+                {% for item in block.productColumns %}
+                    <div class="twoColumnProducts__part">
+                        <div class="twoColumnProducts__part__image">
+                            {% if item.productImage|length %}
+                                <img src="{{ item.productImage.first().url }}" />
+                            {% endif %}
+                        </div>
+                        {% if item.productTitle %}
+                            <h3>{{ item.productTitle }}</h3>
+                        {% endif %}
+                        {% if item.productPrice %}
+                            <span>{{ item.productPrice }}</span>
+                        {% endif %}
+                        {% if item.productInfo %}
+                            {{ item.productInfo }}
+                        {% endif %}
+                        {% if item.buttonUrl %}
+                            <a href="{{ item.buttonUrl }}" class="button button-product">
+                                {{ item.buttonText }}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="showColumnsMobile">
+                <div class="showColumnsMobile__buttons">
+                    {% for item in block.productColumns %}
+                        <span class="showColumnsMobile__button {% if loop.index == 1 %}active{% endif %}">
+                            {{ item.productTitle }}
+                        </span>
+                    {% endfor %}
+                </div>
+                <div class="showColumnsMobile__slider">
+                    {% for item in block.productColumns %}
+                        <div class="showColumnsMobile__slider__item">
+                            <div class="showColumnsMobile__slider__item__image">
+                                {% if item.productImage|length %}
+                                    <img src="{{ item.productImage.first().url }}" />
+                                {% endif %}
+                            </div>
+                            {% if item.productTitle %}
+                                <h3>{{ item.productTitle }}</h3>
+                            {% endif %}
+                            {% if item.productPrice %}
+                                <span>{{ item.productPrice }}</span>
+                            {% endif %}
+                            {% if item.productInfo %}
+                                {{ item.productInfo }}
+                            {% endif %}
+                            {% if item.buttonUrl %}
+                                <a href="{{ item.buttonUrl }}" class="button button-product">
+                                    {{ item.buttonText }}
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

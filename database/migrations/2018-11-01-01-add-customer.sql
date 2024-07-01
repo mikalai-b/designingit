@@ -1,0 +1,1 @@
+ALTER TABLE credit_cards ADD customer VARCHAR(255) DEFAULT NULL;

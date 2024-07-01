@@ -1,0 +1,44 @@
+<div class="productsTopBanner">
+    <div class="container">
+        <div class="productsTopBanner__inner">
+            <div class="productsTopBanner__text">
+                {% if block.prodTitle %}
+                    <h2>{{ block.prodTitle }}</h2>
+                {% endif %}
+                {% if block.productSub %}
+                    <p>{{ block.productSub }}</p>
+                {% endif %}
+                <div class="reviews-rate__rating" style="--rating: {{ 4.72 }};"></div>
+                <span>4.72/5 (483 reviews) from verified CosmeticRx users</span>
+                {% if block.bulletList %}
+                    <ul>
+                        {% for item in block.bulletList %}
+                            {% set icon = item.bulletIcon %}
+                            <li class="{% if icon.value == 'lowestPrice' %}guarantee--icon{% elseif icon.value == 'consult' %}consult--icon{% else %}freeshipping--icon{% endif %}">{{ item.bulletText }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="productsTopBanner__images">
+                {% if block.leftVideo|length %}
+                    <div class="productsTopBanner__images__part">
+                        <span class="productsTopBanner__images__mute"></span>
+                        <video loop muted autoplay playsinline>
+                            <source src="{{ block.leftVideo.first().url }}" type="video/mp4"></source>
+                        </video>
+                    </div>
+                {% endif %}
+                {% if block.topRightImage|length %}
+                    <div class="productsTopBanner__images__part">
+                        <img src="{{ block.topRightImage.first().url }}" />
+                    </div>
+                {% endif %}
+                {% if block.bottomRightImage|length %}
+                    <div class="productsTopBanner__images__part">
+                        <img src="{{ block.bottomRightImage.first().url }}" />
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

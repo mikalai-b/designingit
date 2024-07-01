@@ -1,0 +1,25 @@
+<link href="/dist/quill/quill.snow.css" rel="stylesheet">
+<script src="/dist/quill/quill.js"></script>
+<script>
+    document.querySelectorAll('.editor').forEach(function(element) {
+        element.editor = new Quill(element, {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['blockquote', { 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }]
+                ]
+            }
+        });
+    });
+
+    document.querySelectorAll('form').forEach(function(form) {
+        form.onsubmit = function(e) {
+            form.querySelectorAll('.editor').forEach(function(element) {
+                var input   = form.querySelector(element.dataset.input);
+                input.value = element.firstChild.innerHTML;
+            });
+        }
+    });
+</script>

@@ -1,0 +1,29 @@
+{% set portalTitle = 'Patients' %}
+{% set portalTitle = 'Patients' %}
+{% extends 'layouts/full-width' %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% set current_section = 'patients' %}
+
+{% block primary %}
+    <section class="portal">
+        <div class="container">
+            <div class="portal-headline">
+                <div class="breadcrumbs">
+                    <a href="{{ route('dashboard') }}" class="breadcrumb-item">Dashboard</a>
+                    <a href="{{ route('patients') }}" class="breadcrumb-item">Patients</a>
+                    <span class="breadcrumb-item">Update Patient</span>
+                </div>
+                <h1>
+                    Update Patient
+                </h1>
+            </div>
+            <form class="user-form patient-form" method="POST" action="{{ url.full }}">
+                {% include 'pages.patients._form' %}
+            </form>
+        </div>
+    </section>
+{% endblock %}

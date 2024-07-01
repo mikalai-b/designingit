@@ -1,0 +1,29 @@
+#/bin/bash
+
+set -e
+
+REMOTE_USER="${REMOTE_USER-web}"
+REMOTE_SERVER="${REMOTE_SERVER-dev.cosmeticrx.com}"
+REMOTE_DATABASE="${REMOTE_DATABASE-cosmeticrx_com}"
+
+REMOTE_UPLOADS_PATH="${REMOTE_UPLOADS_PATH-/var/www/cosmeticrx.com/dev/public/writable}"
+LOCAL_UPLOADS_VOLUME="${LOCAL_UPLOADS_VOLUME-cosmeticrxcom_uploads}"
+
+echo -e "Syncing remote database"
+
+DB_DOCKER_ID="$(docker-compose ps -q db)"
+
+docker exec -i $DB_DOCKER_ID mysql -e "DROP DATABASE craft"
+docker exec -i $DB_DOCKER_ID mysql -e "CREATE DATABASE craft"
+
+ssh -TC ${REMOTE_USER}@${REMOTE_SERVER} "mysqldump --single-transaction $REMOTE_DATABASE" \
+    | docker exec -i $DB_DOCKER_ID mysql craft 1> /dev/null
+
+echo -e "Syncing remote filesystem"
+
+rsync -av --delete $REMOTE_USER@$REMOTE_SERVER:$REMOTE_UPLOADS_PATH/ $PWD/public/writable/
+
+echo -e "Fix volume permisions"
+docker exec $(docker-compose ps -q craft) bash /opt/bootstrap 1>/dev/null
+
+echo -e "Done!"

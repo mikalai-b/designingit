@@ -1,0 +1,52 @@
+{% set portalTitle = 'Billing Information' %}
+{% extends 'layouts/full-width' %}
+
+{% block scripts %}
+    {% include 'scripts.authorize' %}
+{% endblock %}
+
+{% block primary %}
+    <section class="portal">
+        <div class="container">
+            {% include 'partials/messaging/flash.twig' %}
+
+            <div class="portal-headline">
+                <div class="breadcrumbs">
+                    <a href="/dashboard" class="breadcrumb-item">Dashboard</a>
+                    <span class="breadcrumb-item">Update Billing Information</span>
+                </div>
+                <h1>
+                    Update Billing Information
+                </h1>
+            </div>
+
+            <form id="billing" method="POST" action="{{ url.full }}">
+                <fieldset>
+                    {% if cards|length %}
+                        <h3>Change Your Payment Information</h3>
+                        <div class="form-group" id="cards">
+                            <p>Your orders are currently set to charge against your <strong>{{ cards.first.name }}</strong>.</p>
+                        </div>
+                        <div class="action action-left">
+                            <p>
+                                {% include 'partials.billing.add-card-button' with {class: 'primary', label: 'Change Card' } %}
+                            </p>
+                        </div>
+                    {% else %}
+                        <h3>Add Your Payment Information</h3>
+                        <p>Before we can begin fulfilling your prescription, you'll need to add a card on file.</p>
+                        <div class="form-group" id="cards">
+                        </div>
+                        <div class="action action-left">
+                            <p>
+                                {% include 'partials.billing.add-card-button' with {class: 'primary'} %}
+                            </p>
+                        </div>
+                    {% endif %}
+                </fieldset>
+
+                {{ csrf_field() }}
+            </form>
+        </div>
+    </section>
+{% endblock %}

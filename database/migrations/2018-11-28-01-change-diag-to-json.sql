@@ -1,0 +1,1 @@
+ALTER TABLE consultations CHANGE order_id order_id INT DEFAULT NULL, CHANGE date_modified date_modified DATETIME DEFAULT NULL, CHANGE physical_exam physical_exam LONGTEXT DEFAULT NULL COMMENT '(DC2Type:json)', CHANGE diagnosis diagnosis LONGTEXT DEFAULT NULL COMMENT '(DC2Type:json)';

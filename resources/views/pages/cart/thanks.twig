@@ -1,0 +1,56 @@
+{% set pageTitle = 'Thank You' %}
+{% set portalTitle = pageTitle %}
+{% extends 'layouts/full-width' %}
+
+{% block layout %}
+    <main class="portal-main">
+        <div class="container">
+            <div class="thanks">
+                <h1 class="thanks-heading">Thank you for your order</h1>
+                <p class="thanks__lede">All submitted orders are reviewed within 24 hours - and shipped by the pharmacists within the following 24 hours. Therefore, orders arrive within 3-6 days, and the packaging is always discreet (it will state HMP on the package as the sender).</p>
+                <p class="thanks__lede">You can track the progress of your open consultations on your dashboard by clicking the link below.</p>
+                <p class="thanks__ctaWrapper"><a href="{{ route('dashboard') }}" class="button button-primary">View My Dashboard</a></p>
+                <div class="thanks__boxWrapper">
+                    <img src="/storage/images/product-box-white.png" alt="CosmeticRx product box" class="thanks__product">
+                </div><!-- .thanks__boxWrapper -->
+            </div><!-- .thanks -->
+        </div>
+    </main>
+{% endblock %}
+
+{% block gtagEventCode %}
+<script>
+  gtag('event', 'conversion', {
+      'send_to': 'AW-10925456008/1TKeCMnvtsIDEIj11Nko',
+      'transaction_id': '{{ order.id }}'
+  });
+</script>
+{% endblock %}
+
+{% block afterBodyOpen %}
+<!--  Clickcease.com Conversion tracking-->
+<script type="text/javascript">
+ccConVal = 0;
+var script = document.createElement("script");
+script.async = true;
+script.type = "text/javascript";
+var target = 'https://www.clickcease.com/monitor/cccontrack.js';
+script.src = target; var elem = document.head; elem.appendChild(script);
+</script>
+<noscript>
+<a href="https://www.clickcease.com" rel="nofollow"><img src="https://monitor.clickcease.com/conversions/conversions.aspx?value=0" alt="ClickCease"/></a>
+</noscript>
+<!--  Clickcease.com Conversion tracking-->
+
+<!-- Offer Conversion: CosmeticRx -->
+<img src="https://aspireiq.go2cloud.org/aff_l?offer_id=7557&amount={{ order.firstShipmentPrice|number_format(2) }}" width="1" height="1" />
+<!-- // End Offer Conversion -->
+
+<!-- Offer Conversion: 30% CosmeticRx affiliate Agreement -->
+<img src="https://aspireiq.go2cloud.org/aff_l?offer_id=9878&amount={{ order.firstShipmentPrice|number_format(2) }}" width="1" height="1" />
+<!-- // End Offer Conversion -->
+
+{% endblock %}
+
+{% block adendum %}
+{% endblock %}

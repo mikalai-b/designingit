@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+{% if entry is defined %}
+    {% if title is not defined %}
+        {% if entry.metaTitle %}
+            {% set title = entry.metaTitle %}
+        {% else %}
+            {% set title = entry.title %}
+        {% endif %}
+        {% set metaDescription = entry.metaDescription %}
+        {% set ogImage = entry.ogImage %}
+        {% set metaTags = entry.metaTags %}
+        {% set footerJS = entry.footerJS %}
+    {% endif %}
+
+    {% set metaDescription = entry.metaDescription %}
+
+    {% if entry.ogImage.total() %}
+        {% set ogImage = entry.ogImage.first().getUrl('ogImage') %}
+    {% else %}
+        {% set ogImage = false %}
+    {% endif %}
+
+    {% set metaTags = entry.metaTags %}
+    {% set footerJS = entry.footerJS %}
+{% endif %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <!-- Global site tag (gtag.js) - Google Ads: 10925456008 -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10925456008"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-10925456008');
+        </script>
+
+        {% block gtagEventCode %}{% endblock %}
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#00aba9">
+
+        {% if craft is defined %}
+            <title>{% if title is defined %}{{ title }}{% endif %} - {{ siteName }}</title>
+        {% else %}
+            <title>{% if portalTitle %}{{ portalTitle }} - CosmeticRx{% else %}CosmeticRx{% endif %}</title>
+        {% endif %}
+        {% if title is defined and title != "" %}
+            <meta name="twitter:title" content="{{ title }}">
+            <meta property="og:title" content="{{ title }}" />
+            <meta itemprop="name" content="{{ title }}">
+        {% endif %}
+
+        {% if metaDescription is defined and metaDescription != "" %}
+            <meta name="description" content="{{ metaDescription }}" />
+            <meta name="og:description" content="{{ metaDescription }}"/>
+            <meta name="twitter:description" content="{{ metaDescription }}">
+            <meta itemprop="description" content="{{ metaDescription }}">
+        {% endif %}
+        {% if ogImage is defined and ogImage != "" %}
+            <meta property="og:image" content="{{ ogImage }}" />
+            <meta name="twitter:image" content="{{ ogImage }}">
+            <meta itemprop="image" content="{{ ogImage }}">
+        {% endif %}
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="web_author" content="Imarc, A Digital Agency | Boston + Silicon Valley | more info at imarc.com" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Pathway+Gothic+One|Playfair+Display:700" rel="stylesheet">
+        <link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ mix('css/main.css') }}" media="all" />
+        {% if metaTags is defined %}
+            {{ metaTags | raw }}
+        {% endif %}
+    </head>
+    <body class="{{ body_class ?? "" }}" id="{{ body_id ?? "" }}">
+    {% block afterBodyOpen %}{% endblock %}
+        <div id="site-container">
+            <header class="primary{% if body_class is defined %} {{ body_class }}{% endif %}">
+                <div class="header-container">
+                    <div class="menu">
+                        <div class="logo-container">
+                            <a href="/" class="logo">
+                                <img src="/images/wordmark.svg" alt="CosmeticRx">
+                            </a>
+                        </div>
+                        <div id="nav-icon" class="nav-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        {% if craft is defined %}
+                            {% include 'partials/nav/storefront.twig' %}
+                        {% else %}
+                            {% include 'partials/nav/dashboard.twig' %}
+                        {% endif %}
+                    </div>
+                </div>
+            </header>
+
+            <main>
+                {% set entryType = '' %}
+                {% set segmentOne = '' %}
+                {% if entry is defined %}
+                    {% set entryType = entry.type %}
+                {% endif %}
+                {% if craft is defined %}
+                    {% set segmentOne = craft.request.getSegment(1) %}
+                {% endif %}
+                {% if entryType != 'boldrxProducts' and segmentOne != 'latisse' %}
+                    {% block hero %}
+                        {% if entry is defined %}
+                            <div class="hero"{% if entry.heroImage|length %} style="background-image: url({{ entry.heroImage.first().url }});"{% endif %}>
+                                <div class="container">
+                                    <div class="hero-text">
+                                        <h1>{{ entry.title }}</h1>
+                                        <span class="hero-subheadline">{{ entry.subheadline }}</span>
+                                        <p class="lede">{{ entry.pageIntro }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                {% endif %}
+
+                {% block layout %}
+                {% endblock %}
+
+                {# if homepage, need to add this text #}
+                {% if craft is defined %}
+                  {% if craft.request.path == "" %}
+                    <div class="text-center" style="padding-top: 50px;">
+                      <div class="container">
+                        *CosmeticRx has compounded Semaglutide and compounded Tirzepatide, as well as prescriptions that can be sent to local pharamcies for brand name medication. Comounded Semaglutide and Compounded Tirzepatide are active ingredient in Ozempic® and Wegovy® and Mounjaro® and Zepbound®. Each batch of medication undergoes extensive quality checks. Compound medications are in stock and ship within 2 days, if prescribed online following your online consult.
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endif %}
+
+            </main>
+
+
+            <footer>
+  <div class="site-footer__container">
+    <div class="site-footer__inner">
+      <div class="site-footer__inner__left">
+        <div class="site-footer__inner__left__logos">
+          <a href="/" class="site-footer__main-logo">
+            <img src="/images/wordmark.svg" alt="CosmeticRx">
+          </a>
+          <div class="site-footer__logos">
+            <img src="/images/legitscript-logo.webp" alt="LegitScript " class="brand-logo hippa">
+              <img src="https://static.legitscript.com/seals/3724729.png" alt="LegitScript approved" class="countdown_image">
+          </div>
+        </div>
+        <div class="site-footer__inner__left__menus">
+          <div class="site-footer__inner__left__menus__part">
+            <h3>Popular</h3>
+            {% if craft is defined %}
+              <ul>
+                  {% set primaryNav = craft.entries.section('pages').search('navigationGroups:"primaryTopNavigation"').level(1) %}
+                  {% for page in primaryNav %}
+                      {% set children = craft.entries.section('pages').descendantOf(page.id) %}
+                      <li>
+                          <a href="{{ page.url }}">{{ page.title }}</a>
+                      </li>
+                  {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="site-footer__inner__left__menus__part">
+            <h3>Learn</h3>
+            {% if craft is defined %}
+              <ul>
+                  {% set otherNav = craft.entries.section('pages').search('navigationGroups:"otherGroup"').level(1) %}
+                  {% for page in otherNav %}
+                      {% set children = craft.entries.section('pages').descendantOf(page.id) %}
+                      <li>
+                          <a href="{{ page.url }}">{{ page.title }}</a>
+                      </li>
+                  {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="site-footer__inner__left__menus__part">
+            <h3>Info</h3>
+            {% if craft is defined %}
+              <ul>
+                  <li>
+                      <a href="/login">Login</a>
+                  </li>
+                  {% set footerNav = craft.entries.section('pages').search('navigationGroups:"footerBottomNavigation"').level(1) %}
+                  {% for page in footerNav %}
+                      {% set children = craft.entries.section('pages').descendantOf(page.id) %}
+                      <li>
+                          <a href="{{ page.url }}">{{ page.title }}</a>
+                      </li>
+                  {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="site-footer__inner__right">
+        <div class="site-footer__inner__right__top">
+            <h3>Need a hand?</h3>
+            <div class="site-footer__inner__right__links">
+                <a href="tel:+17864964094" class="phone--link">786.496.4094</a>
+                <a href="mailto:Support@CosmeticRx.com" class="mailto--link">Support@CosmeticRx.com</a>
+            </div>
+        </div>
+        <p>
+          We’re available by phone (786.496.4094) <br>
+          today from 9 a.m.-5 p.m. ET.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="site-footer__copy">
+    <div class="site-footer__container">
+      <div class="site-footer__copy__inner">
+        <p>©{{ "now"|date('Y') }} CosmeticRx</p>
+        <div class="site-footer__socials--links">
+          {% if craft is defined %}
+            <a href="https://www.facebook.com/{{ socialMedia.facebookHandle }}/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/{{ socialMedia.twitterHandle }}" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/{{ socialMedia.instagramHandle }}/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/user/{{ socialMedia.youtubeHandle }}" target="_blank"><i class="fab fa-youtube"></i></a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+        </div><!-- /#site-container -->
+
+        <script src="{{ mix('js/manifest.js') }}"></script>
+        <script src="{{ mix('js/vendor.js') }}"></script>
+        <script src="{{ mix('js/site.js') }}"></script>
+
+        {% if footerJS is defined %}
+            {{ footerJS | raw }}
+        {% endif %}
+
+        {% block scripts %}
+
+        {% endblock %}
+    </body>
+</html>

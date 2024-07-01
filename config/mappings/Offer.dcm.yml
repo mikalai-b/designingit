@@ -1,0 +1,43 @@
+Offer:
+    type: entity
+    table: offers
+    repositoryClass: Offers
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        price:
+            type: float
+            nullable: true
+            length: null
+        firstShipmentPrice:
+            type: float
+            nullable: true
+            length: null
+            column: first_shipment_price
+        successMessage:
+            type: text
+            nullable: true
+    manyToOne:
+        product:
+            targetEntity: Product
+            cascade: [ persist, remove ]
+            fetch: LAZY
+            inversedBy: offers
+            joinColumn:
+                product_id:
+                    referencedColumnName: id
+        campaign:
+            targetEntity: Campaign
+            cascade: [ persist, remove ]
+            fetch: LAZY
+            inversedBy: offers
+            joinColumn:
+                campaign_id:
+                    referencedColumnName: id

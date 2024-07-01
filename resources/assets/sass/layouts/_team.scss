@@ -1,0 +1,145 @@
+// -------------------
+// Team Page
+// -------------------
+
+.team-wrapper {
+	padding: 0;
+}
+
+.team-row {
+	position: relative;
+	@include respond-to($medium) {
+		&::before {
+			background-color: #f2f2f2;
+			border-bottom: 2px solid #ebebeb;
+			content: '';
+			height: 266px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			z-index: -1;
+		}
+	}
+}
+
+.team-members {
+	display: block;
+	@include respond-to($medium) {
+		display: flex;
+	}
+	.team-member {
+		flex-basis: 100%;
+		flex-grow: 1;
+		padding: 0 2rem;
+		position: relative;
+		margin-left: -2rem;
+		margin-right: -2rem;
+		&::before {
+			background-color: #f2f2f2;
+			border-bottom: 2px solid #ebebeb;
+			content: '';
+			height: 266px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			z-index:-1;
+		}
+		@include respond-to($medium) {
+			flex-basis: 50%;
+			margin-left: 0;
+			margin-right: 0;
+			&::before {
+				content: none;
+				height: auto;
+			}
+		}
+		&--image {
+			cursor: pointer;
+			position: relative;
+			img {
+				bottom: -4px;
+				height: 260px;
+				margin: 0 auto;
+				position: relative;
+			}
+		}
+		&--name,
+		&--title,
+		&--location,
+		&--bio-title,
+		&--bio-description {
+			display: block;
+		}
+		&--name,
+		&--title,
+		&--location {
+			text-align: center;
+		}
+		&--name {
+			color: $cosmeticrx-purple--really-dark;
+			font-size: 1.5rem;
+			font-weight: 500;
+			margin-bottom: .875rem;
+		}
+		&--title {
+			font-size: 1.125rem;
+			font-weight: 700;
+			margin-bottom: .65rem;
+		}
+		&--location {
+			font-size: 0.875rem;
+			font-weight: 300;
+			font-style: italic;
+		}
+		&--bio {
+			display: none;
+	 		line-height: 1.5;
+	 		&-text {
+	 			margin-bottom: 4rem;
+	 			-webkit-font-smoothing: antialiased;
+	 			-moz-osx-font-smoothing: grayscale;
+	 			p {
+	 				margin-top: 0;
+	 				margin-bottom: 2rem;
+	 			}
+	 		}
+	 		&-title {
+	 			color: $cosmeticrx-purple--really-dark;
+				font-size: 1.125rem;
+				font-weight: 600;
+	 		}
+	 		&-description {
+	 			margin-bottom: 2rem;
+	 		}
+		}
+		&--info {
+			margin-top: 3.4rem;
+			margin-bottom: 6rem;
+		}
+	}
+	.team-profile-trigger {
+		align-items: center;
+		background: $cosmeticrx-purple--really-dark;
+		border-radius: 50%;
+		color: $white;
+		cursor: pointer;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 2rem;
+		margin: 2rem auto;
+		text-align: center;
+		width: 2rem;
+		&::after {
+			content: '+';
+			display: block;
+			font-size: 1.25rem;
+			font-weight: 700;
+		}
+		&--text::after {
+			content: '–' !important;
+		}
+	}
+}

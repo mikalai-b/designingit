@@ -1,0 +1,7 @@
+<div class="form-group">
+	<label for="answer-{{ answer.key }}">
+		{{ answer.question|product_highlighter|raw }}
+	</label>
+	<textarea id="answer-{{ answer.key}}" cols="80" rows="4" name="answers[{{ answer.key }}]">{{ answer.content }}</textarea>
+    {% include 'partials/messaging/error.twig' with {field: 'answer-' ~ answer.key} %}
+</div>

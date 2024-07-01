@@ -1,0 +1,21 @@
+{% set pageTitle = 'Billing Information' %}
+{% set pageTitle = 'Consultation' %}
+{% extends 'layouts/cart' %}
+
+{% block step %}
+    <h1 class="cart-heading">Consultation</h1>
+    <div class="consultText">
+        <p>
+            CosmeticRx dermatologists review your responses 7 days a week – and your prescription medication can be shipped to you within 2 hours.  The cost of your brand name prescription medication is the guaranteed lowest price of any US telehealth company – and free 2 day shipping is included, and there are never any other charges.
+        </p>
+    </div>
+    <form method="POST" action="{{ route(active_step) }}" class="consultation-form">
+        {% for answer in consultation.answers %}
+            {% include 'partials/questions/' ~ answer.type.template ~ '.twig' %}
+        {% endfor %}
+
+        {{ csrf_field() }}
+
+        <button type="submit" class="button button-primary--small">Submit Answers</button>
+    </form>
+{% endblock %}

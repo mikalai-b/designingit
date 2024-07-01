@@ -1,0 +1,1446 @@
+{% extends 'layouts/master' %}
+
+{% block layout %}
+	<link rel="stylesheet" href="/questions-assets/css/main.css">
+
+	<div class="questions">
+		<div class="questions__wrapper">
+			<div class="questions__progress">
+				<button data-prev>
+					<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+						<g clip-path="url(#clip0_1235_3788)">
+							<path d="M10.2404 13.8601L10.9417 13.1588C11.0354 13.0653 11.082 12.9577 11.082 12.8359C11.082 12.7145 11.0354 12.6069 10.9417 12.5135L5.4286 7.00007L10.9416 1.48692C11.0352 1.39342 11.0819 1.28582 11.0819 1.16426C11.0819 1.04265 11.0352 0.93504 10.9416 0.841585L10.2402 0.14033C10.1467 0.0466783 10.0391 1.24364e-08 9.91753 1.38865e-08C9.79602 1.53355e-08 9.68841 0.0468257 9.59496 0.14033L3.05774 6.6774C2.96423 6.77086 2.91751 6.87851 2.91751 7.00007C2.91751 7.12163 2.96423 7.22909 3.05774 7.3225L9.59496 13.8601C9.68846 13.9536 9.79607 14 9.91753 14C10.0391 14 10.1467 13.9536 10.2404 13.8601Z" fill="currentColor"/>
+						</g>
+						<defs>
+							<clipPath id="clip0_1235_3788">
+								<rect width="14" height="14" fill="white" transform="translate(14) rotate(90)"/>
+							</clipPath>
+						</defs>
+					</svg>
+					Previous step
+				</button>
+				<div class="questions__progress-bar"></div>
+			</div>
+			<form id="questions" class="questions__form" action="">
+				<div class="questions__step active" data-step="1">
+					<h2 class="questions__title">Before we get started - How are you feeling today?</h2>
+					<div class="questions__smiley-radio">
+						<label>
+							<span>😄</span>
+							<span>Happy</span>
+							<input type="radio" name="feeling_today" value="happy" checked />
+						</label>
+						<label>
+							<span>🙁️</span>
+							<span>Sad</span>
+							<input type="radio" name="feeling_today" value="sad" />
+						</label>
+						<label>
+							<span>😧</span>
+							<span>Worried</span>
+							<input type="radio" name="feeling_today" value="worried" />
+						</label>
+						<label>
+							<span>🥱</span>
+							<span>Tired</span>
+							<input type="radio" name="feeling_today" value="tired" />
+						</label>
+						<label>
+							<span>😣</span>
+							<span>Stressed</span>
+							<input type="radio" name="feeling_today" value="stressed" />
+						</label>
+						<label>
+							<span>😡</span>
+							<span>Angry</span>
+							<input type="radio" name="feeling_today" value="angry" />
+						</label>
+						<label>
+							<span>🤔</span>
+							<span>Not Sure</span>
+							<input type="radio" name="feeling_today" value="not sure" />
+						</label>
+					</div>
+					<div class="questions__description">
+						Evaluating your emotions will help you understand the feelings you experience, your thought patterns, your belief systems, and your behavior patterns better—a first step to mindfulness and an important aspect of mental health.
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="1/1" data-step="2">
+					<h2 class="questions__title">Now let’s get acquainted - Tell us about yourself</h2>
+					<div class="questions__input-text-name">
+						<label>
+							My name is
+							<input type="text" name="name" placeholder="Name" required>
+							<span>Nice to Meet you <span class="questions__person-name"></span></span>
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="2/1" data-step="3">
+					<h2 class="questions__title">First, we need to make sure that we have jurisdiction in your area. Which state do you live in?</h2>
+					<div class="questions__input-select-state">
+						<label>
+							<select name="state" required>
+								<option value="" disabled selected>All US states</option>
+								<option value="AA" data-additional="3no">AA</option>
+								<option value="AE" data-additional="3no">AE</option>
+								<option value="AL" data-additional="3no">Alabama</option>
+								<option value="AK">Alaska</option>
+								<option value="AP">AP</option>
+								<option value="AZ">Arizona</option>
+								<option value="AR">Arkansas</option>
+								<option value="CA">California</option>
+								<option value="CO">Colorado</option>
+								<option value="CT">Connecticut</option>
+								<option value="DE">Delaware</option>
+								<option value="DC">District of Columbia</option>
+								<option value="FL">Florida</option>
+								<option value="GA">Georgia</option>
+								<option value="HI">Hawaii</option>
+								<option value="ID">Idaho</option>
+								<option value="IL">Illinois</option>
+								<option value="IN">Indiana</option>
+								<option value="IA">Iowa</option>
+								<option value="KS">Kansas</option>
+								<option value="KY">Kentucky</option>
+								<option value="LA">Louisiana</option>
+								<option value="ME">Maine</option>
+								<option value="MD">Maryland</option>
+								<option value="MA">Massachusetts</option>
+								<option value="MI">Michigan</option>
+								<option value="MN">Minnesota</option>
+								<option value="MS">Mississippi</option>
+								<option value="MO">Missouri</option>
+								<option value="MT">Montana</option>
+								<option value="NE">Nebraska</option>
+								<option value="NV">Nevada</option>
+								<option value="NH">New Hampshire</option>
+								<option value="NJ">New Jersey</option>
+								<option value="NM">New Mexico</option>
+								<option value="NY">New York</option>
+								<option value="NC">North Carolina</option>
+								<option value="ND">North Dakota</option>
+								<option value="OH">Ohio</option>
+								<option value="OK">Oklahoma</option>
+								<option value="OR">Oregon</option>
+								<option value="PA">Pennsylvania</option>
+								<option value="RI">Rhode Island</option>
+								<option value="SC">South Carolina</option>
+								<option value="SD">South Dakota</option>
+								<option value="TN">Tennessee</option>
+								<option value="TX">Texas</option>
+								<option value="UT">Utah</option>
+								<option value="VT">Vermont</option>
+								<option value="VA">Virginia</option>
+								<option value="WA">Washington</option>
+								<option value="WV">West Virginia</option>
+								<option value="WI">Wisconsin</option>
+								<option value="WY">Wyoming</option>
+							</select>
+							<span>*Jurisdiction-based on Cosmetic RX jurisdiction</span>
+						</label>
+					</div>
+				</div >
+				<div class="questions__step --additional" data-progress="2/3" data-step="3no">
+					<h2 class="questions__title">Dear <span class="questions__person-name"></span>. We are still working to get licensed in <span class="questions__person-state"></span>. You may keep in touch with local providers to connect you with mental health practitioners who have jurisdiction in your area.</h2>
+					<button type="submit" class="button button-primary">Complete</button>
+				</div>
+
+				<div class="questions__step" data-progress="3/1" data-step="4">
+					<h2 class="questions__title">We are all Good in State of South Carolina</h2>
+					<label>
+						<span>Dear <span class="questions__person-name"></span>, We can connect you to a mental health provider in the State of South Carolina. Next, we need to confirm your age.</span>
+						<input type="date" name="age" onfocus="this.showPicker()" required>
+					</label>
+				</div>
+
+				{# radio #}
+				<div class="questions__step" data-progress="4/1" data-step="5">
+					<h2 class="questions__title">How much experience do you have with medication?</h2>
+					<div class="questions__radio">
+						<label>
+							Not familiar, I have not previously used medication for mental health
+							<input type="radio" name="experience" value="not-familiar" checked>
+						</label>
+						<label>
+							Somewhat familiar
+							<input type="radio" name="experience" value="somewhat-familiar" data-conditional-field="right_place">
+						</label>
+						<label>
+							Very familiar
+							<input type="radio" name="experience" value="several-days" data-conditional-field="right_place">
+						</label>
+					</div>
+					<div data-conditional-content="right_place">
+						You're in the right place!
+					</div>
+				</div>
+
+				{# <div class="questions__step" data-progress="5/1" data-step="6">
+					<h2 class="questions__title">Now, we’re going to ask more questions about your health, medical history, and lifestyle. This is to give your mental health provider some background on you and better understand the help that you need.</h2>
+					<label>
+						<input type="email" name="email" placeholder="Email address" required>
+						<input type="password" name="password" placeholder="Account password" required>
+					</label>
+				</div> #}
+
+				{# <div class="questions__step" data-progress="1/2" data-step="7">
+					<h2 class="questions__title">How it works</h2>
+					<p>These simple assessments can help quantify your symptoms and give your provider a starting point for diagnosis.</p>
+				</div> #}
+
+				<div class="questions__step" data-progress="2/2" data-step="8" data-phq>
+					<div class="questions__step--note">
+						<span>PHQ</span>
+						<span><strong>1</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by having little interest or pleasure in doing things?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered" value="not-at-all" data-score="0" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="3/2" data-step="9" data-phq>
+					<div class="questions__step--note">
+						<span>PHQ</span>
+						<span><strong>2</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by feeling down, depressed, or hopeless?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="depressed-hopeless" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="depressed-hopeless" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="depressed-hopeless" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="depressed-hopeless" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="4/2" data-step="10" data-phq>
+					<div class="questions__step--note">
+						<span>PHQ</span>
+						<span><strong>3</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by trouble falling/staying asleep, or sleeping too much?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-sleeping" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-sleeping" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-sleeping" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-sleeping" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="5/2" data-step="11" data-phq>
+					<div class="questions__step--note">
+						<span>PHQ</span>
+						<span><strong>4</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by feeling tired or having little energy?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-tired" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-tired" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-tired" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-tired" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="6/2" data-step="12" data-phq>
+					<div class="questions__step--note">
+						<span>PHQ</span>
+						<span><strong>5</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by poor appetite or overeating?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-appetite" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-appetite" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-appetite" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-appetite" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="7/2" data-step="13" data-phq>
+					<div class="questions__step--note">
+						<span>PHQ</span>
+						<span><strong>6</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by feeling bad about yourself, that you are a failure, or have let yourself or your family down?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-bad" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-bad" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-bad" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-bad" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="8/2" data-step="14" data-phq>
+					<div class="questions__step--note">
+						<span>PHQ</span>
+						<span><strong>7</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by trouble concentrating on things such as reading newspapers or watching tv?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-concentrating" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-concentrating" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-concentrating" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-concentrating" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="9/2" data-step="15">
+					<div class="questions__step--note">
+						<span>PHQ</span>
+						<span><strong class="--last">8</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by moving or speaking so slowly that other people have noticed, OR being so fidgety or restless that you have been moving around a lot more than usual?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-moving" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-moving" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-moving" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-moving" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="10/2" data-step="16" data-gad>
+					<div class="questions__step--note">
+						<span>GAD7</span>
+						<span><strong>1</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by feeling nervous, anxious or on edge?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-nervous" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-nervous" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-nervous" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-nervous" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="11/2" data-step="17" data-gad>
+					<div class="questions__step--note">
+						<span>GAD7</span>
+						<span><strong>2</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by not being able to stop or control worrying?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-control" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-control" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-control" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-control" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="12/2" data-step="18" data-gad>
+					<div class="questions__step--note">
+						<span>GAD7</span>
+						<span><strong>3</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by worrying too much about different things?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-worrying" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-worrying" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-worrying" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-worrying" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="13/2" data-step="19" data-gad>
+					<div class="questions__step--note">
+						<span>GAD7</span>
+						<span><strong>4</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by trouble relaxing?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-relaxing" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-relaxing" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-relaxing" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-relaxing" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="14/2" data-step="20" data-gad>
+					<div class="questions__step--note">
+						<span>GAD7</span>
+						<span><strong>5</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by being so restless that it is hard to sit still?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-restless" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-restless" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-restless" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-restless" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="15/2" data-step="21" data-gad>
+					<div class="questions__step--note">
+						<span>GAD7</span>
+						<span><strong>6</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by becoming easily annoyed or irritable?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-annoyed" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-annoyed" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-annoyed" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-annoyed" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="16/2" data-step="22" data-gad>
+					<div class="questions__step--note">
+						<span>GAD7</span>
+						<span><strong>7</strong>/8</span>
+					</div>
+					<h2 class="questions__title">Over the last 2 weeks, how often have you been bothered by feeling afraid as if something awful might happen?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="bothered-afraid" data-score="0" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="bothered-afraid" data-score="1" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="bothered-afraid" data-score="2" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="bothered-afraid" data-score="3" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="17/2" data-step="23">
+					<div class="questions__step--note">
+						<span>GAD7</span>
+						<span><strong class="--last">8</strong>/8</span>
+					</div>
+					<h2 class="questions__title">In the past two weeks, how difficult have your problems made it for you to do work, take care of things at home, or get along with other people?</h2>
+					<div class="questions__radio">
+						<p>Select one that best describes</p>
+						<label>
+							Not at all
+							<input type="radio" name="problems" value="not-at-all" checked>
+						</label>
+						<label>
+							Several days
+							<input type="radio" name="problems" value="several-days">
+						</label>
+						<label>
+							More than half the days
+							<input type="radio" name="problems" value="half-days">
+						</label>
+						<label>
+							Nearly everyday
+							<input type="radio" name="problems" value="nearly-everyday">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="18/2" data-step="24">
+					<div class="questions__tabs">
+						<div class="questions__tabs--top">
+							<div class="questions__tabs--top-item active" data-tab="1">Anxiety results</div>
+							<div class="questions__tabs--top-item" data-tab="2">Depression results</div>
+						</div>
+						<div class="questions__tabs--content">
+							<div class="questions__tabs--content-item active" data-tab="1">
+								<div>
+									<div class="questions__tabs--score"><span data-gad-result>0</span>/21</div>
+									<h3 class="questions__tabs--name questions__person-name"></h3>
+									<p>The GAD assessment is scored on a 0-21 scale. You scored <span data-gad-result>0</span>/21, meaning you may be experiencing <span class="text-green"><span data-gad-result-name></span> anxiety</span></p>
+								</div>
+								<div>
+									<div class="questions__tabs--subtitle text-dark-gray">This may fell like</div>
+									<div class="questions__tabs--tags">
+										<div class="questions__tabs--tags-item">Feeling anxious/on edge</div>
+										<div class="questions__tabs--tags-item">Can’t help worrying</div>
+										<div class="questions__tabs--tags-item">Constant worrying</div>
+									</div>
+									<p>Anxiety can affect the way you live, but it doesn’t have to stay that way. By working together, we’ll help you find ways to manage your symptoms.</p>
+								</div>
+							</div>
+							<div class="questions__tabs--content-item" data-tab="2">
+								<div>
+									<div class="questions__tabs--score"><span data-phq-result>0</span>/21</div>
+									<h3 class="questions__tabs--name questions__person-name"></h3>
+									<p>The PHQ assessment is scored on a 0-21 scale. You scored <span data-phq-result>0</span>/21, meaning you may be experiencing <span class="text-green"><span data-phq-result-name></span> depression</span></p>
+								</div>
+								<div>
+									<div class="questions__tabs--subtitle text-dark-gray">This may fell like</div>
+									<div class="questions__tabs--tags">
+										<div class="questions__tabs--tags-item">Feeling anxious/on edge</div>
+										<div class="questions__tabs--tags-item">Can’t help worrying</div>
+										<div class="questions__tabs--tags-item">Constant worrying</div>
+									</div>
+									<p>Anxiety can affect the way you live, but it doesn’t have to stay that way. By working together, we’ll help you find ways to manage your symptoms.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="1/3" data-step="25">
+					<h2 class="questions__title"><span class="text-green">Thank you for answering those questions.</span> You’ve now set your baseline. Let's continue and take a much closer look at your medical history and health.</h2>
+				</div>
+
+				<div class="questions__step" data-progress="2/3" data-step="26">
+					<h2 class="questions__title">What are the primary issues that brought you in today?</h2>
+					<div class="questions__checkbox">
+						<p>If you're unsure, pick the ones that feel closest to what you're experiencing</p>
+						<label>
+							Persistent/excessive worry
+							<input type="checkbox" name="primary-issues" value="anxiety">
+						</label>
+						<label>
+							Depressed mood/ lost of interest in activities
+							<input type="checkbox" name="primary-issues" value="depressed_mood">
+						</label>
+						<label>
+							Panic attacks
+							<input type="checkbox" name="primary-issues" value="panic_attacks">
+						</label>
+						<label>
+							Insomnia
+							<input type="checkbox" name="primary-issues" value="insomnia">
+						</label>
+						<label>
+							Stress/ burned
+							<input type="checkbox" name="primary-issues" value="stress">
+						</label>
+						<label>
+							Grief
+							<input type="checkbox" name="primary-issues" value="grief">
+						</label>
+						<label>
+							Trauma
+							<input type="checkbox" name="primary-issues" value="trauma">
+						</label>
+						<label>
+							Other
+							<input type="checkbox" name="primary-issues" value="other">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="3/3" data-step="27">
+					<h2 class="questions__title">Have you been diagnosed or have a history of any of the following mental health conditions?</h2>
+					<div class="questions__checkbox">
+						<p>Telemedicine may not be suited to treat some conditions. It is important for you to tell us about your accurate history to help us understand if our platform is right for you.</p>
+						<label>
+							Depression
+							<input type="checkbox" name="accurate-history" value="depression">
+						</label>
+						<label>
+							Generalized anxiety or other anxiety disorders
+							<input type="checkbox" name="accurate-history" value="anxiety">
+						</label>
+						<label>
+							ADD/ADHD
+							<input type="checkbox" name="accurate-history" value="ADD/ADHD">
+						</label>
+						<label>
+							Bipolar disorder
+							<input type="checkbox" name="accurate-history" value="Bipolar disorder">
+						</label>
+						<label>
+							Psychosis
+							<input type="checkbox" name="accurate-history" value="Psychosis">
+						</label>
+						<label>
+							Schizophrenia/ Schizoaffective disorder
+							<input type="checkbox" name="accurate-history" value="Schizophrenia/ Schizoaffective disorder">
+						</label>
+						<label>
+							Binge eating
+							<input type="checkbox" name="accurate-history" value="Binge eating">
+						</label>
+						<label>
+							Borderline personality disorder
+							<input type="checkbox" name="accurate-history" value="Borderline personality disorder">
+						</label>
+						<label>
+							Serotonin Syndrome
+							<input type="checkbox" name="accurate-history" value="Serotonin Syndrome" data-conditional-field="serotonin">
+						</label>
+					</div>
+					<div class="questions__textarea" data-conditional-content="serotonin">
+						<p>What medications were you on to have caused the serotonin syndrome?</p>
+						<textarea name="serotonin" placeholder="Enter your answer"></textarea>
+					</div>
+					<div class="questions__textarea">
+						<p>Were you hospitalized and for how long?</p>
+						<textarea name="serotonin" placeholder="Enter your answer"></textarea>
+					</div>
+					<div class="questions__textarea">
+						<p>How were you treated?</p>
+						<textarea name="serotonin" placeholder="Enter your answer"></textarea>
+					</div>
+					<div class="questions__textarea">
+						<p>Please describe the situation related to serotonin syndrome</p>
+						<textarea name="serotonin" placeholder="Enter your answer"></textarea>
+					</div>
+					<div class="questions__textarea">
+						<p>How often do you currently use alcohol and/or substances?</p>
+						<textarea name="serotonin" placeholder="Enter your answer"></textarea>
+					</div>
+					<div class="questions__textarea">
+						<p>Were you ever in treatment? If so, how were you treated?</p>
+						<textarea name="serotonin" placeholder="Enter your answer"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="4/3" data-step="28">
+					<h2 class="questions__title">Have you been hospitalized for any mental health reasons and/or visited a crisis center or emergency room in the past?</h2>
+					<div class="questions__radio">
+						<p>Telemedicine may not be suited to treat some conditions. It is important for you to tell us about your accurate history to help us understand if our platform is right for you.</p>
+						<label>
+							Yes
+							<input type="radio" name="hospitalized_mental" value="yes" data-additional="28yes" checked>
+						</label>
+						<label>
+							No
+							<input type="radio" name="hospitalized_mental" value="no">
+						</label>
+					</div>
+				</div >
+				<div class="questions__step --additional" data-progress="4/3" data-step="28yes">
+					<h2 class="questions__title">Please pick all that applies below:</h2>
+					<div class="questions__textarea">
+						<p>When was this psychiatric hospitalization?</p>
+						<textarea name="psychiatric_hospitalization" placeholder="Enter your answer"></textarea>
+					</div>
+					<div class="questions__textarea">
+						<p>What was the situation that led to the hospitalization?</p>
+						<textarea name="situation_hospitalization" placeholder="Enter your answer"></textarea>
+					</div>
+					<div class="questions__textarea">
+						<p>When was this psychiatric hospitalization?</p>
+						<textarea name="when_psychiatric_hospitalization" placeholder="Enter your answer"></textarea>
+					</div>
+					<div class="questions__textarea">
+						<p>What was the situation that led to the hospitalization?</p>
+						<textarea name="what_psychiatric_hospitalization" placeholder="Enter your answer"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="5/3" data-step="29">
+					<h2 class="questions__title">How have you been feeling for the past few weeks?</h2>
+					<div class="questions__checkbox">
+						<p>Choices</p>
+						<label>
+							Sod
+							<input type="checkbox" name="feeling_past_weeks" value="Sod">
+						</label>
+						<label>
+							Anxious
+							<input type="checkbox" name="feeling_past_weeks" value="Anxious">
+						</label>
+						<label>
+							Worried
+							<input type="checkbox" name="feeling_past_weeks" value="Worried">
+						</label>
+						<label>
+							Mad
+							<input type="checkbox" name="feeling_past_weeks" value="Mad">
+						</label>
+						<label>
+							Irritable
+							<input type="checkbox" name="feeling_past_weeks" value="Irritable">
+						</label>
+						<label>
+							Unmotivated
+							<input type="checkbox" name="feeling_past_weeks" value="Unmotivated">
+						</label>
+						<label>
+							Emotional
+							<input type="checkbox" name="feeling_past_weeks" value="Emotional">
+						</label>
+						<label>
+							Stressed
+							<input type="checkbox" name="feeling_past_weeks" value="Stressed">
+						</label>
+						<label>
+							Afraid
+							<input type="checkbox" name="feeling_past_weeks" value="Afraid">
+						</label>
+						<label>
+							Tired
+							<input type="checkbox" name="feeling_past_weeks" value="Tired">
+						</label>
+						<label>
+							Hypervigilant
+							<input type="checkbox" name="feeling_past_weeks" value="Hypervigilant">
+						</label>
+						<label>
+							Apathetic
+							<input type="checkbox" name="feeling_past_weeks" value="Apathetic">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="6/3" data-step="30">
+					<h2 class="questions__title">How has your sleep been?</h2>
+					<div class="questions__checkbox">
+						<p>Choices</p>
+						<label>
+							Sleeping too much
+							<input type="checkbox" name="sleep_been" value="too much">
+						</label>
+						<label>
+							Sleeping too little
+							<input type="checkbox" name="sleep_been" value="too little">
+						</label>
+						<label>
+							Can’t fall asleep
+							<input type="checkbox" name="sleep_been" value="cant fall asleep">
+						</label>
+						<label>
+							Can’t stay asleep
+							<input type="checkbox" name="sleep_been" value="cant stay asleep">
+						</label>
+						<label>
+							Mid-night awakening
+							<input type="checkbox" name="sleep_been" value="midnight awakening">
+						</label>
+						<label>
+							Early-morning awakening
+							<input type="checkbox" name="sleep_been" value="early morning awakening">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="7/3" data-step="31">
+					<h2 class="questions__title">How has your appetite been?</h2>
+					<div class="questions__checkbox">
+						<p>Choices</p>
+						<label>
+							Eating too much
+							<input type="checkbox" name="appetite" value="too much">
+						</label>
+						<label>
+							Eating too little
+							<input type="checkbox" name="appetite" value="too little">
+						</label>
+						<label>
+							Don’t have appetite
+							<input type="checkbox" name="appetite" value="dont have">
+						</label>
+						<label>
+							Benging
+							<input type="checkbox" name="appetite" value="Benging">
+						</label>
+						<label>
+							Not eating on purpose
+							<input type="checkbox" name="appetite" value="not eating">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="8/3" data-step="32">
+					<h2 class="questions__title">Do you have a family history of mental health issues: depression, anxiety, bipolar, schizophrenia, substance abuse, etc?</h2>
+					<div class="questions__radio">
+						<p>Choices</p>
+						<label>
+							No, I do not have a family history of mental health issues
+							<input type="radio" name="hospitalized_mental" value="no" checked>
+						</label>
+						<label>
+							Not sure
+							<input type="radio" name="hospitalized_mental" value="not sure">
+						</label>
+						<label>
+							Yes
+							<input type="radio" name="hospitalized_mental" value="yes" data-additional="32yes">
+						</label>
+					</div>
+				</div>
+				<div class="questions__step --additional" data-progress="8/3" data-step="32yes">
+					<h2 class="questions__title">Who in your family has it? What were their symptoms, such as how they behaved? What medications or other treatments did they have?</h2>
+					<div class="questions__textarea">
+						<p>Answer</p>
+						<textarea name="family_mental_health" placeholder="Enter your answer"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="9/3" data-step="33">
+					<h2 class="questions__title">Are you currently taking psychiatric medications?</h2>
+					<div class="questions__radio">
+						<p>Choices</p>
+						<label>
+							Yes
+							<input type="radio" name="taking_psychiatric_meds" value="yes" data-additional="33yes" checked>
+						</label>
+						<label>
+							No
+							<input type="radio" name="taking_psychiatric_meds" value="no" data-additional="33no">
+						</label>
+					</div>
+				</div>
+				<div class="questions__step --additional" data-progress="9/3" data-step="33yes">
+					<h2 class="questions__title">Please list the name and the dose.</h2>
+					<div class="questions__textarea">
+						<p>Answer</p>
+						<textarea name="meds_name_dose" placeholder="Enter your answer" data-additional="33yes_2"></textarea>
+					</div>
+				</div>
+				<div class="questions__step --additional" data-progress="9/3" data-step="33yes_2">
+					<h2 class="questions__title">How long have you been taking it and have you seen improvement?</h2>
+					<div class="questions__textarea">
+						<p>Answer</p>
+						<textarea name="meds_how_long" placeholder="Enter your answer" data-additional="33yes_3"></textarea>
+					</div>
+				</div>
+				<div class="questions__step --additional" data-progress="9/3" data-step="33yes_3">
+					<h2 class="questions__title">Your doctor needs to know whether you have any side effects from the medication(s). Were there any side effects?</h2>
+					<div class="questions__textarea">
+						<p>Answer</p>
+						<textarea name="meds_side_effects" placeholder="Enter your answer" data-additional="33yes_4"></textarea>
+					</div>
+				</div>
+				<div class="questions__step --additional" data-progress="9/3" data-step="33yes_4">
+					<h2 class="questions__title">Do you want to continue your current medications?</h2>
+					<div class="questions__radio">
+						<p>Choices</p>
+						<label>
+							Yes
+							<input type="radio" name="meds_continue" value="yes" checked>
+						</label>
+						<label>
+							No, I want to change medications
+							<input type="radio" name="meds_continue" value="no">
+						</label>
+					</div>
+				</div>
+				<div class="questions__step --additional" data-progress="9/3" data-step="33no">
+					<h2 class="questions__title">Have you taken psychiatric medications in the past?</h2>
+					<div class="questions__textarea">
+						<p>Answer</p>
+						<textarea name="meds_psychiatric_in_past" placeholder="Enter your answer"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="10/3" data-step="34">
+					<h2 class="questions__title">Is there a specific mental health medication you are interested in?</h2>
+					<div class="questions__radio">
+						<p>It is helpful for the provider to know if you have a specific treatment preference.</p>
+						<label>
+							Yes
+							<input type="radio" name="specific_treatment" value="yes" checked>
+						</label>
+						<label>
+							No
+							<input type="radio" name="specific_treatment" value="no">
+						</label>
+					</div>
+					<div class="questions__checkbox">
+						<p>Please pick all that applies.</p>
+						<label>
+							Bupropion (Wellbutrin)
+							<input type="checkbox" name="meds_interested" value="Bupropion">
+						</label>
+						<label>
+							Buspirone (BuSpar)
+							<input type="checkbox" name="meds_interested" value="Buspirone">
+						</label>
+						<label>
+							Citalopram (Celexa)
+							<input type="checkbox" name="meds_interested" value="Citalopram">
+						</label>
+						<label>
+							Escitalopram (Lexapro)
+							<input type="checkbox" name="meds_interested" value="Escitalopram">
+						</label>
+						<label>
+							Fluoxetine (Prozac)
+							<input type="checkbox" name="meds_interested" value="Fluoxetine">
+						</label>
+						<label>
+							Sertraline (Zoloft)
+							<input type="checkbox" name="meds_interested" value="Sertraline">
+						</label>
+						<label>
+							Paroxetine (Paxil)
+							<input type="checkbox" name="meds_interested" value="Paroxetine">
+						</label>
+						<label>
+							Venlafaxine (Effexor)
+							<input type="checkbox" name="meds_interested" value="Venlafaxine">
+						</label>
+						<label>
+							Mirtazapine (Remeron)
+							<input type="checkbox" name="meds_interested" value="Mirtazapine">
+						</label>
+						<label>
+							Trazodone (Desyrel, Molipaxin)
+							<input type="checkbox" name="meds_interested" value="Trazodone">
+						</label>
+						<label>
+							Other
+							<input type="checkbox" name="meds_interested" value="Other">
+						</label>
+					</div>
+					<div class="questions__radio">
+						<p>Is there a specific dosage you are happy with?</p>
+						<label>
+							Yes
+							<input type="radio" name="specific_dosage" value="yes" checked>
+						</label>
+						<label>
+							No
+							<input type="radio" name="specific_dosage" value="no">
+						</label>
+					</div>
+					<div class="questions__textarea">
+						<p>Please list the dosage</p>
+						<textarea name="list_dosage" placeholder="Enter your answer"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="11/3" data-step="35">
+					<h2 class="questions__title">Are you currently taking other prescription medication, over-the-counter medication, supplements or herbal remedies ?</h2>
+					<div class="questions__radio">
+						<p>It is helpful for the provider to know if you have a specific treatment preference.</p>
+						<label>
+							Yes
+							<input type="radio" name="specific_treatment" value="yes" data-conditional-field="specific_treatment_yes">
+						</label>
+						<label>
+							No
+							<input type="radio" name="specific_treatment" value="no">
+						</label>
+					</div>
+					<div class="questions__textarea" data-conditional-content="specific_treatment_yes">
+						<p>What are the other prescription medications, over-the-counter medication, supplements or herbal remedies are you taking? Please list the exact names and dosage as seen on the prescription bottles.</p>
+						<textarea name="prescription_medications" placeholder="Enter your answer"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="12/3" data-step="36">
+					<h2 class="questions__title">What is your identified gender?</h2>
+					<div class="questions__radio">
+						<p>It is helpful for the provider to know if you have a specific treatment preference.</p>
+						<label>
+							Man
+							<input type="radio" name="gender" value="man" checked>
+						</label>
+						<label>
+							Woman
+							<input type="radio" name="gender" value="woman">
+						</label>
+						<label>
+							Transgender man
+							<input type="radio" name="gender" value="transgender_man">
+						</label>
+						<label>
+							Transgender woman
+							<input type="radio" name="gender" value="transgender_woman">
+						</label>
+						<label>
+							Gender queer/non-binary
+							<input type="radio" name="gender" value="non-binary">
+						</label>
+						<label>
+							Agender
+							<input type="radio" name="gender" value="agender">
+						</label>
+						<label>
+							Questioning
+							<input type="radio" name="gender" value="questioning">
+						</label>
+						<label>
+							Another gender
+							<input type="radio" name="gender" value="another-gender">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="13/3" data-step="37">
+					<h2 class="questions__title">What was your sex assigned at birth?</h2>
+					<div class="questions__radio">
+						<p>for example on your original birth certificate.</p>
+						<label>
+							Man
+							<input type="radio" name="birth_certificate" value="man" checked>
+						</label>
+						<label>
+							Female
+							<input type="radio" name="birth_certificate" value="female">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="14/3" data-step="38">
+					<h2 class="questions__title">Are you currently pregnant or trying to conceive?</h2>
+					<div class="questions__radio">
+						<p>for example on your original birth certificate</p>
+						<label>
+							Yes
+							<input type="radio" name="pregnant" value="yes" checked>
+						</label>
+						<label>
+							No
+							<input type="radio" name="pregnant" value="no">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="15/3" data-step="39">
+					<h2 class="questions__title">Do you have or have you ever had any of the following medical conditions?</h2>
+					<div class="questions__checkbox">
+						<p>Select all that apply.</p>
+						<label>
+							No, I do not have any of the below medical problems.
+							<input type="checkbox" name="medical_conditions" value="no">
+						</label>
+						<label>
+							Diabetes
+							<input type="checkbox" name="medical_conditions" value="Diabetes" data-conditional-field="last-seizure">
+						</label>
+						<label>
+							Enlarged prostate (benign prostate hyperplasia)
+							<input type="checkbox" name="medical_conditions" value="Enlarged prostate (benign prostate hyperplasia)" data-conditional-field="last-seizure">
+						</label>
+						<label>
+							Hair loss
+							<input type="checkbox" name="medical_conditions" value="Hair loss" data-conditional-field="last-seizure">
+						</label>
+						<label>
+							High blood pressure
+							<input type="checkbox" name="medical_conditions" value="High blood pressure" data-conditional-field="last-seizure">
+						</label>
+						<label>
+							History of Hyponatremia
+							<input type="checkbox" name="medical_conditions" value="History of Hyponatremia" data-conditional-field="last-seizure">
+						</label>
+						<label>
+							Kidney failure
+							<input type="checkbox" name="medical_conditions" value="Kidney failure" data-conditional-field="last-seizure">
+						</label>
+						<label>
+							Mirtazapine (Remeron)
+							<input type="checkbox" name="medical_conditions" value="Mirtazapine (Remeron)" data-conditional-field="last-seizure">
+						</label>
+						<label>
+							Premature ejaculation
+							<input type="checkbox" name="medical_conditions" value="Premature ejaculation" data-conditional-field="last-seizure">
+						</label>
+						<label>
+							QT prolongation
+							<input type="checkbox" name="medical_conditions" value="QT prolongation" data-conditional-field="last-seizure">
+						</label>
+						<label>
+							Thyroid disease (diagnosed)
+							<input type="checkbox" name="medical_conditions" value="Thyroid disease (diagnosed)" data-conditional-field="last-seizure">
+						</label>
+					</div>
+					<div class="questions__textarea" data-conditional-content="last-seizure">
+						<p>When was your last seizure?</p>
+						<textarea name="medical_conditions_last-seizure" placeholder="Enter your answer"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="16/3" data-step="40">
+					<h2 class="questions__title">Do you have any other medical conditions?</h2>
+					<div class="questions__radio">
+						<p>Choices</p>
+						<label>
+							Yes
+							<input type="radio" name="medical_conditions" value="yes" data-conditional-field="conditions">
+						</label>
+						<label>
+							No
+							<input type="radio" name="medical_conditions" value="no">
+						</label>
+					</div>
+					<div class="questions__textarea" data-conditional-content="conditions">
+						<p>What medical conditions do you have?</p>
+						<textarea name="conditions" placeholder="Enter your answer"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="17/3" data-step="41">
+					<h2 class="questions__title">Do you smoke or use other tobacco products?</h2>
+					<div class="questions__radio">
+						<p>This includes smoking, chewing, or vaping.</p>
+						<label>
+							No, I don’t use tobacco products.
+							<input type="radio" name="medical_conditions" value="no">
+						</label>
+						<label>
+							Yes
+							<input type="radio" name="medical_conditions" data-conditional-field="tobacco" value="yes">
+						</label>
+					</div>
+					<div class="questions__textarea" data-conditional-content="tobacco">
+						<p>How much do you smoke per day?</p>
+						<textarea name="tobacco_smoke" placeholder="Enter your answer"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="17/3" data-step="42">
+					<h2 class="questions__title">How often in the last year have you had 4 or more alcoholic drinks on one occasion?</h2>
+					<div class="questions__radio">
+						<p>It is important for your provider to understand any potential interactions and impact on mental health symptoms.</p>
+						<label>
+							Never
+							<input type="radio" name="alcoholic_drinks" value="never">
+						</label>
+						<label>
+							A few times a year
+							<input type="radio" name="alcoholic_drinks" value="few_times">
+						</label>
+						<label>
+							Once a month
+							<input type="radio" name="alcoholic_drinks" value="once_month">
+						</label>
+						<label>
+							Daily or almost daily
+							<input type="radio" name="alcoholic_drinks" value="daily">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="18/3" data-step="43">
+					<h2 class="questions__title">Are you currently using any of the following recreational drugs?</h2>
+					<div class="questions__checkbox">
+						<p>It is important for your provider to understand any potential interactions and impact on mental health symptoms.</p>
+						<label>
+							No, I do not use any of the substances below.
+							<input type="checkbox" name="recreational_drugs" value="no">
+						</label>
+						<label>
+							Cannabis, marijuana, THC
+							<input type="checkbox" name="recreational_drugs" value="Cannabis, marijuana, THC">
+						</label>
+						<label>
+							Cocaine
+							<input type="checkbox" name="recreational_drugs" value="Cocaine">
+						</label>
+						<label>
+							Opiates/opioids (Heroin,Fentanyl,Oxycontin, pain medications)
+							<input type="checkbox" name="recreational_drugs" value="Opiates/opioids (Heroin,Fentanyl,Oxycontin, pain medications)">
+						</label>
+						<label>
+							Poppers
+							<input type="checkbox" name="recreational_drugs" value="Poppers">
+						</label>
+						<label>
+							Stimulants (methamphetamines or illicit stimulants)
+							<input type="checkbox" name="recreational_drugs" value="Stimulants (methamphetamines or illicit stimulants)">
+						</label>
+						<label>
+							Other
+							<input type="checkbox" name="recreational_drugs" value="no" data-conditional-field="other">
+						</label>
+					</div>
+					<div class="questions__textarea" data-conditional-content="other">
+						<textarea name="recreational_drugs_other" placeholder="Enter your answer"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="19/3" data-step="44">
+					<h2 class="questions__title">Have you ever had any surgeries or hospitalization?</h2>
+					<div class="questions__radio">
+						<p>Choices</p>
+						<label>
+							No
+							<input type="radio" name="surgeries" value="no">
+						</label>
+						<label>
+							Yes
+							<input type="radio" name="surgeries" data-conditional-field="surgeries" value="yes">
+						</label>
+					</div>
+					<div class="questions__textarea" data-conditional-content="surgeries">
+						<p>Please explain any hospitalizations. What was it for? How were you treated?</p>
+						<textarea name="surgeries_explain" placeholder="Enter your answer"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="20/3" data-step="45">
+					<h2 class="questions__title">Do you have any allergies to medications, dyes, food or anything else?</h2>
+					<div class="questions__radio">
+						<p>Choices</p>
+						<label>
+							Yes
+							<input type="radio" name="allergies" data-conditional-field="allergies" value="yes">
+						</label>
+						<label>
+							No
+							<input type="radio" name="allergies" value="no">
+						</label>
+					</div>
+					<div class="questions__textarea" data-conditional-content="allergies">
+						<p>Please explain what the substance is and what your allergic reaction is.</p>
+						<textarea name="allergies_explain" placeholder="Enter your answer"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="21/3" data-step="46">
+					<h2 class="questions__title">In case of an emergency, is there someone you want us to contact?</h2>
+					<div class="questions__radio">
+						<p>Choices</p>
+						<label>
+							Yes
+							<input type="radio" name="emergency_contact" value="yes" data-additional="45yes">
+						</label>
+						<label>
+							No
+							<input type="radio" name="emergency_contact" value="no" data-conditional-field="i_understand">
+						</label>
+					</div>
+					<div class="questions__checkbox" data-conditional-content="i_understand">
+						<label>
+							I understand the risk associated with an emergency and still prefer not to share an emergency contact.
+							<input type="checkbox" name="risk_understand">
+						</label>
+					</div>
+				</div>
+				<div class="questions__step --additional" data-progress="21/3" data-step="45yes">
+					<h2 class="questions__title">Please share their name, their relationship to you, and number. By providing this information, you are providing CosmeticRX consent to contact this person in an event of an emergency or when applicable law requires us to contact them.</h2>
+					<div class="questions__textarea">
+						<p>Answer</p>
+						<textarea name="emergency_contact_text"></textarea>
+					</div>
+				</div>
+
+
+				<div class="questions__step" data-progress="22/3" data-step="47">
+					<h2 class="questions__title">Is there anything else your provider should know to better tailor your treatment plan?</h2>
+					<div class="questions__textarea">
+						<p>If appropriate, your provider will review your information and prescribe a treatment plan.</p>
+						<textarea name="provider_treatment_plan"></textarea>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="23/3" data-step="48">
+					<h2 class="questions__title">All set. Thanks <span class="questions__person-name"></span></h2>
+					<p>According to your clinical intake, it appears that you are experiencing symptoms of <span class="text-green">initial diagnosis based on answers given</span> and <span class="text-green">initial diagnosis based on answers given</span></p>
+					<p>You are not alone. Those with comparable symptoms who take daily medication and adhere to treatment plans have experienced improvement.
+We will now have one of the Board-Certified Psychiatrists at <a href="https://cosmeticrx.com">CosmeticRx.com</a> (or <a
+							href="https://boldrx.com">BoldRx.com</a>) review your consultation.</p>
+					<p>Some of the most widely used prescription medications are Lexapro, Zoloft, and Celexa. BoldRx has the guaranteed lowest price of any US telehealth company for a 3 month supply of medication.</p>
+					<p>Changing medication at any time during the treatment course is also entirely free. Is there a particular medication that you you have used before and prefer to receive. </p>
+
+					<div class="questions__input-select">
+						<label>
+							<select name="specific_meds_prefer">
+								<option value="no" selected>No, I do not have a specific medication I prefer</option>
+								<option value="yes">Yes</option>
+							</select>
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="24/3" data-step="49">
+					<h2 class="questions__title">You may be a candidate for Lexapro. If there is another medication that you prefer, please select this here to let your Board-Psychiatirst at BoldRx know</h2>
+
+					<div class="questions__input-select">
+						<label>
+							Choose a medicine
+							<select name="lexapro_candidate">
+								<option value="Lexapro" selected>Lexapro</option>
+								<option value="Lexapro2">Lexapro2</option>
+							</select>
+						</label>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="questions-footer">
+			<div class="questions-footer__wrapper">
+				<button type="button" class="button button-primary" data-next>Continue</button>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="/questions-assets/js/main.js"></script>
+{% endblock %}

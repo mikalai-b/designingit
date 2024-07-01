@@ -1,0 +1,14 @@
+<div class="consult-answer">
+    <span class="consult-text consult-text--question">{{ answer.question|product_highlighter|raw  }}</span>
+    <span class="consult-text consult-text--answer">
+        {% if answer.questionConfig.multi == 1 %}
+            <ul>
+                {% for selectedOption in answer.contentAsArray %}
+                    <li>{{ selectedOption }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            {{ answer.content }}
+        {% endif %}
+    </span>
+</div>

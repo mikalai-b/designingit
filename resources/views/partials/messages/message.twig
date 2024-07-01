@@ -1,0 +1,41 @@
+{% set receipt = user.getReceipt(message) %}
+
+{% if receipt or user is same as(message.sender) %}
+    <div id="m{{ message.id }}" class="message {{ receipt and (receipt.see or receipt.review) ? 'message-new' : '' }}">
+        <div class="message-top">
+            <span class="message-from">
+                {% if message.sender.avatar %}
+                    <img src="{{ s3url(message.sender.avatar) }}" alt="A picture of {{ message.sender }}" class="avatar">
+                {% else %}
+                    <img src="/images/default-avatar.png" alt="A picture of {{ message.sender }}" class="avatar">
+                {% endif %}
+                <span class="name">{{ message.sender }}</span>
+            </span>
+            <span class="message-date">{{ message.dateCreated|date("n/j/Y") }}</span>
+        </div>
+        <div class="message-body">
+            <span class="message-subject">{{ message.subject }}</span>
+            <p class="message-copy">
+                {{ message.body|raw }}
+            </p>
+        </div>
+        {% if receipt %}
+            <h3>Reply to {{ message.sender }}</h3>
+            <form class="message-reply" action="{{ route('compose') }}" method="POST">
+                <div class="form-group">
+                    <input type="hidden" name="body" />
+                    <div class="editor" data-input="[name=body]"></div>
+                </div>
+
+                {{ csrf_field() }}
+                <input type="hidden" name="pid" value="{{ message.id }}" />
+
+                <button class="button button-primary" type="submit">Send Message</button>
+            </form>
+        {% endif %}
+    </div>
+
+    {% for child in message.children %}
+        {% include 'partials.messages.message' with {message: child} %}
+    {% endfor %}
+{% endif %}

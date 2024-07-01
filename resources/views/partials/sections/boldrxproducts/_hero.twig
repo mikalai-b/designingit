@@ -1,0 +1,46 @@
+{% if entry.productHeroSection %}
+    {% for item in entry.productHeroSection %}
+        <div class="brx_hero">
+            <div class="container">
+                <div class="brx_hero__row">
+                    {% if item.productMainImage %}
+                        <div class="brx_hero__image">
+                            <img src="{{ item.productMainImage.first().url }}">
+                        </div>
+                    {% endif %}
+                    <div class="brx_hero__content">
+                        <h2>{{ entry.title }}</h2>
+                        {% if item.subtitle %}
+                            <span>{{ item.subtitle }}</span>
+                        {% endif %}
+                        {% if item.rating %}
+                            <div class="reviews-rate__rating" style="--rating: {{ item.rating }};"></div>
+                        {% endif %}
+                        {% if item.description %}
+                            <p>{{ item.description|nl2br }}</p>
+                        {% endif %}
+                        {% if entry.productAccordeonBulletList %}
+                            <div class="brxAccordeon">
+                                <div class="brxAccordeon__item">
+                                    <h3>{{ entry.productAccordeonTitle }}</h3>
+                                    <div class="accordHidden with--icons">
+                                        <ul>
+                                            {% for sub in entry.productAccordeonBulletList %}
+                                                {% if sub.accordText %}
+                                                    <li class="{% if sub.iconType.value == 'rxIcon' %}icon--rx{% elseif sub.iconType.value == 'shippingIcon' %}icon--box{% else %}icon--pillows{% endif %}">{{ sub.accordText }}</li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if item.bottomText %}
+                            <em>{{ item.bottomText|nl2br }}</em>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

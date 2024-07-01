@@ -1,0 +1,98 @@
+<section class="before-after-carousel">
+  <div class="container">
+    {% if block.tagline %}
+      <h3 class="before-after-carousel__tagline">{{ block.tagline }}</h3>
+    {% endif %}
+    {% if block.blockTitle %}
+      <h2 class="before-after-carousel__title">{{ block.blockTitle }}</h2>
+    {% endif %}
+    {% if block.subheadline %}
+      <div class="before-after-carousel__subheadline">{{ block.subheadline }}</div>
+    {% endif %}
+  </div>
+  {% set items = block.beforeAfterItems %}
+  {% if items|length %}
+  <div class="container">
+    <div class="before-after-carousel__container">
+      <div class="before-after-carousel__carousel">
+        {% for item in items %}
+          <div class="before-after-carousel__item">
+            <div class="before-after-carousel__images">
+              {% set images = item.images %}
+              {% if images|length %}
+                <div class="before-after-carousel__images--carousel">
+                  {% for image in images %}
+                    <div class="before-after-carousel__images--carousel-item">
+                      {# <a data-fancybox href="{{ image.url }}">
+                        <img src="{{ image.url }}" alt="{{ image.title }}">
+                        <i class="zoom--in"></i>
+                      </a> #}
+                      <img src="{{ image.url }}" alt="{{ image.title }}">
+                      <span>
+                        {% if loop.index == 1 %}
+                          Before
+                        {% elseif loop.index == 2 %}
+                          Now
+                        {% elseif loop.index == 3 %}
+                          During
+                        {% endif %}
+                      </span>
+                    </div>
+                  {% endfor %}
+                  <button type="button" class="before-after-carousel__images--carousel-prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 16 8" fill="none">
+                      <path d="M0.646445 3.64645C0.451183 3.84171 0.451183 4.15829 0.646445 4.35355L3.82843 7.53553C4.02369 7.7308 4.34027 7.7308 4.53553 7.53553C4.7308 7.34027 4.7308 7.02369 4.53553 6.82843L1.70711 4L4.53553 1.17157C4.73079 0.976312 4.73079 0.659729 4.53553 0.464467C4.34027 0.269205 4.02369 0.269205 3.82843 0.464467L0.646445 3.64645ZM16 3.5L0.999999 3.5L0.999999 4.5L16 4.5L16 3.5Z"
+                            fill="currentColor"/>
+                    </svg>
+                  </button>
+                  <button type="button" class="before-after-carousel__images--carousel-next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 16 8" fill="none">
+                      <path d="M0.646445 3.64645C0.451183 3.84171 0.451183 4.15829 0.646445 4.35355L3.82843 7.53553C4.02369 7.7308 4.34027 7.7308 4.53553 7.53553C4.7308 7.34027 4.7308 7.02369 4.53553 6.82843L1.70711 4L4.53553 1.17157C4.73079 0.976312 4.73079 0.659729 4.53553 0.464467C4.34027 0.269205 4.02369 0.269205 3.82843 0.464467L0.646445 3.64645ZM16 3.5L0.999999 3.5L0.999999 4.5L16 4.5L16 3.5Z"
+                            fill="currentColor"/>
+                    </svg>
+                  </button>
+                </div>
+              {% endif %}
+              {% if item.textUnderImages %}
+                <div class="before-after-carousel__images--text">
+                  {{ item.textUnderImages }}
+                </div>
+              {% endif %}
+            </div>
+            <div class="before-after-carousel__text">
+              {% if item.itemName %}
+                <h3 class="before-after-carousel__text--title">
+                  {{ item.itemName }}
+                </h3>
+              {% endif %}
+              {% if item.treatments|length %}
+                  <div class="expert-slider-info__item__bottom">
+                      {% for column in item.treatments %}
+                          <div class="expert-slider-info__item__bottom__column">
+                            {% for text in column.treatmentTexts %}
+                              {% if text.treatText %}
+                                  <p>{{ text.treatText|nl2br|raw }}</p>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                      {% endfor %}
+                      {% if block.doctorSignature|length %}
+                        <div class="doctorSignature">
+                          <img src="{{ block.doctorSignature.first().url }}">
+                        </div>
+                      {% endif %}
+                  </div>
+              {% endif %}
+              {% if item.itemText %}
+              <div class="before-after-carousel__text--text">
+                {{ item.itemText }}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</section>

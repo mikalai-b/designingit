@@ -1,0 +1,46 @@
+<div class="card prescribe">
+    <header class="card-header">
+        <span class="card-header--title">Prescriptions</span>
+    </header>
+    <div class="card-body">
+        <div class="form-group">
+            <label for="medication">Medication</label>
+            <select name="medication" id="medication">
+                {% for product in products %}
+                    <option value="{{ product.id }}">{{ product.name }}, {{ product.strength }} ({{ product.quantity }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% for line_item in lineItems %}
+            <h3 class="legend-bold">{{ line_item.product.name }}, {{ line_item.product.strength }} ({{ line_item.product.quantity }})</h3>
+            <div>
+                <div class="form-group">
+                    <label><input type="hidden" name="items[{{ line_item.id }}][approved]" value="0" />
+                        <input type="checkbox" name="items[{{ line_item.id }}][approved]" value="1" {{ items[line_item.id]['approved'] == '1' ? 'checked' : '' }} />
+                        Prescribe {{ line_item.product.name }}, {{ line_item.product.strength }}</label>
+                </div>
+                <div class="flex-container flex-between">
+                    <div class="options" data-condition="items[{{ line_item.id }}][approved]" data-value="1">
+
+                        <p class="fine">Uncheck the above checkbox to reject this prescription. No email will be sent to <a href="mailto:{{ order.person.email }}">{{ order.person.email }}</a>, so you may want to follow up with them on your own.</p>
+                        <div class="flex-container flex-between">
+                            <div class="form-group">
+                                <label>Refills</label>
+                                <input type="text" name="items[{{ line_item.id }}][refills]" value="{{ items[line_item.id]['refills'] }}" class="short" />
+                            </div>
+                            <div class="form-group">
+                                <label>Expires</label>
+                                <input type="date" name="items[{{ line_item.id }}][expires]" value="{{ items[line_item.id]['expires']|date('Y-m-d') }}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Sig</label>
+                            <textarea cols="25" rows="4" name="items[{{ line_item.id }}][directions]">{{ items[line_item.id]['directions'] }}</textarea>
+                        </div>
+                    </div>
+                    <!-- /.flex -->
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

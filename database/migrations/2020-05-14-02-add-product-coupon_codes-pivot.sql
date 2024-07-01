@@ -1,0 +1,3 @@
+CREATE TABLE product_coupon_codes (product CHAR(36) NOT NULL COMMENT '(DC2Type:uuid)', coupon_code VARCHAR(255) NOT NULL, INDEX IDX_8647BCD6D34A04AD (product), INDEX IDX_8647BCD6372BEC9A (coupon_code), PRIMARY KEY(product, coupon_code)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;     
+ALTER TABLE product_coupon_codes ADD CONSTRAINT FK_8647BCD6D34A04AD FOREIGN KEY (product) REFERENCES products (id) ON DELETE CASCADE;     
+ALTER TABLE product_coupon_codes ADD CONSTRAINT FK_8647BCD6372BEC9A FOREIGN KEY (coupon_code) REFERENCES coupon_codes (code) ON DELETE CASCADE; 

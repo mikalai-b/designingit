@@ -1,0 +1,383 @@
+{% set portalTitle = 'View Consultation' %}
+{% extends 'layouts/portal' %}
+
+{% block scripts %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.1/jquery.fancybox.min.css" />
+    {% include 'scripts.quill' %}
+{% endblock %}
+
+{% set order   = consultation.order %}
+{% set patient = order.person %}
+
+{% set productCategorySlug = consultation.order.productCategorySlug %}
+
+{% block primary %}
+    <section class="portal consultation-detail">
+        <div class="container">
+            {% include 'partials/messaging/flash.twig' %}
+            <div class="portal-headline">
+                <div class="breadcrumbs">
+                    <a href="/dashboard" class="breadcrumb-item">Dashboard</a>
+                    <span class="breadcrumb-item">View Consultation</span>
+                </div>
+            </div>
+
+            <div>
+                <h1>
+                    {{ consultation.order }}
+                    <span class="portal-headline--lede">Date Submitted: {{ consultation.dateCreated|date('m/d/Y') }}</span>
+                </h1>
+            </div>
+
+            <div class="portal-columns">
+                <div class="portal-column--first">
+
+                    {% if user.hasRoleByName('Provider') %}
+                        <div class="card">
+                            <header class="card-header">
+                                <span class="card-header--title">Patient Details</span>
+                            </header>
+                            <div class="card-body">
+                                <div class="card--two-columns">
+                                    <div class="card-column card-column--vertical">
+                                        <div class="card-info">
+                                            <span class="card-info--title">Name</span>
+                                            <span class="card-info--text">{{ patient.fullName }} <a href="{{ route('patient', {id: patient.id}) }}" class="button button-primary button-primary--mini"><i class="fas fa-comment"></i> Send Message</a></span>
+
+                                            <span class="card-info--title">Address</span>
+                                            <span class="card-info--text">
+                                                {{ patient.addressLine1 }}<br />
+                                                {% if patient.addressLine2 %}
+                                                    {{ patient.addressLine2 }}<br />
+                                                {% endif %}
+                                                {{ patient.city }}, {{ patient.state }} {{ patient.postalCode }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="card-column">
+                                        <div class="card-info">
+                                            <span class="card-info--title">Date of Birth</span>
+                                            <span class="card-info--text">{{ patient.dateOfBirth|date('m/d/Y') }}</span>
+
+                                            <span class="card-info--title">Phone</span>
+                                            <span class="card-info--text">{{ patient.phone ?: 'N/A' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        {% if consultation.open %}
+                            <div class="card">
+                                <header class="card-header">
+                                    <span class="card-header--title">Requesting Treatment</span>
+                                </header>
+                                {% for lineItem in order.lineItems %}
+                                    <div class="card-body">
+                                        <div class="card--two-columns refills">
+                                            <div class="card-column card-column--vertical refill-content">
+                                                <span class="card-body--title">{{ lineItem.product }} ({{ lineItem.product.quantity }})</span>
+                                                {% if lineItem.product.type.symptoms|length %}
+                                                    <span class="card-body--text">
+                                                        <strong>For the treatment of:</strong>
+                                                    </span>
+                                                    <ul>
+                                                        {% for symptom in lineItem.product.type.symptoms %}
+                                                            <li>{{ symptom }}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                                <span class="card-body--text">
+                                                    <div><strong>Voucher code:</strong></div>
+                                                    <v-prescriber-coupon-code
+                                                            order-id="{{ order.id }}"
+                                                            initial-code="{{ order.couponCode }}"
+                                                    >
+                                                    </v-prescriber-coupon-code>
+                                                </span>
+                                            </div>
+                                            <div class="card-column refill-image">
+                                                <div class="card-column--image">
+                                                    <img src="{{ lineItem.product.thumbnail }}" alt="Picture of {{ lineItem.product }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <div class="card">
+                        <header class="card-header">
+                            <span class="card-header--title">Medical History</span>
+                        </header>
+                        <div class="card-body">
+                            {% for answer in consultation.answers %}
+                                {% if answer.type %}
+                                    {% include 'partials/answers/' ~ answer.type.template ~ '.twig' %}
+                                {% else %}
+                                    {% if answer.getQuestionConfig() == "radio" or answer.getQuestionConfig() == "text" or answer.getQuestionConfig() == "checkbox" %}
+                                        {% include 'partials/answers/question_config/short-answer.twig' %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {% if consultation.isOpen and Gate.allows('complete', consultation) %}
+                        <form method="POST" action="{{ url.full }}">
+                            <div class="card">
+                                <header class="card-header">
+                                    <span class="card-header--title">Physical Exam</span>
+                                </header>
+                                <div class="card-body">
+                                    {% if consultation.physicalExam %}
+                                        <v-notes-input input-name="physicalExam" prepopulate="{{ consultation.physicalExam|json_encode }}"></v-notes-input>
+                                    {% else %}
+                                        <v-notes-input input-name="physicalExam" prepopulate="{{ rx.getPhysicalExam(consultation)|json_encode }}"></v-notes-input>
+                                    {% endif %}
+                                    {% include 'partials.messaging.error' with {field: 'physicalExam'} %}
+                                </div>
+                            </div>
+
+
+                            <div class="card">
+                                <header class="card-header">
+                                    <span class="card-header--title">Diagnosis</span>
+                                </header>
+                                <div class="card-body">
+                                    {% if consultation.diagnosis %}
+                                        <v-notes-input input-name="diagnosis" prepopulate="{{ consultation.diagnosis|json_encode }}"></v-notes-input>
+                                    {% else %}
+                                        <v-notes-input input-name="diagnosis" prepopulate="{{ rx.getPhysicalExam(consultation)|json_encode }}"></v-notes-input>
+                                    {% endif %}
+                                    {% include 'partials.messaging.error' with {field: 'diagnosis'} %}
+                                </div>
+                            </div>
+
+                            {% if productCategorySlug == 'mental-health' %}
+                                {% include 'pages/consultations/_prescriptions/standard-prescription.twig' with {'products': products, 'lineItems': consultation.order.lineItems } %}
+                            {% endif %}
+
+                            {% if productCategorySlug == 'derma' %}
+                                {% include 'pages/consultations/_prescriptions/weight-prescription.twig' with {
+                                    'products': products,
+                                    'lineItems': consultation.order.lineItems,
+                                    'prescriptions': consultation.prescriptions,
+                                    'productPrescriptionVariants': productPrescriptionVariants } %}
+                            {% endif %}
+
+                            <div class="card">
+                                <header class="card-header">
+                                    <span class="card-header--title">Letter to Patient</span>
+                                </header>
+
+                                <input type="hidden" name="letter" />
+                                {% if consultation.letter %}
+                                    <div class="editor" data-input="[name=letter]" id="letter">{{ consultation.letter|raw }}</div>
+                                {% else %}
+                                    <div class="editor" data-input="[name=letter]" id="letter">{{ rx.getLetter(consultation)|raw }}</div>
+                                {% endif %}
+                                {% include 'partials.messaging.error' with {field: 'letter'} %}
+                            </div>
+
+                            <div class="action action-left">
+                                {{ csrf_field() }}
+                                <button class="button button-primary--small" type="submit" name="action" value="complete">Complete Consultation</button>
+                            </div>
+                        </form>
+
+                    {% elseif consultation.isCompleted %}
+
+                        {% if user.hasRoleByName('Provider') %}
+                            <div class="card">
+                                <header class="card-header">
+                                    <span class="card-header--title">Physical Exam</span>
+                                </header>
+                                <div class="card-body">
+                                    {% if consultation.physicalExam|length %}
+                                        <ul>
+                                            {% for symptom in consultation.physicalExam %}
+                                                <li>{{ symptom }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <header class="card-header">
+                                    <span class="card-header--title">Diagnosis</span>
+                                </header>
+                                <div class="card-body">
+                                    {% if consultation.diagnosis|length %}
+                                        <ul>
+                                            {% for symptom in consultation.diagnosis %}
+                                                <li>{{ symptom }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+                        {% if consultation.prescriptions|length %}
+                            <div class="card">
+                                <header class="card-header">
+                                    <span class="card-header--title">Prescriptions</span>
+                                </header>
+                                <div class="card-body">
+                                    {% for prescription in consultation.prescriptions %}
+                                        <span class="card-body--title">{{ prescription.lineItem.product }} ({{ prescription.lineItem.product.quantity }})</span>
+                                        <div class="card--two-columns refills">
+                                            <div class="card-column card-column--vertical refill-content">
+
+                                                <div class="card-info">
+                                                    <div class="flex-container flex-between">
+                                                        <div>
+                                                            <span class="card-info--title">Prescribed</span>
+                                                            <span class="card-info--text">{{ prescription.dateCreated|date('m/d/Y') }}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="card-info--title">Expires</span>
+                                                            <span class="card-info--text">{{ prescription.dateEnd|date('m/d/Y') }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-container flex-between">
+                                                        <div>
+                                                            <span class="card-info--title">Remaining Refills</span>
+                                                            <span class="card-info--text">{{ prescription.remainingRefills }}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="card-info--title">Period</span>
+                                                            <span class="card-info--text">
+                                                                {% if prescription.period %}
+                                                                    {{ prescription.period }} days
+                                                                {% else %}
+                                                                    N/A
+                                                                {% endif %}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <span class="card-info--title">Status</span>
+                                                        <span class="card-info--text">{{ prescription.statusIncludingExpired }}</span>
+                                                    </div>
+
+                                                    <span class="card-info--title">Instructions</span>
+                                                    <span class="card-info--text">{{ prescription.instructions }}</span>
+
+                                                    <span class="card-info--title">Voucher code:</span>
+                                                    <span class="card-info--text">
+                                                        {% if order.couponCode %}
+                                                            <span class="couponCode">
+                                                                <span class="couponCode__code">
+                                                                    {{ order.couponCode }}
+                                                                </span><!-- .couponCode__code -->
+                                                            </span>
+                                                        {% else %}
+                                                            N/A
+                                                        {% endif %}
+                                                    </span>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-column refill-image">
+                                                <div class="card-column--image">
+                                                    <img src="{{ prescription.lineItem.product.thumbnail }}" alt="Picture of {{ prescription.lineItem.product }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% if user.hasRoleByName('Provider') and prescription.remainingRefills and prescription.canceled != true %}
+                                            <div class="card-actions">
+                                                <v-refill-frequency-setter
+                                                    :available-periods="{{ prescription.lineItem.product.availableDashboardPeriods|json_encode }}"
+                                                    :initial-selected-period="{{ prescription.lineItem.period ? prescription.lineItem.period : 0 }}"
+                                                    :prescription-id="{{ prescription.id }}"
+                                                    :is-paused="{{ prescription.paused ? 'true' : 'false' }}"
+                                                    :allow-null="true"
+                                                ></v-refill-frequency-setter>
+
+                                            </div><!-- .card-actions -->
+                                        {% endif %}
+
+                                    {% else %}
+                                        <p>
+                                            No medications have been prescribed for this consultation.
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="card">
+                            <header class="card-header">
+                                <span class="card-header--title">Consultation Letter</span>
+                            </header>
+                            <div class="card-body">
+                                {% if consultation.letter %}
+                                    {{ consultation.letter|raw }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="portal-column--last">
+                    <div class="card">
+                        <header class="card-header">
+                            <span class="card-header--title">Photos</span>
+                        </header>
+                        <div class="card-body">
+                            <div class="photos">
+                                {% if consultation.isOpen and user is same as(order.person) %}
+                                    <div id="photo-manager" style="display:none">
+                                        <h2>Update Photos</h2>
+                                        <form method="post" action="{{ route('edit-photos', consultation.id) }}" enctype="multipart/form-data">
+                                            {{ csrf_field() }}
+                                            {% for type in consultation.photoTypesForProducts %}
+                                                <fieldset class="photos">
+                                                    <legend>{{ type.name }}</legend>
+                                                    <p>{{ type.description }}</p>
+                                                    <v-photo-manager type-id="{{ type.id }}" max-uploads="{{ type.maxUploads }}" consultation-id="{{ consultation.id }}">
+                                                </fieldset>
+                                            {% endfor %}
+                                            <input type="submit" value="Save Photos" class="button button-primary--small" />
+                                        </form>
+                                    </div>
+                                {% endif %}
+
+                                {% for type in consultation.photoTypes %}
+                                    <div class="consult-photo-type">
+                                        <div class="consult-photos">
+                                            {% for photo in consultation.photosForType(type) %}
+                                                <div class="consult-photo">
+                                                    <a data-fancybox="images" href="{{ s3url(photo.file) }}">
+                                                        <img src="{{ s3url(photo.file) }}" />
+                                                        <span class="caption">{{ type }}</span>
+                                                    </a>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <p>
+                                        No photos have been uploaded to this consultation.
+                                    </p>
+                                {% endfor %}
+
+                                {% if consultation.isOpen and user is same as(order.person) %}
+                                    <a class="button button-product--small" href="javascript:;" data-fancybox data-src="#photo-manager">Update Photos</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

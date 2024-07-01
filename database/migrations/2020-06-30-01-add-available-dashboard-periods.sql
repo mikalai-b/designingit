@@ -1,0 +1,2 @@
+ALTER TABLE product_types ADD available_dashboard_periods LONGTEXT DEFAULT NULL COMMENT '(DC2Type:array)';
+ALTER TABLE products ADD available_dashboard_periods LONGTEXT DEFAULT NULL COMMENT '(DC2Type:array)';

@@ -1,0 +1,118 @@
+{% set portalTitle = 'Account Details' %}
+{% extends 'layouts/full-width' %}
+
+{% block scripts %}
+    {% include 'scripts.image-preview' %}
+{% endblock %}
+
+{% block primary %}
+    <section class="portal">
+        <div class="container">
+            <div class="portal-headline">
+                <div class="breadcrumbs">
+                    <a href="/dashboard" class="breadcrumb-item">Dashboard</a>
+                    <span class="breadcrumb-item">My Account Details</span>
+                </div>
+                <h1>
+                    My Account Details
+                </h1>
+            </div>
+
+            <form class="container user-form account-form" method="POST" action="{{ url.full }}" enctype="multipart/form-data">
+
+                <div class="portal-columns">
+                    <div class="portal-column--first">
+                        <fieldset>
+                            <h2 class="icon-heading"><i class="fa fa-user"></i></h2>
+                            {% if person.hasRoleByName('Provider') %}
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input id="title" type="text" name="title" value="{{ person.title }}" />
+                                    {% include 'partials/messaging/error.twig' with {field: 'title'} %}
+                                </div>
+                            {% endif %}
+
+                            <div class="form-group form-group--medium">
+                                <label for="firstName">First Name</label>
+                                <input id="firstName" type="text" name="firstName" value="{{ person.firstName }}" />
+                                {% include 'partials/messaging/error.twig' with {field: 'firstName'} %}
+                            </div>
+
+                            <div class="form-group form-group--medium">
+                                <label for="lastName">Last Name</label>
+                                <input id="lastName" type="text" name="lastName" value="{{ person.lastName }}" />
+                                {% include 'partials/messaging/error.twig' with {field: 'lastName'} %}
+                            </div>
+
+                            {% if person.hasRoleByName('Provider') %}
+                                <div class="form-group form-group--small">
+                                    <label for="credentials">Credentials</label>
+                                    <input id="credentials" type="text" name="credentials" value="{{ person.credentials }}" placeholder="e.g. PhD" />
+                                    {% include 'partials/messaging/error.twig' with {field: 'credentials'} %}
+                                </div>
+                            {% endif %}
+
+                            <div class="form-group">
+                                <label for="dateOfBirth">Date of Birth</label>
+                                <input id="dateOfBirth" type="date" name="dateOfBirth" value="{{ person.dateOfBirth|date('Y-m-d') }}" />
+                                {% include 'partials/messaging/error.twig' with {field: 'dateOfBirth'} %}
+                            </div>
+
+                            <div class="form-group form-group--medium">
+                                <label for="email">Email</label>
+                                <input id="email" type="text" name="email" value="{{ person.email }}" />
+                                {% include 'partials/messaging/error.twig' with {field: 'email'} %}
+                            </div>
+
+                            <div class="form-group form-group--medium">
+                                <label for="phone">Phone</label>
+                                <input id="phone" type="text" name="phone" value="{{ person.phone }}" />
+                                {% include 'partials/messaging/error.twig' with {field: 'phone'} %}
+                            </div>
+
+                        </fieldset>
+                    </div>
+
+                    <div class="portal-column--last">
+                        {% if person.hasRoleByName('Provider') %}
+                            <fieldset>
+                                <h2 class="icon-heading"><i class="fa fa-camera"></i></h2>
+
+                                <div class="form-group">
+                                    <label for="avatar">Photo</label>
+                                    <div class="photo">
+                                        <div class="preview">
+                                            {% if person.avatar %}
+                                                <img src="{{ s3url(person.avatar) }}" />
+                                                <label class="has-pointer">
+                                                    <input type="checkbox" name="remove-avatar" value="1" />
+                                                    Remove photo?
+                                                </label>
+                                            {% else %}
+                                                <img src="//via.placeholder.com/480x640" />
+                                            {% endif %}
+                                        </div>
+                                        <label for="avatar">
+                                            <i class="fas fa-image"></i>
+                                            {% if person.avatar %}
+                                                <span>Replace photo</span>
+                                                {% else %}
+                                                    <span>Upload Photo</span>
+                                            {% endif %}
+                                        </label>
+                                        <input type="file" id="avatar" name="avatar" accept="image/*;capture=camera" />
+                                        {% include 'partials/messaging/error.twig' with {field: 'avatar'} %}
+                                    </div>
+                                </div>
+                            </fieldset>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+                {{ csrf_field() }}
+                <button class="button button-primary" type="submit">Save Account</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

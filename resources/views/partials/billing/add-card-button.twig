@@ -1,0 +1,10 @@
+<button id="{{ buttonId|default('add-card') }}" type="button"
+    class="AcceptUI button button-{{ class|default('secondary') }}"
+    data-billingAddressOptions='{"show":true, "required":true}'
+    data-apiLoginID="{{ env('AUTHNET_LOGIN') }}"
+    data-clientKey="{{ env('AUTHNET_PUB_KEY') }}"
+    data-acceptUIFormBtnTxt="Save"
+    data-acceptUIFormHeaderTxt="Card Information"
+    data-paymentOptions='{"showCreditCard": true}'
+    data-responseHandler="handleAuthResponse">{{ label|default('Add Card') }}
+</button>

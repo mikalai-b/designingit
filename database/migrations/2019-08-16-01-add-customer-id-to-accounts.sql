@@ -1,0 +1,1 @@
+ALTER TABLE accounts ADD customer varchar(255) DEFAULT NULL;

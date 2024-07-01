@@ -1,0 +1,667 @@
+{% extends 'layouts/master' %}
+
+{% block layout %}
+
+	<link rel="stylesheet" href="/questions-assets/css/main.css">
+
+	<div class="questions">
+		<div class="questions__wrapper">
+			<div class="questions__progress">
+				<button data-prev data-hide-on-steps="1">
+					<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+						<g clip-path="url(#clip0_1235_3788)">
+							<path d="M10.2404 13.8601L10.9417 13.1588C11.0354 13.0653 11.082 12.9577 11.082 12.8359C11.082 12.7145 11.0354 12.6069 10.9417 12.5135L5.4286 7.00007L10.9416 1.48692C11.0352 1.39342 11.0819 1.28582 11.0819 1.16426C11.0819 1.04265 11.0352 0.93504 10.9416 0.841585L10.2402 0.14033C10.1467 0.0466783 10.0391 1.24364e-08 9.91753 1.38865e-08C9.79602 1.53355e-08 9.68841 0.0468257 9.59496 0.14033L3.05774 6.6774C2.96423 6.77086 2.91751 6.87851 2.91751 7.00007C2.91751 7.12163 2.96423 7.22909 3.05774 7.3225L9.59496 13.8601C9.68846 13.9536 9.79607 14 9.91753 14C10.0391 14 10.1467 13.9536 10.2404 13.8601Z" fill="currentColor"/>
+						</g>
+						<defs>
+							<clipPath id="clip0_1235_3788">
+								<rect width="14" height="14" fill="white" transform="translate(14) rotate(90)"/>
+							</clipPath>
+						</defs>
+					</svg>
+					Previous
+				</button>
+				<div class="questions__progress-bar"></div>
+				<div class="questions__progress-bar--below-text" data-show-on-steps="">
+					<span data-product-name></span>. Lowest price in the US. Free overnight shipping.
+				</div>
+			</div>
+
+			<form id="questions_weight" class="questions__form --weight" action="">
+				<div class="questions__step --wider-step" data-progress="1/1" data-step="1" data-show-product="false" >
+
+					<div style="background-image: url('/questions-assets/images/questions-weight.jpg');" data-product-condition="default">
+						<div class="questions__description">
+							Compounded Semaglutide (the ingredient in Ozempic) <br>
+							Guaranteed lowest price in the US <br><br>
+							$299 (includes everything - medication, online consult and ongoing medical care, and free overnight shipping)
+						</div>
+					</div>
+
+					<div data-product-condition="10f61172-624d-40d3-9660-857d73590a27">
+						<picture>
+							<source media="(max-width: 799px)" srcset="/questions-assets/images/SEMAGLUTIDE_BLUE_MOBILE.png" />
+							<img src="/questions-assets/images/SEMAGLUTIDE_BLUE.png" alt="Semaglutide" />
+						</picture>
+					</div>
+
+					<div data-product-condition="13275ea0-4fb3-480e-a691-fab5c89ac389">
+						<picture>
+							<source media="(max-width: 799px)" srcset="/questions-assets/images/TIRZEPATIDE_BLUE_MOBILE.png" />
+							<img src="/questions-assets/images/TIRZEPATIDE_BLUE.png"  alt="Tirzepatide" />
+						</picture>
+					</div>
+
+					<div>
+						{% include 'questions-weight/ticker-slider.twig' %}
+					</div>
+
+					<div>
+						<h2 class="questions__title">Why are you looking to lose weight?</h2>
+						<div class="questions__radio">
+							<label>
+								Improve health
+								<input type="radio" name="why_looking_lose" value="improve health" data-next-on-change>
+							</label>
+							<label>
+								Feel more confident
+								<input type="radio" name="why_looking_lose" value="Feel more confident" data-next-on-change>
+							</label>
+							<label>
+								Improve quality of life
+								<input type="radio" name="why_looking_lose" value="Improve quality of life" data-next-on-change>
+							</label>
+							<label>
+								All of the above
+								<input type="radio" name="why_looking_lose" value="All of the above" data-next-on-change>
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="questions__step --wider-step" data-progress="2/1" data-step="2" data-show-product="false">
+
+					<div style="background-image: url('/questions-assets/images/questions-weight.jpg');" data-product-condition="default">
+						<div class="questions__description">
+							Compounded Semaglutide (the ingredient in Ozempic) <br>
+							Guaranteed lowest price in the US <br><br>
+							$299 (includes everything - medication, online consult and ongoing medical care, and free overnight shipping)
+						</div>
+					</div>
+
+					<div data-product-condition="10f61172-624d-40d3-9660-857d73590a27">
+						<picture>
+							<source media="(max-width: 799px)" srcset="/questions-assets/images/SEMAGLUTIDE_BLUE_MOBILE.png" />
+							<img src="/questions-assets/images/SEMAGLUTIDE_BLUE.png" alt="Semaglutide" />
+						</picture>
+					</div>
+
+					<div data-product-condition="13275ea0-4fb3-480e-a691-fab5c89ac389">
+						<picture>
+							<source media="(max-width: 799px)" srcset="/questions-assets/images/TIRZEPATIDE_BLUE_MOBILE.png" />
+							<img src="/questions-assets/images/TIRZEPATIDE_BLUE.png"  alt="Tirzepatide" />
+						</picture>
+					</div>
+
+					<div>
+						{% include 'questions-weight/ticker-slider.twig' %}
+					</div>
+
+					<div>
+						<h2 class="questions__title">How much weight are you looking to lose</h2>
+						<div class="questions__radio">
+							<label>
+								< 20 lbs
+								<input type="radio" name="looking_to_lose" value="20 lbs" data-next-on-change>
+							</label>
+							<label>
+								21-50 lbs
+								<input type="radio" name="looking_to_lose" value="21-50 lbs" data-next-on-change>
+							</label>
+							<label>
+								51+ lbs
+								<input type="radio" name="looking_to_lose" value="51+ lbs" data-next-on-change>
+							</label>
+							<label>
+								Not sure yet
+								<input type="radio" name="looking_to_lose" value="Not sure yet" data-next-on-change>
+							</label>
+						</div>
+					</div>
+				</div>
+
+				{# <div class="questions__step --wider-step" data-progress="3/1" data-step="3" data-show-product="false">
+
+					<div style="background-image: url('/questions-assets/images/questions-weight.jpg');" data-product-condition="default">
+						<div class="questions__description">
+							Compounded Semaglutide (the ingredient in Ozempic) <br>
+							Guaranteed lowest price in the US <br><br>
+							$299 (includes everything - medication, online consult and ongoing medical care, and free overnight shipping)
+						</div>
+					</div>
+
+					<div data-product-condition="10f61172-624d-40d3-9660-857d73590a27">
+						<picture>
+							<source media="(max-width: 799px)" srcset="/questions-assets/images/SEMAGLUTIDE_BLUE_MOBILE.png" />
+							<img src="/questions-assets/images/SEMAGLUTIDE_BLUE.png" alt="Semaglutide" />
+						</picture>
+					</div>
+
+					<div data-product-condition="13275ea0-4fb3-480e-a691-fab5c89ac389">
+						<picture>
+							<source media="(max-width: 799px)" srcset="/questions-assets/images/TIRZEPATIDE_BLUE_MOBILE.png" />
+							<img src="/questions-assets/images/TIRZEPATIDE_BLUE.png"  alt="Tirzepatide" />
+						</picture>
+					</div>
+
+					<div>
+						{% include 'questions-weight/ticker-slider.twig' %}
+					</div>
+
+
+					<div>
+						<h2 class="questions__title">Your medical questions will be reviewed by a CosmeticRx (or BoldRx) Board-Certified Physician, as they are available on your weight loss journey</h2>
+					</div>
+				</div> #}
+
+				<div class="questions__step" data-progress="4/1" data-step="4">
+					<h2 class="questions__title">What do you want to accomplish with the CosmeticRx Body Program</h2>
+					<div class="questions__checkbox">
+						<p>I want to...</p>
+						<label>
+							Lose weight
+							<input type="checkbox" name="what_do_you_want" value="Lose weight">
+						</label>
+						<label>
+							Improve my general physical health
+							<input type="checkbox" name="what_do_you_want" value="Improve my general physical health">
+						</label>
+						<label>
+							Improve another health condition
+							<input type="checkbox" name="what_do_you_want" value="Improve another health condition">
+						</label>
+						<label>
+							Increase confidence about my appearance
+							<input type="checkbox" name="what_do_you_want" value="Increase confidence about my appearance">
+						</label>
+						<label>
+							Increase energy for activities I enjoy
+							<input type="checkbox" name="what_do_you_want" value="Increase energy for activities I enjoy">
+						</label>
+						<label>
+							I have another goal not listed above
+							<input type="checkbox" name="what_do_you_want" value="I have another goal not listed above">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="5/1" data-step="5" data-bmi-calculate>
+					<h2 class="questions__title">Let's start with where you are now</h2>
+					<div class="questions__input">
+						<p>Your height</p>
+
+						<div class="questions__two-columns">
+							<label>
+								Feet
+								<input type="text" name="feet" data-bmi-input="feet">
+							</label>
+							<label>
+								Inches
+								<input type="text" name="inches" data-bmi-input="inches">
+							</label>
+						</div>
+
+						<p>Your current weight</p>
+						<label>
+							Pounds
+							<input type="text" name="pounds" data-bmi-input="pounds" data-weight-input>
+						</label>
+					</div>
+					<div class="questions__svg-bmi-text">
+						<p>Your BMI is <span data-bmi-output>0</span></p>
+						<p data-bmi-weight-limit>Your BMI should be 27 or higher</p>
+					</div>
+					<input type="hidden" name="bmi_score" data-bmi-score value>
+				</div>
+
+				<div class="questions__step" data-progress="6/1" data-step="6">
+					<h2 class="questions__title">How much weight are you looking to lose</h2>
+					<div class="questions__radio">
+						<label>
+							< 20 lbs
+							<input type="radio" name="looking_to_lose_2" value="20 lbs">
+						</label>
+						<label>
+							21-50 lbs
+							<input type="radio" name="looking_to_lose_2" value="21-50 lbs">
+						</label>
+						<label>
+							51+ lbs
+							<input type="radio" name="looking_to_lose_2" value="51+ lbs">
+						</label>
+						<label>
+							Not sure yet
+							<input type="radio" name="looking_to_lose_2" value="Not sure yet">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step questions__step--weight-chart" data-progress="7/1" data-step="7">
+					<div class="questions__svg-animation">
+						<div>Your Weight</div>
+						<div class="questions__weight-current-weight">
+							<span data-weight-output>0</span>
+							<span>lbs</span>
+						</div>
+						<div class="questions__weight-future-weight">
+							<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMC4yNjI3IDE1LjM1MzFMNS44NTk3NiAxMC45NTAyTDMuNDA0OTkgMTMuNDA1TDEwLjc3MjEgMjAuNzcyMUwxMiAyMkwxMy4yMjc0IDIwLjc3MjZMMjAuNTkxNyAxMy40MDgzTDE4LjEzNiAxMC45NTI2TDEzLjczNDkgMTUuMzUzN0wxMy43MzY1IDEuNzM2NDhMMTAuMjY0MiAxLjczNTc1TDEwLjI2MjcgMTUuMzUzMVoiIGZpbGw9IiMyMEM4NkQiLz4KPC9zdmc+Cg==" alt="Arrow Down">
+							<span data-weight-output-future>0</span>
+							<span>lbs</span>
+						</div>
+						<svg xmlns="http://www.w3.org/2000/svg" width="499" height="360" viewBox="0 0 499 360" fill="none">
+							<g clip-path="url(#clip0_456_949)">
+								<g>
+									<path fill-rule="evenodd" clip-path="url(#c)" d="M408 273.463V360H0V72C44.5391 149.715 125.844 244.781 408 273.463Z" fill="url(#paint0_linear_456_949)"/>
+									<clipPath id="c">
+										<rect height="100%" width="0%" fill="black" class="rect-animation"></rect>
+									</clipPath>
+								</g>
+								<path d="M0 72C49 157.5 142.5 264 499 280" stroke="#00CC62" stroke-width="5" stroke-linecap="round"/>
+								<g class="group-date">
+									<line x1="408" y1="53" x2="408" y2="266" stroke="#CFD6E0" stroke-width="2" class="rect-line" />
+									<g class="group-dot">
+										<circle opacity="0.4" cx="408" cy="275" r="39" fill="white"/>
+										<circle cx="408" cy="275" r="7.5" fill="white" stroke="#00CC62" stroke-width="5"/>
+									</g>
+									<rect x="349" width="116" height="53" rx="26.5" fill="white"/>
+									<text fill="#000" font-size="14" font-weight="600" letter-spacing="0em" opacity="0.7" text-anchor="middle" x="405" y="31" class="questions__weight-date">Oct 23, 2024</text>
+								</g>
+							</g>
+							<defs>
+								<linearGradient id="paint0_linear_456_949" x1="204" y1="360" x2="204" y2="72" gradientUnits="userSpaceOnUse">
+									<stop stop-color="#20C86D" stop-opacity="0"></stop>
+									<stop stop-color="#20C86D" offset="0.665367" stop-opacity="0.6"></stop>
+								</linearGradient>
+								<clipPath id="clip0_456_949">
+									<rect width="499" height="360" fill="white"/>
+								</clipPath>
+							</defs>
+						</svg>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="8/1" data-step="8">
+					<h2 class="questions__title">Do you currently have, or have you ever been diagnosed with, any of the following heart or heart-related conditions?</h2>
+					<div class="questions__checkbox">
+						<p>Select all that apply.</p>
+						<label>
+							Atrial fibrillation or flutter
+							<input type="checkbox" name="heart_conditions" value="Atrial fibrillation or flutter">
+						</label>
+						<label>
+							Tachycardia (episodes of rapid heart rate)
+							<input type="checkbox" name="heart_conditions" value="Tachycardia">
+						</label>
+						<label>
+							Heart failure
+							<input type="checkbox" name="heart_conditions" value="Heart failure">
+						</label>
+						<label>
+							Heart disease, stroke, or peripheral vascular disease
+							<input type="checkbox" name="heart_conditions" value="Heart disease, stroke, or peripheral vascular disease">
+						</label>
+						<label>
+							Prolonged QT interval
+							<input type="checkbox" name="heart_conditions" value="Prolonged QT interval">
+						</label>
+						<label>
+							Other heart rhythm issues or ECG abnormalities
+							<input type="checkbox" name="heart_conditions" value="Other heart rhythm issues or ECG abnormalities">
+						</label>
+						<label>
+							Hypertension (high blood pressure)
+							<input type="checkbox" name="heart_conditions" value="Hypertension">
+						</label>
+						<label>
+							Hyperlipidemia (high cholesterol)
+							<input type="checkbox" name="heart_conditions" value="Hyperlipidemia">
+						</label>
+						<label>
+							Hypertriglyceridemia (high triglycerides)
+							<input type="checkbox" name="heart_conditions" value="Hypertriglyceridemia">
+						</label>
+						<label>
+							No, I have not been diagnosed with any of these heart conditions
+							<input type="checkbox" name="heart_conditions" value="No">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="9/1" data-step="9">
+					<h2 class="questions__title">Do you currently have, or have you ever been diagnosed with, any of these hormone, kidney, or liver conditions?</h2>
+					<div class="questions__checkbox">
+						<p>Select all that apply.</p>
+						<label>
+							Multiple Endocrine Neoplasia syndrome type 2 (MEN2)
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="ultiple Endocrine Neoplasia syndrome type 2 (MEN2)">
+						</label>
+						<label>
+							Personal history of thyroid cancer
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Personal history of thyroid cancer">
+						</label>
+						<label>
+							Family history of thyroid cancer
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Family history of thyroid cancer">
+						</label>
+						<label>
+							Chronic kidney disease
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Chronic kidney disease">
+						</label>
+						<label>
+							Diabetes requiring insulin
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Diabetes requiring insulin">
+						</label>
+						<label>
+							Type 2 Diabetes
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Type 2 Diabetes">
+						</label>
+						<label>
+							Prediabetes and Insulin Resistance
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Prediabetes and Insulin Resistance">
+						</label>
+						<label>
+							Fatty liver disease (NAFLD or NASH)
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Fatty liver disease (NAFLD or NASH)">
+						</label>
+						<label>
+							Kidney stones
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Kidney stones">
+						</label>
+						<label>
+							Liver cirrhosis or end stage liver disease
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Liver cirrhosis or end stage liver disease">
+						</label>
+						<label>
+							Hypothyroidism (low functioning thyroid)
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Hypothyroidism (low functioning thyroid)">
+						</label>
+						<label>
+							Hyperthyroidism (high functioning thyroid)
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Hyperthyroidism (high functioning thyroid)">
+						</label>
+						<label>
+							Graves disease
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Graves disease">
+						</label>
+						<label>
+							Other thyroid issues
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Other thyroid issues">
+						</label>
+						<label>
+							Syndrome of Inappropriate Antidiuretic Hormone (SIADH)
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="Syndrome of Inappropriate Antidiuretic Hormone (SIADH)">
+						</label>
+						<label>
+							No, I have not been diagnosed with any of these conditions
+							<input type="checkbox" name="hormone_kidney_liver_conditions" value="No">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="10/1" data-step="10">
+					<h2 class="questions__title">Do you currently have, or have history of, any of these gastrointestinal conditions or procedures?</h2>
+					<div class="questions__checkbox">
+						<p>Select all that apply.</p>
+						<label>
+							Bariatric surgery
+							<input type="checkbox" name="gastrointestinal_conditions" value="Bariatric surgery">
+						</label>
+						<label>
+							Pancreatitis
+							<input type="checkbox" name="gastrointestinal_conditions" value="Pancreatitis">
+						</label>
+						<label>
+							History of delayed gastric emptying or gastroparesis
+							<input type="checkbox" name="gastrointestinal_conditions" value="History of delayed gastric emptying or gastroparesis">
+						</label>
+						<label>
+							Gallstones or other gallbladder issues
+							<input type="checkbox" name="gastrointestinal_conditions" value="Gallstones or other gallbladder issues">
+						</label>
+						<label>
+							GERD / Acid Reflux
+							<input type="checkbox" name="gastrointestinal_conditions" value="GERD / Acid Reflux">
+						</label>
+						<label>
+							No, I have not been diagnosed with any of these conditions or procedures
+							<input type="checkbox" name="gastrointestinal_conditions" value="No">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="11/1" data-step="11">
+					<h2 class="questions__title">Do you currently have, or have you ever been diagnosed with, any of these additional following conditions?</h2>
+					<div class="questions__checkbox">
+						<p>Select all that apply.</p>
+						<label>
+							Chronic candidiasis (fungal infection)
+							<input type="checkbox" name="additional_conditions" value="Chronic candidiasis (fungal infection)">
+						</label>
+						<label>
+							Eating disorder
+							<input type="checkbox" name="additional_conditions" value="Eating disorder">
+						</label>
+						<label>
+							Gout
+							<input type="checkbox" name="additional_conditions" value="Gout">
+						</label>
+						<label>
+							History of suicide attempt or history of suicidal ideation.
+							<input type="checkbox" name="additional_conditions" value="History of suicide attempt or history of suicidal ideation.">
+						</label>
+						<label>
+							Lymphedema or chronic lower extremity swelling where other causes have been ruled out
+							<input type="checkbox" name="additional_conditions" value="Lymphedema or chronic lower extremity swelling where other causes have been ruled out">
+						</label>
+						<label>
+							Metabolic syndrome
+							<input type="checkbox" name="additional_conditions" value="Metabolic syndrome">
+						</label>
+						<label>
+							Obstructive sleep apnea
+							<input type="checkbox" name="additional_conditions" value="Obstructive sleep apnea">
+						</label>
+						<label>
+							Osteoarthritis
+							<input type="checkbox" name="additional_conditions" value="Osteoarthritis">
+						</label>
+						<label>
+							Tinea infections (skin folds)
+							<input type="checkbox" name="additional_conditions" value="Tinea infections (skin folds)">
+						</label>
+						<label>
+							No, I have not been diagnosed with any of these conditions or procedures
+							<input type="checkbox" name="additional_conditions" value="No">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="12/1" data-step="12">
+					<h2 class="questions__title">List any allergies that you have</h2>
+					<div class="questions__input">
+						<label>
+							<input type="text" name="allergies" placeholder="Allergies">
+							<input type="button" class="button button-primary" data-validation="false" data-clear-on-click="[name='allergies']" data-next value="I don't have any allergies">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="13/1" data-step="13">
+					<h2 class="questions__title">Do you have an allergy to GLP-1 agonist medications?</h2>
+					<div class="questions__radio">
+						<p>Examples include tirzepatide (Zepbound/Mounjaro), liraglutide (Saxenda/Victoza), semaglutide (Wegovy/Ozempic), and dulaglutide (Trulicity)</p>
+						<label>
+							No
+							<input type="radio" name="glp1_allergy" value="No">
+						</label>
+						<label>
+							Yes
+							<input type="radio" name="glp1_allergy" value="Yes">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="14/1" data-step="14">
+					<h2 class="questions__title">Do you currently take any of the following medications?</h2>
+					<div class="questions__checkbox">
+						<p>Select all that apply.</p>
+						<label>
+							A GLP-1 agonist such as (but not limited to) semaglutide (Wegovy/Ozempic), liraglutide (Saxenda/Victoza), dulaglutide (Trulicity), tirzepatide (Zepbound/Mounjaro)
+							<input type="checkbox" name="take_medications" value="A GLP-1 agonist such as (but not limited to) semaglutide (Wegovy/Ozempic), liraglutide (Saxenda/Victoza), dulaglutide (Trulicity), tirzepatide (Zepbound/Mounjaro)">
+						</label>
+						<label>
+							Sulfonylureas such as (but not limited to) glipizide (Glucotrol), glimepiride (Amaryl)
+							<input type="checkbox" name="take_medications" value="Sulfonylureas such as (but not limited to) glipizide (Glucotrol), glimepiride (Amaryl)">
+						</label>
+						<label>
+							Insulin
+							<input type="checkbox" name="take_medications" value="Insulin">
+						</label>
+						<label>
+							Warfarin (also called Jantoven or Coumadin) - a blood thinner that usually requires regular lab testing
+							<input type="checkbox" name="take_medications" value="Warfarin (also called Jantoven or Coumadin) - a blood thinner that usually requires regular lab testing">
+						</label>
+						<label>
+							Meglitinides such as repaglinide or nateglinide
+							<input type="checkbox" name="take_medications" value="Meglitinides such as repaglinide or nateglinide">
+						</label>
+						<label>
+							Diuertics such as (but not limited to) furosemide (Lasix), bumetanide (Bumex) Hydrochlorothiazide/HCTZ
+							<input type="checkbox" name="take_medications" value="Diuertics such as (but not limited to) furosemide (Lasix), bumetanide (Bumex) Hydrochlorothiazide/HCTZ">
+						</label>
+						<label>
+							Selective Seroonin Reuptake Inhibitors (SSRIs) such as (but not limited to) citalopram (Celexa), fluoxetine (Prozac), escitalopram (Lexapro)
+							<input type="checkbox" name="take_medications" value="Selective Seroonin Reuptake Inhibitors (SSRIs) such as (but not limited to) citalopram (Celexa), fluoxetine (Prozac), escitalopram (Lexapro)">
+						</label>
+						<label>
+							Monoamine Oxidase Inhibitors (MAOIs) such as (but not limited to) phenelzine (Nardil), selegiline (Emsam)
+							<input type="checkbox" name="take_medications" value="Monoamine Oxidase Inhibitors (MAOIs) such as (but not limited to) phenelzine (Nardil), selegiline (Emsam)">
+						</label>
+						<label>
+							None of the above
+							<input type="checkbox" name="take_medications" value="None of the above">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="15/1" data-step="15" data-validation="0">
+					<h2 class="questions__title">List any medications that you take.</h2>
+					<div class="questions__input">
+						<label>
+							<input type="text" name="list_medications" placeholder="Medications">
+							<input type="button" class="button button-primary" data-validation="false" data-clear-on-click="[name='list_medications']" data-next value="I don't take any medications">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step" data-progress="16/1" data-step="16">
+					<h2 class="questions__title">Is there anything else you want your healthcare provider to know about your health?</h2>
+					<div class="questions__radio">
+						<p>Include any additional details about the conditions you've already reported.</p>
+						<label>
+							No
+							<input type="radio" name="conditions_already_reported" value="No">
+						</label>
+						<label>
+							Yes
+							<input type="radio" name="conditions_already_reported" value="Yes">
+						</label>
+					</div>
+				</div>
+
+				<div class="questions__step questions__step--circle-animation" data-progress="17/1" data-step="17" data-show-product="false" data-animation-step style="--animation-time: 2000;">
+					<svg width="250" height="250">
+						<circle stroke="#FFF" stroke-width="6" fill="transparent" r="122" cx="125" cy="125" class="svg-circle__white"></circle>
+						<circle stroke="#6BA53F" stroke-width="6" fill="transparent" r="122" cx="125" cy="125" class="svg-circle__green"></circle>
+					</svg>
+
+
+					<img src="/questions-assets/images/questions-stuff.png" class="svg-circle__image" alt="Qualified Image">
+
+
+					<h2 class="questions__title svg-circle__text">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16" viewBox="0 0 24 24" class="svg-circle__text-svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.4042 1.86833L11.9999 1.6095L11.5955 1.86833L8.5984 3.7869L5.12167 4.54985L4.65277 4.65275L4.54986 5.12164L3.7868 8.59847L1.86821 11.5957L1.60938 12L1.86821 12.4043L3.78677 15.4015L4.54973 18.8782L4.65263 19.3471L5.12152 19.45L8.59835 20.2131L11.5955 22.1317L11.9999 22.3905L12.4042 22.1317L15.4014 20.2131L18.8781 19.4501L19.347 19.3473L19.4499 18.8784L20.213 15.4015L22.1315 12.4043L22.3904 12L22.1315 11.5956L20.213 8.59852L19.45 5.12179L19.3471 4.65289L18.8782 4.54998L15.4014 3.78692L12.4042 1.86833ZM9.29431 5.12243L11.9999 3.3905L14.7055 5.12245L14.8183 5.19464L14.9491 5.22334L18.0878 5.9122L18.7765 9.05084L18.8053 9.18164L18.8775 9.29443L20.6094 12L18.8774 14.7056L18.8052 14.8184L18.7765 14.9492L18.0877 18.0879L14.949 18.7767L14.8182 18.8054L14.7054 18.8776L11.9999 20.6095L9.29427 18.8776L9.18149 18.8054L9.05069 18.7767L5.91197 18.0878L5.22321 14.9492L5.1945 14.8184L5.1223 14.7056L3.39038 12L5.12232 9.29439L5.19452 9.18161L5.22322 9.05082L5.91208 5.91209L9.05072 5.22333L9.18152 5.19462L9.29431 5.12243ZM10.8361 14.5303L15.8361 9.53033L14.7755 8.46967L10.3103 12.9349L8.44064 11.0335L7.3711 12.0852L9.77103 14.5259L10.3013 15.0651L10.8361 14.5303Z" fill="#1A1A1A"></path></svg>
+						You've qualified for treatment
+					</h2>
+				</div>
+
+				<div class="questions__step questions__step--qualified-animation" data-progress="18/1" data-step="18">
+					<div class="qualified-animation__wrapper">
+						<p class="qualified-animation__text">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16" viewBox="0 0 24 24" class="svg-circle__text-svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.4042 1.86833L11.9999 1.6095L11.5955 1.86833L8.5984 3.7869L5.12167 4.54985L4.65277 4.65275L4.54986 5.12164L3.7868 8.59847L1.86821 11.5957L1.60938 12L1.86821 12.4043L3.78677 15.4015L4.54973 18.8782L4.65263 19.3471L5.12152 19.45L8.59835 20.2131L11.5955 22.1317L11.9999 22.3905L12.4042 22.1317L15.4014 20.2131L18.8781 19.4501L19.347 19.3473L19.4499 18.8784L20.213 15.4015L22.1315 12.4043L22.3904 12L22.1315 11.5956L20.213 8.59852L19.45 5.12179L19.3471 4.65289L18.8782 4.54998L15.4014 3.78692L12.4042 1.86833ZM9.29431 5.12243L11.9999 3.3905L14.7055 5.12245L14.8183 5.19464L14.9491 5.22334L18.0878 5.9122L18.7765 9.05084L18.8053 9.18164L18.8775 9.29443L20.6094 12L18.8774 14.7056L18.8052 14.8184L18.7765 14.9492L18.0877 18.0879L14.949 18.7767L14.8182 18.8054L14.7054 18.8776L11.9999 20.6095L9.29427 18.8776L9.18149 18.8054L9.05069 18.7767L5.91197 18.0878L5.22321 14.9492L5.1945 14.8184L5.1223 14.7056L3.39038 12L5.12232 9.29439L5.19452 9.18161L5.22322 9.05082L5.91208 5.91209L9.05072 5.22333L9.18152 5.19462L9.29431 5.12243ZM10.8361 14.5303L15.8361 9.53033L14.7755 8.46967L10.3103 12.9349L8.44064 11.0335L7.3711 12.0852L9.77103 14.5259L10.3013 15.0651L10.8361 14.5303Z" fill="#1A1A1A"></path></svg>
+							You've qualified for treatment
+						</p>
+						<div class="button button-secondary qualified-animation__btn">
+							Lose <span data-weight-output-future></span> lbs in a year
+						</div>
+						<img src="/questions-assets/images/questions-stuff.png" class="qualified-animation__img" alt="Qualified Image" data-product-condition="default">
+						<img src="/questions-assets/images/semaglutide.png" class="qualified-animation__img" alt="Semaglutide Image" data-product-condition="10f61172-624d-40d3-9660-857d73590a27">
+						<img src="/questions-assets/images/tirzepatide.png" class="qualified-animation__img" alt="Tirzepatide Image" data-product-condition="13275ea0-4fb3-480e-a691-fab5c89ac389">
+
+
+						<div class="questions__radio" style="width: 100%;">
+							<p>Are you a new or existing user to CosmeticRx</p>
+							<label>
+								I am a new user
+								<input type="radio" name="new_user" value="yes">
+							</label>
+							<label>
+								I am an existing user
+								<input type="radio" name="new_user" value="no">
+							</label>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="questions__step--note --outside"></div>
+
+				<div class="questions-product" data-product-exist style="display: none;">
+					<div class="questions-product__product-name">Consultation for <span data-product-name></span></div>
+					<div class="questions-product__top">
+						<div class="questions-product__images">
+							<img src="/questions-assets/images/nbc-logo-2.png" alt="NBC">
+							<img src="/questions-assets/images/abc-logo-2.png" alt="ABC">
+							<img src="/questions-assets/images/cbs-logo-2.png" alt="CBS">
+							<img src="/questions-assets/images/Fox-News-Logo.svg" alt="Fox News">
+						</div>
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Product" data-product-image>
+					</div>
+					<div class="questions-product__bottom" data-product-condition="10f61172-624d-40d3-9660-857d73590a27">
+						<p>$299 per month, if prescribed online</p>
+						<p>Guaranteed lowest price in the US</p>
+						<p>Free 2-day shipping</p>
+					</div>
+
+					<div class="questions-product__bottom" data-product-condition="9c3cc7d2-259a-41f2-b002-9a78b239d9c9">
+						<p>$499 per month, if prescribed</p>
+						<p>Guaranteed lowest price in the US</p>
+						<p>Free 2-day shipping</p>
+					</div>
+				</div>
+
+				<div class="questions-footer" data-hide-on-steps="1, 2">
+					<div class="questions-footer__wrapper">
+						<button type="button" class="button button-primary" data-next>Continue</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		const questionsType = 'weight';
+	</script>
+	<script src="/questions-assets/js/main.js"></script>
+{% endblock %}

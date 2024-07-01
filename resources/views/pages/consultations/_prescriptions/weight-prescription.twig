@@ -1,0 +1,156 @@
+<div class="card prescribe">
+    <header class="card-header">
+        <span class="card-header--title">Weight Prescriptions</span>
+    </header>
+
+    <div class="card-body">
+        <div>
+            <h3>Order set</h3>
+
+            {% set prescriptions_filtered = prescriptions|filter(prescription => prescription.status == 'Active' or prescription.status == 'Paused') %}
+            {% if (prescriptions_filtered|length > 0) %}
+            <div>
+                <span style="color: blue; cursor: pointer;" class="action-set" data-action="pause" data-consultation-id="{{ consultation.id }}">Pause</span>
+                <span style="color: blue; cursor: pointer;" class="action-set" data-action="resume" data-consultation-id="{{ consultation.id }}">Resume</span>
+                <span style="color: blue; cursor: pointer;" class="action-set" data-action="cancel" data-consultation-id="{{ consultation.id }}">Cancel</span>
+            </div>
+            {% endif %}
+        </div>
+        <div class='single-prescription-update-message' style='margin: 10px 0; color: brown;'></div>
+        <div class="table-responsive" style="overflow: auto;">
+            <table style="min-width: 670px;">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Sig</th>
+                        <th>Shipping date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="body">
+                    {% for prescription in prescriptions %}
+                        <tr id="prescription_{{ prescription.id }}">
+                            <td class="cell">
+                                <select id="productName_{{ prescription.id }}" name="productName" data-prescription-id="{{ prescription.id }}" style="min-width: 50px; background-image: none;">
+                                    {% for key, productPrescriptionVariant in productPrescriptionVariants %}
+                                        <option value="{{ productPrescriptionVariant.id }}" {{ prescription.lineItem.product.id == productPrescriptionVariant.id ? 'selected' : '' }}
+                                                data-prescription-instruction="{{ productPrescriptionVariant.info }}"
+                                                data-product-quantity="{{ productPrescriptionVariant.quantity }}" data-product-id="{{ productPrescriptionVariant.id }}">
+                                            {{ productPrescriptionVariant.name }} {{ productPrescriptionVariant.strength }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td class="cell"><input type="text" id="productQuantity_{{ prescription.id }}" name="productQuantity" value="{{ prescription.lineItem.product.quantity }}" disabled></td>
+                            <td class="cell"><input type="text" id="instruction_{{ prescription.id }}" name="instruction" value="{{ prescription.instructions }}"></td>
+                            <td class="cell"><input type="text" name="dateEnd" value="{{ prescription.dateEnd.format('d.m.Y') }}" disabled></td>
+                            <td class="cell">
+                                {{ prescription.status }}
+                            </td>
+                            <td class="cell">
+                                <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                                <div class="item" data-position="left" data-colspan="1">
+                                    <div class="buttons">
+                                        <div class="btngroup submit first">
+                                            <input type="button" class="btn submit" value="Update" onclick="updateSinglePrescription('{{ prescription.id }}')">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Event delegation to handle change events on dynamically added select elements
+        document.addEventListener('change', function(event) {
+            if (event.target && event.target.matches('select[name="productName"]')) {
+                var selectElement = event.target;
+                var prescriptionId = selectElement.getAttribute('data-prescription-id');
+                var selectedOption = selectElement.options[selectElement.selectedIndex];
+                var quantity = selectedOption.getAttribute('data-product-quantity');
+                var instruction = selectedOption.getAttribute('data-prescription-instruction');
+
+                // Update corresponding input fields
+                document.getElementById('productQuantity_' + prescriptionId).value = quantity;
+                document.getElementById('instruction_' + prescriptionId).value = instruction;
+            }
+        });
+
+        // Trigger the change event on all select elements on page load to set initial values
+        var productNameSelects = document.querySelectorAll('select[name="productName"]');
+        productNameSelects.forEach(function(selectElement) {
+            var event = new Event('change');
+            selectElement.dispatchEvent(event);
+        });
+
+        function sendPrescriptionActionRequest(consultationId, action) {
+            var token = document.querySelector(`input[name="_token"]`).value;
+            var updateMessage = document.querySelector('.single-prescription-update-message');
+            var data = {
+                consultationId: consultationId,
+                action: action
+            };
+            fetch(`/dashboard/update-prescription-set-status`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                updateMessage.innerText = data.message;
+            })
+            .catch(error => {
+                updateMessage.innerText = error;
+            });
+        }
+
+        document.body.addEventListener("click", function(event) {
+            if (event.target.classList.contains("action-set")) {
+                var consultationId = event.target.getAttribute("data-consultation-id");
+                var action = event.target.getAttribute("data-action");
+                sendPrescriptionActionRequest(consultationId, action);
+            }
+        });
+    });
+
+    function updateSinglePrescription(prescriptionId) {
+        // Get the selected option
+        var productSelect = document.querySelector(`#prescription_${prescriptionId} select[name="productName"]`);
+        var selectedOption = productSelect.options[productSelect.selectedIndex];
+        var productId = selectedOption.getAttribute('data-product-id');
+        var token = document.querySelector(`#prescription_${prescriptionId} input[name="_token"]`).value;
+        var updateMessage = document.querySelector('.single-prescription-update-message');
+
+        var data = {
+            prescriptionId: prescriptionId,
+            productId: productId
+        };
+
+        fetch(`/dashboard/update-single-prescriptions/${prescriptionId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': token
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            updateMessage.innerText = data.message;
+        })
+        .catch(error => {
+            updateMessage.innerText = error;
+        });
+    }
+</script>

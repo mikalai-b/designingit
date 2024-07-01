@@ -1,0 +1,34 @@
+Symptom:
+    type: entity
+    table: symptoms
+    repositoryClass: Symptoms
+    id:
+        id:
+            type: string
+            nullable: false
+            id: true
+            generator:
+                strategy: NONE
+    fields:
+        dateCreated:
+            type: datetime
+            nullable: false
+            column: date_created
+        dateModified:
+            type: datetime
+            nullable: true
+            column: date_modified
+        content:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+    manyToMany:
+        productTypes:
+            targetEntity: ProductType
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: symptoms
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

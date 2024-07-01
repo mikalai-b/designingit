@@ -1,0 +1,189 @@
+Product:
+    type: entity
+    table: products
+    repositoryClass: Products
+    id:
+        id:
+            type: uuid
+            nullable: false
+            id: true
+            generator:
+                strategy: CUSTOM
+            customIdGenerator:
+                class: \Ramsey\Uuid\Doctrine\UuidGenerator
+    fields:
+        dateCreated:
+            type: datetime
+            nullable: false
+            column: date_created
+        dateModified:
+            type: datetime
+            nullable: true
+            column: date_modified
+        prescriptionOnly:
+            type: boolean
+            nullable: false
+            options:
+                default: true
+            column: prescription_only
+        name:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        strength:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        quantity:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        info:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        price:
+            type: decimal
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        grouponPrice:
+            type: decimal
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        ndcNumber:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        thumbnail:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        defaultRefills:
+            type: integer
+            nullable: true
+            column: default_refills
+        defaultExpiration:
+            type: integer
+            nullable: true
+            column: default_expiration
+        defaultPeriod:
+            type: integer
+            nullable: true
+            column: default_period
+        availablePeriods:
+            type: array
+            nullable: true
+            column: available_periods
+        availableDashboardPeriods:
+            type: array
+            nullable: true
+            column: available_dashboard_periods
+        defaultAutoRenewal:
+            type: integer
+            nullable: true
+            column: default_auto_renewal
+        requireAutoRenewal:
+            type: boolean
+            nullable: true
+            column: require_auto_renewal
+        slug:
+            type: string
+            nullable: true
+        grouponContent:
+            type: text
+            nullable: true
+        invalidCodeMessage:
+            type: text
+            nullable: true
+
+    oneToMany:
+        offers:
+            targetEntity: Offer
+            cascade: { }
+            fetch: LAZY
+            mappedBy: product
+            orphanRemoval: true
+
+    manyToOne:
+        type:
+            targetEntity: ProductType
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                type:
+                    referencedColumnName: id
+                    onDelete: CASCADE
+        category:
+            targetEntity: ProductCategory
+            cascade: { }
+            fetch: EAGER
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+              category_id:
+                referencedColumnName: id
+    manyToMany:
+        questions:
+            targetEntity: Question
+            cascade: [ persist ]
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: products
+            orderBy: null
+            joinTable:
+                name: product_questions
+                joinColumns:
+                    -
+                        name: product
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: question
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orphanRemoval: false
+        photoTypes:
+            targetEntity: PhotoType
+            cascade: [ persist ]
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: products
+            orderBy: null
+            joinTable:
+                name: product_photo_types
+                joinColumns:
+                    -
+                        name: product
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: photo_type
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orphanRemoval: false
+        couponCodes:
+            targetEntity: CouponCode
+            mappedBy: products
+            fetch: LAZY
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

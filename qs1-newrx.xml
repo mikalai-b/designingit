@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Message version="010" release="006"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns="http://www.ncpdp.org/schema/SCRIPT">
+  <Header>
+    <To Qualifier="P">0000275</To>
+    <From Qualifier="D">6451880788001</From>
+    <MessageID>123456789PB1</MessageID>
+    <SentTime>2014-04-21T23:50:07.0350891Z</SentTime>
+    <Security>
+      <UsernameToken>
+        <Username>TestVendor</Username>
+        <Password Type="PasswordDigest">Ogd/44jNZgx4dyTR6yPMsR+kYBc=</Password>
+        <Nonce>123456</Nonce>
+        <Created>2014-04-21T23:50:07.0350891Z</Created>
+      </UsernameToken>
+    </Security>
+    <Sender>
+      <SecondaryIdentification>TestVendor1</SecondaryIdentification>
+      <TertiaryIdentification>TestVendor2</TertiaryIdentification>
+    </Sender>
+    <Receiver>
+      <TertiaryIdentification>1234567</TertiaryIdentification>
+    </Receiver>
+    <Mailbox>
+      <MailboxID>TEST-PILOT1</MailboxID>
+    </Mailbox>
+    <RxReferenceNumber />
+    <PrescriberOrderNumber>6069032871-8090-1205</PrescriberOrderNumber>
+  </Header>
+  <Body>
+    <NewRx>
+      <Pharmacy>
+        <Identification>
+          <NCPDPID>0000275</NCPDPID>
+          <NPI>1043221625</NPI>
+        </Identification>
+        <StoreName>Pharmacy Network Services</StoreName>
+        <Address>
+          <AddressLine1>123 ABC Street</AddressLine1>
+          <City>Lincoln</City>
+          <State>WA</State>
+          <ZipCode>98564</ZipCode>
+        </Address>
+        <CommunicationNumbers>
+          <Communication>
+            <Number>2065461764</Number>
+            <Qualifier>WP</Qualifier>
+          </Communication>
+          <Communication>
+            <Number>2064564000</Number>
+            <Qualifier>FX</Qualifier>
+          </Communication>
+        </CommunicationNumbers>
+      </Pharmacy>
+      <Prescriber>
+                <Identification>
+                    <DEANumber>AS9432042</DEANumber>
+                    <NPI>1871598417</NPI>
+                </Identification>
+                <Name>
+                    <LastName>Evans</LastName>
+                    <FirstName>Lily</FirstName>
+                </Name>
+                <Address>
+                    <AddressLine1>2800 Crystal Dr</AddressLine1>
+                    <City>Arlington</City>
+                    <State>VA</State>
+                    <ZipCode>22202</ZipCode>
+                </Address>
+                <CommunicationNumbers>
+                    <Communication>
+                        <Number>7032123443</Number>
+                        <Qualifier>TE</Qualifier>
+                    </Communication>
+                    <Communication>
+                        <Number>7034533456</Number>
+                        <Qualifier>FX</Qualifier>
+                    </Communication>
+                    <Communication>
+                        <Number>bob@bob.com </Number>
+                        <Qualifier>EM</Qualifier>
+                    </Communication>
+                </CommunicationNumbers>
+            </Prescriber>
+      <Facility>
+        <Identification>
+          <NPI>6069032871</NPI>
+          <FileID>FC01</FileID>
+        </Identification>
+        <FacilityName>COONEY CONVALESCENT HOME</FacilityName>
+        <Address>
+          <AddressLine1>2555 EAST BROADWAY</AddressLine1>
+          <AddressLine2 />
+          <City>HELENA</City>
+          <State>MT</State>
+          <ZipCode>59601</ZipCode>
+        </Address>
+        <CommunicationNumbers>
+          <Communication>
+            <Number>8065554670</Number>
+            <Qualifier>FX</Qualifier>
+          </Communication>
+        </CommunicationNumbers>
+      </Facility>
+      <Patient>
+        <Identification>
+          <SocialSecurity>546783512</SocialSecurity>
+          <MedicareNumber>546783512L</MedicareNumber>
+        </Identification>
+        <Name>
+          <LastName>LNAME</LastName>
+          <FirstName>FNAME</FirstName>
+          <MiddleName>MNAME</MiddleName>
+        </Name>
+        <Gender>M</Gender>
+        <DateOfBirth>
+          <Date>1916-07-04</Date>
+        </DateOfBirth>
+        <PatientLocation>
+          <FacilityUnit>a</FacilityUnit>
+          <Bed>1</Bed>
+          <Room>106</Room>
+        </PatientLocation>
+      </Patient>
+      <MedicationPrescribed>
+        <DrugDescription>NEXIUM 20 MG ECC</DrugDescription>
+        <DrugCoded>
+          <ProductCode>216950091</ProductCode>
+          <ProductCodeQualifier>ND</ProductCodeQualifier>
+        </DrugCoded>
+        <Quantity>
+          <Value>0</Value>
+          <CodeListQualifier>QS</CodeListQualifier>
+          <UnitSourceCode>AC</UnitSourceCode>
+          <PotencyUnitCode>C38046</PotencyUnitCode>
+        </Quantity>
+        <Directions>20 mg Oral Once daily</Directions>
+        <Note />
+        <Refills>
+          <Qualifier>R</Qualifier>
+          <Value>0</Value>
+        </Refills>
+        <Substitutions>0</Substitutions>
+        <WrittenDate>
+          <Date>2013-10-21</Date>
+        </WrittenDate>
+        <EffectiveDate>
+          <Date>2013-10-21</Date>
+        </EffectiveDate>
+        <Diagnosis>
+          <ClinicalInformationQualifier>1</ClinicalInformationQualifier>
+          <Primary>
+            <Qualifier>DX</Qualifier>
+            <Value> 530.81 </Value>
+          </Primary>
+        </Diagnosis>
+      </MedicationPrescribed>
+    </NewRx>
+  </Body>
+</Message>

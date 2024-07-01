@@ -1,0 +1,1 @@
+ALTER TABLE prescriptions ADD filled INT DEFAULT 0 NOT NULL, ADD date_last_refilled DATETIME DEFAULT NULL, CHANGE credit_card credit_card INT DEFAULT NULL, CHANGE line_item line_item INT DEFAULT NULL, CHANGE consultation consultation INT DEFAULT NULL, CHANGE date_modified date_modified DATETIME DEFAULT NULL;

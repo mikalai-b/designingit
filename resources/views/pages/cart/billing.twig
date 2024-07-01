@@ -1,0 +1,230 @@
+{% set pageTitle = 'Billing Information' %}
+{% extends 'layouts/cart' %}
+
+{% block scripts %}
+    {% include 'scripts.authorize' %}
+    <script>
+        window.addEventListener("load", function() {
+            let questionsFormData = undefined;
+
+            const mental_health_form = JSON.parse(localStorage.getItem('questionsFormData'));
+            if (mental_health_form) {
+                questionsFormData = mental_health_form;
+
+                // Set First name from question into Input
+                const firstNameInput = document.querySelector('input[name="firstName"]');
+                firstNameInput.value = questionsFormData.data.first_name.answer;
+                firstNameInput.dispatchEvent(new Event('focus'));
+
+                // Set Gender from question into Input
+                const genderSelectInput = document.querySelector('select[name="gender"]');
+                const gender = questionsFormData.data.sex.answer;
+                if (gender === "female") {
+                    genderSelectInput.value = "F";
+                } else if (gender === "male") {
+                    genderSelectInput.value = "M";
+                }
+
+                // Set Date of Birth from question into Input
+                const dateOfBirthInput = document.querySelector('input[name="dateOfBirth"]');
+                const bord_date = questionsFormData.data.born_date.answer;
+                // Parse the date string
+                const parsedDate = new Date(bord_date);
+                // Format the date as "mm/dd/yyyy"
+                const formattedDate = `${(parsedDate.getMonth() + 1).toString().padStart(2, '0')}/${parsedDate.getDate().toString().padStart(2, '0')}/${parsedDate.getFullYear()}`;
+                // Set the value of the input field
+                dateOfBirthInput.value = formattedDate;
+                dateOfBirthInput.dispatchEvent(new Event('focus'));
+            }
+
+            const weight_form = JSON.parse(localStorage.getItem('questionsWeightFormData'));
+            if (weight_form) {
+                questionsFormData = weight_form;
+            }
+
+            const inputField = document.querySelector('#mental_health_form');
+            if (inputField && questionsFormData && questionsFormData.data) {
+                inputField.value = JSON.stringify(questionsFormData.data);
+            }
+
+            const inputFieldWeight = document.querySelector('#weight_form');
+            if (inputFieldWeight && questionsFormData && questionsFormData.data) {
+                inputFieldWeight.value = JSON.stringify(questionsFormData.data);
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block step %}
+    {% set productInfo = selectedProductInfo %}
+
+    <h1 class="cart-heading">Billing Information</h1>
+    <div class="billingSubText">
+        <p>
+            Your price is the guaranteed
+            <span
+                class="redactor-underline"
+                style="display: inline-block; position: relative; line-height: 1;"
+            >
+                <span style="position: absolute; top: 95%; left: 0px; width: 100%; height: 70%;">
+                    <svg width="87" height="17" viewBox="0 0 87 17" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display: block; width: 100%; height: 100%;"><path d="M1 6.26596L86 1L11.0511 16L77.8102 10.8936" stroke="currentColor" stroke-width="2"></path></svg>
+                </span>
+                lowest price
+            </span>
+            of any US telehealth company – and includes free 2-day shipping
+        </p>
+    </div>
+    <form id="billing" method="POST" action="{{ route(active_step) }}">
+
+        <fieldset>
+            <legend>Personal Information</legend>
+            <div class="flex-container side-margin">
+                <div class="form-group">
+                    <label></label>
+                    <input type="text" name="firstName" value="{{ order.person.firstName }}" class="medium" maxlength="35" />
+                    <i>First Name</i>
+                    {% include 'partials/messaging/error.twig' with {field: 'firstName'} %}
+                </div>
+
+                <div class="form-group">
+                    <label></label>
+                    <input type="text" name="lastName" value="{{ order.person.lastName }}" class="medium" maxlength="35" />
+                    <i>Last Name</i>
+                    {% include 'partials/messaging/error.twig' with {field: 'lastName'} %}
+                </div>
+            </div>
+
+            <div class="flex-container side-margin">
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select name="gender">
+                        <option value="">Choose One</option>
+                        <option value="F" {{ order.person.gender == 'F' ? 'selected' : '' }}>Female</option>
+                        <option value="M" {{ order.person.gender == 'M' ? 'selected' : '' }}>Male</option>
+                    </select>
+                    {% include 'partials/messaging/error.twig' with {field: 'gender'} %}
+                </div>
+
+                <div class="form-group">
+                    <label></label>
+                    <input type="text" id="date" name="dateOfBirth" placeholder="" value="{{ order.person.dateOfBirth ? order.person.dateOfBirth|date('m/d/Y') : '' }}" />
+                    <i>Date of Birth(mm/dd/yyyy)</i>
+                    {% include 'partials/messaging/error.twig' with {field: 'dateOfBirth'} %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone"></label>
+                <v-phone-field name="phone" initial-value="{{ order.person.phone }}"></v-phone-field>
+                <i>Phone</i>
+                {% include 'partials.messaging.error' with {field: 'phone'} %}
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Shipping Address</legend>
+
+            <div class="form-group" style="margin-bottom:0;">
+                <label></label>
+                <input type="text" name="addressLine1" value="{{ order.person.addressLine1 }}" maxlength="35" />
+                <i>Street Address</i>
+                {% include 'partials/messaging/error.twig' with {field: 'addressLine1'} %}
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="addressLine2" value="{{ order.person.addressLine2 }}" maxlength="35" placeholder="Apartment, suite, unit, building, floor, etc..." />
+                {% include 'partials/messaging/error.twig' with {field: 'addressLine2'} %}
+            </div>
+
+            <div class="form-group">
+                <label></label>
+                <input type="text" name="city" value="{{ order.person.city }}"  maxlength="35" />
+                <i>City</i>
+                {% include 'partials/messaging/error.twig' with {field: 'city'} %}
+            </div>
+
+            <div class="form-group">
+                <label for="state">State</label>
+                <select id="state" name="state">
+                    <option value=""></option>
+                    {% for state in checkout.states.findAll() %}
+                        <option value="{{ state.id }}" {{ order.person.isState(state, order.state) ? 'selected' : '' }}>{{ state }}</option>
+                    {% endfor %}
+                </select>
+                {% include 'partials/messaging/error.twig' with {field: 'state'} %}
+            </div>
+
+            <div class="form-group">
+                <label></label>
+                <input type="text" name="postalCode" value="{{ order.person.postalCode }}" class="short" />
+                <i>Postal Code</span>
+                {% include 'partials/messaging/error.twig' with {field: 'postalCode'} %}
+            </div>
+        </fieldset>
+
+        {% if config('app.coupon-redemption') and checkout.isEligibleForCoupon %}
+            <fieldset>
+                <legend>Voucher Code</legend>
+                <v-coupon-code initial-code="{{ order.couponCode }}">
+                    {% include 'partials/messaging/error.twig' with {field: 'couponCode'} %}
+                </v-coupon-code>
+            </fieldset>
+        {% endif %}
+
+        <fieldset>
+            <legend>Payment <img src="/images/cc-icons.png" class="cc-icons"></legend>
+            <div class="form-group" id="cards">
+                {% if cards|length %}
+                        <p>Your current card on file is your <strong>{{ cards.first.name }}</strong>.  To continue using this card, simply click "Submit Billing Info."</p>
+                        <input type="hidden" name="card[id]" value="{{ cards.first.id }}" />
+               {% endif %}
+            </div>
+
+            {% include 'partials/messaging/error.twig' with {field: 'card'} %}
+
+        </fieldset>
+
+        {{ csrf_field() }}
+
+        {% set productInfo = selectedProductInfo %}
+        {% if productInfo.options.request_form == "mental_health" %}
+            <input type="hidden" id="mental_health_form" name="mental_health_form" style="display: none;">
+        {% endif %}
+
+        {% if productInfo.options.request_form == "weight" %}
+            <input type="hidden" id="weight_form" name="weight_form" style="display: none;">
+        {% endif %}
+
+        {% if productInfo.options.request_form == "weight" %}
+            <div class="form-group">
+                <label>
+                    <input type="radio" checked>
+                    I understand that semaglutide is designed to be taken every 1 week. My shipment includes 4 weekly doses, and refills at the lowest price of any US Telehealth, and includes free shipping. I understand I can pause or stop refills at any time.
+                </label>
+                {% include 'partials/messaging/error.twig' with {field: 'agree'} %}
+            </div>
+        {% endif %}
+
+        {% if cards|length %}
+            <fieldset>
+                <button
+                    id="submit"
+                    type="submit"
+                    class="button button-primary"
+                    >Submit Billing Info
+                </button>
+                {% include 'partials.billing.add-card-button' with {class: 'secondary', label: 'Change Card'} %}
+            </fieldset>
+        {% else %}
+            <fieldset>
+                <button
+                    id="submit"
+                    type="submit"
+                    class="button button-secondary"
+                    >Submit Billing Info
+                </button>
+                {% include 'partials.billing.add-card-button' with {class: 'primary'} %}
+            </fieldset>
+        {% endif %}
+    </form>
+{% endblock %}

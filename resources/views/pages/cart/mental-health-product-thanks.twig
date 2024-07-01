@@ -1,0 +1,80 @@
+{% set pageTitle = 'Thank You' %}
+{% set portalTitle = pageTitle %}
+{% extends 'layouts/full-width' %}
+
+{% block layout %}
+    <main class="portal-main">
+        <div class="container">
+            <div class="thanks">
+                <h1 class="thanks-heading">
+                    Your order has been successfully submitted!
+                </h1>
+                <p class="thanks__lede">
+                    Orders are reviewed by our physicians and then can process shipping with our pharmacists within 24 hours.
+                </p>
+                <p class="thanks__lede">
+                    All CosmeticRx medications are always at the guaranteed lowest prices.
+                </p>
+                <p class="thanks__lede">
+                    Use promo code: SAVE20 for $20 off any other 1st time order!
+                </p>
+                <p class="thanks__ctaWrapper">
+                    <a href="{{ route('dashboard') }}" class="button button-primary">
+                        View My Dashboard
+                    </a>
+                </p>
+                <!-- .thanks__boxWrapper -->
+            </div>
+            <!-- .thanks -->
+        </div>
+    </main>
+{% endblock %}
+
+{% block gtagEventCode %}
+    <script>
+        gtag('event', 'conversion', {
+            'send_to': 'AW-391141033/AUQ8COXft8IDEKmtwboB',
+            'transaction_id': '{{ order.id }}'
+        });
+
+        gtag("event", "purchase", {
+            transaction_id: "{{ order.id }}",
+            value: {{ order.refillPrice }},
+            tax: 0,
+            shipping: 0,
+            currency: "USD",
+            items: [
+                {
+                    item_id: "{{ order.firstProduct.id }}",
+                    item_name: "{{ order.firstProduct.name }}",
+                    currency: "USD",
+                    index: 0,
+                    item_brand: "{{ order.firstProduct.type.name}}",
+                    price: {{ order.refillPrice }},
+                    quantity: 1
+                }]
+        });
+    </script>
+{% endblock %}
+
+{% block afterBodyOpen %}
+    <!--  Clickcease.com tracking-->
+    <script type='text/javascript'>var script = document.createElement('script');
+        script.async = true; script.type = 'text/javascript';
+        var target = 'https://www.clickcease.com/monitor/stat.js';
+        script.src = target;var elem = document.head;elem.appendChild(script);
+    </script>
+    <noscript>
+        <a href='https://www.clickcease.com' rel='nofollow'><img src='https://monitor.clickcease.com/stats/stats.aspx' alt='ClickCease'/></a>
+    </noscript>
+    <!--  Clickcease.com tracking-->
+
+    <!-- Offer Conversion: BoldRx - Commission links -->
+    <img src="https://aspireiq.go2cloud.org/aff_l?offer_id=7556&amount={{ order.firstShipmentPrice|number_format(2) }}" width="1" height="1" />
+    <!-- // End Offer Conversion -->
+
+{% endblock %}
+
+{% block adendum %}
+
+{% endblock %}

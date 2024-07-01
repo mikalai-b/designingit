@@ -1,0 +1,55 @@
+{% set stayMobileImage = block.hideButtonsAndShowVideoOnMobile %}
+{% set mobileStructure = block.moveContentAboveImage %}
+{% set mobileImage = block.mobileImage %}
+{% set desktopImage = block.desktopPreloaderImage %}
+{% set video = block.video.first() %}
+
+<section class="background-video-text {% if mobileStructure %}mobile--reverse{% endif %} {% if stayMobileImage %}mobile--video{% endif %}">
+  {% if video %}
+    <div class="background-video-text__video">
+      {% if mobileImage|length %}
+        <img src="{{ mobileImage.first().url }}" class="mobileImage">
+      {% endif %}
+      {% if desktopImage|length %}
+        <img src="{{ desktopImage.first().url }}" class="desktopImage">
+      {% endif %}
+      <video muted autoplay loop playsinline>
+        <source src="{{ video.url }}" type="video/mp4">
+      </video>
+    </div>
+  {% endif %}
+
+  <div class="container">
+    <div class="background-video-text__content">
+      {% if block.blockTitle %}
+        <h2 class="background-video-text__title">{{ block.blockTitle|nl2br }}</h2>
+      {% endif %}
+
+      {% if block.displayRatingAndReviewsText %}
+        <div class="ratingSection">
+          <div class="reviews-rate__rating" style="--rating: 4.76;"></div>
+          <p>
+            4.76/5 (538 reviews) from verified CosmeticRx users <br>
+            Guaranteed lowest prices in the US. Free 2-day shipping. <br>
+            {# What’s not to love #}
+          </p>
+        </div>
+      {% endif %}
+
+      {% if block.subheadline %}
+        <p>{{ block.subheadline }}</p>
+      {% endif %}
+
+      {# if block.action|length %}
+        <a href="{{ block.action.url }}" class="button button-secondary" {% if block.action.target %}target="{{ block.action.target }}"{% endif %}>{{ block.action.text }}</a>
+      {% endif #}
+      {% if block.productLinks|length %}
+        <div class="productLinks">
+          {% for link in block.productLinks %}
+            <a href="{{ link.linkToProduct.first().url }}" class="button button-secondary">{{ link.linkText }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

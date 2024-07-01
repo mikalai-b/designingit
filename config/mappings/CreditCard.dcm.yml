@@ -1,0 +1,43 @@
+CreditCard:
+    type: entity
+    table: credit_cards
+    repositoryClass: CreditCards
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        token:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        customer:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+    oneToMany:
+        orders:
+            targetEntity: Order
+            mappedBy: creditCard
+            orphanRemoval: false
+        prescriptions:
+            targetEntity: Prescription
+            mappedBy: creditCard
+            orphanRemoval: false
+
+    lifecycleCallbacks: {  }

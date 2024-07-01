@@ -1,0 +1,109 @@
+ProductType:
+    type: entity
+    table: product_types
+    repositoryClass: ProductTypes
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        directions:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        consentForm:
+            type: string
+            nullable: true
+            length: null
+            column: consent_form
+            options:
+                fixed: false
+        instructionsTemplate:
+            type: text
+            nullable: true
+            length: null
+            column: instructions_template
+            options:
+                fixed: false
+        approvedTemplate:
+            type: text
+            nullable: true
+            length: null
+            column: approved_template
+            options:
+                fixed: false
+        declinedTemplate:
+            type: text
+            nullable: true
+            length: null
+            column: declined_template
+            options:
+                fixed: false
+        defaultRefills:
+            type: integer
+            nullable: true
+            column: default_refills
+        defaultExpiration:
+            type: integer
+            nullable: true
+            column: default_expiration
+        defaultPeriod:
+            type: integer
+            nullable: true
+            column: default_period
+        availablePeriods:
+            type: array
+            nullable: true
+            column: available_periods
+        availableDashboardPeriods:
+            type: array
+            nullable: true
+            column: available_dashboard_periods
+        defaultAutoRenewal:
+            type: integer
+            nullable: true
+            column: default_auto_renewal
+        requireAutoRenewal:
+            type: boolean
+            nullable: true
+            column: require_auto_renewal
+    oneToMany:
+        products:
+            targetEntity: Product
+            mappedBy: type
+            orphanRemoval: false
+    manyToMany:
+        symptoms:
+            targetEntity: Symptom
+            cascade: [ persist ]
+            fetch: EAGER
+            mappedBy: null
+            inversedBy: productTypes
+            orderBy: null
+            joinTable:
+                name: product_type_symptoms
+                joinColumns:
+                    -
+                        name: product_type
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: symptom
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

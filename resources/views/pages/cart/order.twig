@@ -1,0 +1,93 @@
+{% set pageTitle = 'Prescription Information' %}
+{% extends 'layouts/cart' %}
+
+{% block step %}
+    {% set productInfo = selectedProductInfo %}
+
+    <!--<h1 class="cart-heading">Begin your consultation</h1>-->
+    <form method="POST" action="{{ route(active_step) }}">
+        {% if checkout.canChooseState %}
+            <!--<p>Select your state and we will match you with a provider.</p>-->
+            <p>Select your state for shipping</p>
+            <div class="form-group" id="state-selector">
+                <label for="state">State</label>
+                <select id="state" name="state">
+                    <option value="">Choose State...</option>
+                    {% for state in checkout.states.findAll() %}
+                        {% if request.input.state is defined %}
+                            <option value="{{ state.id }}" {{ state.id == request.input.state ? 'selected' : '' }}>{{ state }}</option>
+                        {% else %}
+                            <option value="{{ state.id }}" {{ order.isState(state, person.state) ? 'selected' : '' }}>{{ state }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <v-meet-the-derm select-id="state"></v-meet-the-derm>
+            </div>
+
+            <hr />
+        {% else %}
+            <input type="hidden" name="state" value="{{ order.state.id }}">
+        {% endif %}
+
+        <div style="{% if productInfo.options.request_form == "weight" %} display: none {% endif %}">
+            {% for product in checkout.products.findForCart(cart) %}
+                <h3><strong class="legend-bold">Product:</strong> {{ product }}</h3>
+                <div class="form-group group-separation">
+                    {% if product.type.consentForm %}
+                        <label>
+                            <input type="hidden" name="consent[{{ product.id }}]" value="0" />
+                            <input type="checkbox" name="consent[{{ product.id }}]" value="1" {{ product.checkConsent(request.input('consent', [])) ? 'checked' : '' }} />
+                            I have read and understand the possible side effects in the <a href="{{ product.type.consentForm }}" target="_blank">{{ product.name }} Consent Form</a>.
+                        </label>
+                        {% include 'partials/messaging/error.twig' with {field: 'consent-' ~ product.id} %}
+                    {% endif %}
+                </div>
+
+                <div class="form-group group-separation">
+                    {% if product.hasOnePeriod and product.requireAutoRenewal %}
+                        <input type="hidden" name="periods[{{ product.id }}]" value="{{ product.firstPeriod }}">
+
+                    {% else %}
+                        {% if product.availablePeriods %}
+                            <h3 class="legend-bold">My {{ product.name }} Will</h3>
+                            <div class="radio-group">
+                                {% for period in product.availablePeriods %}
+                                {% set is_period = product.checkPeriod(request.input('periods', []), period) %}
+
+                                    <div class="radio">
+                                        {% if (is_period is same as(null) and loop.index == 1) or is_period %}
+                                            <input id="period-{{ loop.index }}" type="radio" name="periods[{{ product.id }}]" value="{{ period }}" checked />
+                                        {% else %}
+                                            <input id="period-{{ loop.index }}" type="radio" name="periods[{{ product.id }}]" value="{{ period }}" />
+                                        {% endif %}
+                                        <label for="period-{{ loop.index }}">Automatically charge and ship every {{ period }} days (cancel anytime, no questions asked)</label>
+                                    </div>
+                                {% endfor %}
+
+                                {% if not product.requireAutoRenewal %}
+                                    <div class="radio">
+                                        {% if product.availablePeriods|length == 0 or product.checkPeriod(request.input('periods', []), null) %}
+                                            <input id="manual" type="radio" name="periods[{{ product.id }}]" value="" checked />
+                                        {% else %}
+                                            <input id="manual" type="radio" name="periods[{{ product.id }}]" value="" />
+                                        {% endif %}
+
+                                        <label for="manual">Ship once, require me to manually request refills</label>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        {{ csrf_field() }}
+
+        <button type="submit" class="button button-primary--small">Continue Checkout</button>
+    </form>
+{% endblock %}
+
+{% block adendum %}
+{% endblock %}

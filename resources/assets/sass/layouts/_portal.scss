@@ -1,0 +1,617 @@
+// -------------------
+// Portal
+// -------------------
+
+.portal-main {
+	padding: 3rem 0 75px 0;
+}
+
+.portal-body {
+	background-color: $color-portal-bg;
+}
+
+.portal-headline {
+	h1 {
+		margin-bottom: 2rem;
+		color: $cosmeticrx-purple--really-dark;
+		font-weight: 500;
+		font-size: 1.75rem;
+		&.heading-with-note {
+			margin-bottom: 0;
+		}
+	}
+	p.note {
+		margin-bottom: 2rem;
+	}
+	&--lede {
+		display: block;
+		margin-top: 0.25rem;
+		font-weight: 400;
+		font-size: 1.2rem;
+	}
+}
+
+.breadcrumbs {
+	margin: 0 0 1rem 0;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: .9rem;
+	.breadcrumb-item {
+		text-decoration: none;
+		&::after {
+			display: inline-block;
+			margin-right: 0.5rem;
+			margin-left: 0.5rem;
+			color: $black;
+			content: '\00bb';
+		}
+		&:last-child::after {
+			content: none;
+		}
+		&--back {
+			&::before {
+				position: relative;
+				top: -0.05rem;
+				left: .3rem;
+				display: inline-block;
+				margin-right: 1rem;
+				width: .45rem;
+				height: .45rem;
+				border-width: .15rem .15rem 0 0;
+				border-style: solid;
+				content: "";
+				vertical-align: middle;
+				transform: rotate(-135deg);
+			}
+		}
+	}
+}
+
+.form-group {
+	position: relative;
+	&.active {
+		i {
+			top: 26.5px;
+			background: transparent;
+			line-height: 1;
+			height: auto;
+			width: auto;
+			font-size: 0.65rem;
+		}
+	}
+	input.medium + i {
+		max-width: 19em;
+	}
+	input.short + i {
+		max-width: 9em;
+	}
+	i {
+		position: absolute;
+		font-style: normal;
+		left: 0.5rem;
+		top: 25px;
+		width: calc(100% - 1rem);
+		height: 45px;
+		color: #243153;
+		line-height: 50px;
+		font-weight: 400;
+		font-size: 0.9rem;
+		transition: all 0.25s ease-in-out;
+		pointer-events: none;
+		background: #fff;
+		@media(max-width:720px) {
+			top: 24px;
+			height: 39px;
+		}
+	}
+	label {
+		height: 19px;
+		display: block;
+	}
+}
+
+.portal-columns {
+	@include respond-to($medium) {
+		display: flex;
+		justify-content: space-between;
+	}
+	.portal-column {
+		&--first {
+			flex-basis: 65%;
+		}
+		&--last {
+			margin-top: 0;
+			margin-bottom: 2rem;
+			@include respond-to($medium) {
+				flex-basis: 32%;
+				margin-top: 0;
+				margin-right: 1rem;
+			}
+		}
+	}
+}
+
+.portal-image {
+	height: 15rem;
+	img {
+		margin: 0 auto;
+		height: 100%;
+	}
+}
+
+.portal-products {
+	position: sticky;
+	top: 8rem;
+	padding: 1.875rem;
+	border: 1px solid #F3F3F3;
+	background-color: transparent;
+	h3 {
+		color: $cosmeticrx-purple--really-dark;
+		font-weight: 600;
+		font-size: 1.75rem;
+		margin-bottom: 20px;
+	}
+}
+
+.portal-product-image {
+	margin: 0 0 10px 0;
+	height: 200px;
+	border: 1px solid #F3F3F3;
+	padding: 24px;
+	background-color: transparent;
+	&.no--paddings {
+		padding: 0;
+	}
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+}
+.portal-product-video {
+	margin: 0 0 25px 0;
+	height: 200px;
+	border: 1px solid #F3F3F3;
+	background-color: transparent;
+	video {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+}
+
+.portal-product-info {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	color: $cosmeticrx-purple--really-dark;
+	span {
+		display: block;
+		&:first-child {
+			flex-basis: 70%;
+		}
+		&:last-child {
+			text-align: right;
+		}
+	}
+	.portal-product-text {
+		font-size: 1rem;
+	}
+	&--sub {
+		padding-top: 1rem;
+		border-top: 1px solid $color-border;
+		font-size: 1.1rem;
+	}
+	&--final {
+		padding-top: 1rem;
+		border-top: 2px solid $color-border;
+		font-weight: bold;
+		font-size: 1.1rem;
+
+		.note {
+			text-transform: none;
+			font-size: .8rem;
+			text-align: left !important;
+		}
+	}
+	&--wrapper {
+		margin: 1rem 0;
+	}
+}
+
+.cart-action--light {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	margin-top: 0.75rem;
+	text-decoration: none;
+	line-height: 24px;
+	font-size: $font-size--small;
+	.remove {
+		display: inline-block;
+		width: 24px;
+		height: 24px;
+		margin-right: 3px;
+		background: url(../../images/trash-icon.svg) no-repeat center;
+		background-size: contain;
+	}
+}
+
+
+// Steps
+
+.checkout-steps {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	margin: 0 auto 5rem auto;
+	max-width: 36rem;
+	&::before {
+		position: absolute;
+		top: 1rem;
+		left: 1rem;
+		width: 94%;
+		height: 1px;
+		background-color: $cosmeticrx-blue--really-light;
+		content: '';
+	}
+	li {
+		position: relative;
+		.number {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+			margin: 0 0rem;
+			width: 2.4rem;
+			height: 2.4rem;
+			border-radius: 50%;
+			background-color: #7CD3CD;
+			font-size: 1.2rem;
+		}
+		.caption {
+			position: absolute;
+			left: 50%;
+			margin: .5em 0 0 -3.5em;
+			width: 7em;
+			color: transparentize($cosmeticrx-gray, 0.5);
+			text-align: center;
+			font-size: .85rem;
+		}
+		&::before {
+			content: none;
+		}
+		&.active {
+			.number {
+				background-color: $cosmeticrx-blue--light;
+			}
+			.caption {
+				color: $cosmeticrx-gray;
+			}
+		}
+		a {
+			color: $white;
+			text-decoration: none;
+		}
+	}
+}
+
+// Photos
+
+.photo-manager {
+	margin-top: 1rem;
+
+	.filepond--item::before {
+		display: none !important;
+	}
+	.filepond--credits {
+		display: none !important; 
+	}
+	.filepond--wrapper {
+		min-width: 16rem;
+		cursor: pointer;
+	}
+	.filepond--drop-label {
+		label {
+			cursor: pointer;
+		}
+	}
+
+	&__number {
+		font-weight: bold;
+		font-size: 2rem;
+		display: none;
+	}
+
+	&__photo {
+		margin-right: 1.5rem;
+	}
+}
+
+.photo-manager__photo {
+	.preview {
+		position: relative;
+		display: inline-block;
+		margin: 0;
+		border: 2px solid $cosmeticrx-purple;
+		border-radius: $border-radius;
+		.remove-cta {
+			position: absolute ;
+			top: .5rem;
+			right: .5rem;
+			display: block ;
+			width: 2rem;
+			height: 2rem;
+			border-radius: 50%;
+			background: #fff ;
+			color: $cosmeticrx-blue--light;
+			text-align: center;
+			line-height: 2rem;
+			cursor: pointer;
+		}
+		img {
+			width: auto !important;
+			height: 8rem;
+    }
+  }
+
+  input[type="file"] {
+	  
+  }
+
+	.upload-photo {
+		margin: 2rem 0;
+		label {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+			padding: 3rem 1rem;
+			border: 2px dashed $cosmeticrx-purple;
+			border-radius: $border-radius;
+			background-color: lighten($cosmeticrx-blue--really-light, 3%);
+			color: $cosmeticrx-purple;
+			cursor: pointer;
+			span,
+			i {
+				display: block;
+				color: $cosmeticrx-purple;
+			}
+			i {
+				margin-bottom: 0.5rem;
+				font-size: 2rem;
+			}
+			span {
+				font-weight: 700;
+				font-size: 1.25rem;
+			}
+		}
+	}
+	.reupload-photo {
+	  label {
+			display: inline-block;
+			overflow: hidden;
+			padding: 0.75rem 1rem;
+			max-width: 80%;
+			border-radius: $btn-radius;
+			background-color:$cosmeticrx-blue;
+			color: $white;
+			text-transform: uppercase;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-weight: 500;
+			font-size: 0.75rem;
+			cursor: pointer;
+			transition: 0.2s ease-in-out;
+			i {
+				display: inline-block;
+				margin-right: 0.5rem;
+			}
+			&:hover {
+				background-color: lighten($cosmeticrx-blue, 7%);
+				transition: 0.2s ease-in-out;
+			}
+		}
+	}
+}
+
+
+.title-and-image {
+	&--wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem 0;
+		border-bottom: 2px solid $color-border;
+		&:last-child {
+			border-bottom: none;
+		}
+	}
+	&--title  {
+		flex-basis: 57%;
+		h2 {
+			font-size: 2rem;
+		}
+	}
+	&--image {
+		flex-basis: 40%;
+	}
+}
+
+
+// Dashboard refills
+.refills {
+	.refill-content {
+		order: 2;
+
+		@include respond-to(960px) {
+			order: 1;
+    }
+
+    .card-info--text {
+      margin-bottom: 0.5rem;
+    }
+
+    .autorefill-form {
+      margin-bottom: 0.5rem;
+    }
+
+    .reorder-form {
+      display: inline-block;
+    }
+	}
+	.refill-image {
+		order: 1;
+		margin-bottom: 1rem;
+		max-width: 8rem;
+
+		@include respond-to(960px) {
+			order: 2;
+			margin-bottom: 0;
+		}
+  }
+}
+
+.prescribe {
+  .options {
+    width: 80%;
+  }
+}
+
+.prescription-billing {
+	fieldset {
+		padding: 0;
+		border: none;
+	}
+}
+
+// Panel with sidebar...
+.panel-with-sidebar {
+	display: flex;
+	border-top: 4px solid $cosmeticrx-blue;
+	.panel-sidebar {
+		flex: 1;
+		padding: 1.5rem;
+		background: transparentize($cosmeticrx-blue, 0.9);
+		&.filters-active {
+			background: transparentize($cosmeticrx-blue--light, 0.8);
+		}
+		h2 {
+			font-weight: bold;
+			font-size: 1.4rem;
+		}
+		.form-group {
+			label {
+				color: $cosmeticrx-purple--really-dark;
+			}
+			input[type=text] {
+				border-color: transparentize($cosmeticrx-blue, 0.8);
+				background: transparent;
+				font-size: .85rem;
+			}
+			::placeholder {
+				font-size: .85rem;
+			}
+			.checkbox {
+				clear: left;
+				margin: .25rem -1.5rem;
+				padding: .25rem 1.5rem 0 1.5rem;
+				border-top: 1px solid transparentize($cosmeticrx-blue, 0.8);
+				input {
+					float: left;
+				}
+				label {
+					margin-left: 1.5rem;
+				}
+				&:first-child {
+					border-top: none;
+				}
+			}
+		}
+	}
+	.panel-content {
+		flex: 5;
+		padding: 1.5rem 0 1.5rem 2rem;
+		p:first-child {
+			margin-top: 0;
+		}
+	}
+}
+
+.empty-cart {
+	span.title {
+		display: block;
+		color: $cosmeticrx-purple--really-dark;
+		text-align: center;
+		font-size: 2rem;
+	}
+}
+
+.account-header-wrapper {
+	legend {
+		margin-bottom: 0;
+	}
+	.label-bottom {
+		margin-top: 0;
+	}
+}
+
+.already--account {
+	a {
+		color: #4867C0;
+		text-decoration: underline;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+.photos-action {
+	margin-top: 2rem;
+	padding-top: 1rem;
+	border-top: 1px dotted #eaeaea;
+}
+
+.complete-action-wrapper {
+	display: flex;
+	margin-top: 2rem;
+	button {
+		margin-right: 2rem;
+	}
+}
+
+.portal-notification {
+  margin-bottom: 0.75rem
+	a {
+		padding-left: 0.2rem;
+		text-decoration: none;
+		font-weight: bold;
+	}
+	&::before {
+		margin-right: 0.5rem;
+		color: $cosmeticrx-purple--really-dark;
+		content: '\f27a';
+		font-family: 'Font Awesome 5 Free';
+	}
+}
+
+.consultText {
+	overflow: hidden;
+	margin-bottom: 40px;
+	p {
+		margin: 0;
+	}
+}
+.snapshotText {
+	h3 {
+		font-size: 24px;
+		font-weight: 600;
+		line-height: 31px;
+		display: block;
+		margin-bottom: 6px;
+		color: #243153;
+	}
+	p {
+		margin: 0;
+	}
+}

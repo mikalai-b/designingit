@@ -1,0 +1,10 @@
+@import 'imports/import.scss';
+
+$textColor: #123;
+
+ul {
+    li {
+        color: $textColor;
+        background: $backgroundColor;
+    }
+}

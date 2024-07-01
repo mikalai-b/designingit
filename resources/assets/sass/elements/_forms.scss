@@ -1,0 +1,480 @@
+// -------------------
+// Forms
+// -------------------
+
+::placeholder {
+	color: $color-placeholder;
+	font-weight: 300;
+	font-style:italic;
+	font-size: $font-size--input;
+}
+
+input,
+button,
+select,
+textarea {
+	padding: 0.5rem;
+	border: none;
+	font-family: $font-family--base;
+	transition: 0.1s ease-in-out;
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 7px rgba($cosmeticrx-blue--light, 1);
+		transition: 0.1s ease-in-out;
+	}
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+textarea {
+	margin: .25rem 0;
+	width: 100%;
+	border: 1px solid $color-border--field;
+}
+
+input[type=text]#date {
+	//width: auto;
+}
+
+input[type=date] {
+	max-width: 17rem;
+	border: 1px solid $color-border--field;
+}
+
+input.short {
+	max-width: 10em;
+}
+input.medium {
+	max-width: 20em;
+}
+
+textarea {
+	display: block;
+}
+
+select {
+	overflow: hidden;
+	margin: .25rem 0;
+	min-width: 300px;
+	border: 1px solid $color-border--field;
+	border-radius: $border-radius;
+	background-image: url(../images/arrow-down.svg);
+	background-position: 97% center;
+	background-size: 10px;
+	background-repeat: no-repeat;
+	color: $cosmeticrx-purple--really-dark;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: inherit;
+
+	appearance: button;
+	user-select: none;
+	&.white {
+		background-color: $white;
+	}
+}
+
+.form-group {
+	margin-bottom: .75rem;
+	width: 100%;
+	input[type="text"],
+	input[type="email"],
+	input[type="number"],
+	input[type="password"]
+	{
+		padding: 1.1rem 0.5rem 0.8rem 0.5rem;
+	}
+	select {
+		padding: 0.9rem 0.5rem;
+	}
+	label {
+		display: block;
+		color: $cosmeticrx-gray--dark;
+		font-weight: bold;
+		font-size: 0.9rem;
+	}
+	.checkbox label,
+	.radio-group label {
+		font-weight: normal;
+	}
+}
+
+.form-group--medium {
+  width: 66%;
+}
+
+.form-group--small {
+  width: 33%;
+}
+
+input.ignorable {
+    display: none;
+}
+
+.form-errors {
+	margin: 0;
+	padding: 1rem;
+	border-radius: 0 0 $border-radius $border-radius;
+	background-color: $color-danger;
+	list-style: none;
+	li {
+		color: $white;
+		&::before {
+			margin-left: 0;
+			width: auto;
+			content: none;
+			text-indent: 0;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.label-bottom {
+	display: block;
+	margin-top: 0.25rem;
+	text-decoration: none;
+	font-size: $font-size--small;
+}
+
+legend {
+	margin-bottom: .5rem;
+	width: 100%;
+	color: $cosmeticrx-purple--really-dark;
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+
+.legend-light {
+	color: $cosmeticrx-purple--really-dark;
+	font-size: 1.2rem;
+}
+.legend-bold {
+	color: $cosmeticrx-purple--really-dark;
+	font-weight: 600;
+	font-size: 1.2rem;
+}
+
+form {
+	hr {
+		margin: 2rem 0;
+	}
+}
+
+fieldset {
+	position: relative;
+	margin-top: 2rem;
+	padding: 1rem 0 0 0;
+	border: none;
+	border-top: 1px solid $cosmeticrx-gray--light;
+}
+.portal-column--first>fieldset:first-child {
+	border-top: none;
+}
+.portal-column--first>fieldset:first-child,
+.portal-column--last>fieldset:first-child {
+	@include respond-to($medium) {
+		margin-top: 0;
+		padding-top: 0;
+		border-top: none;
+	}
+}
+
+.checkbox-group {
+	&--compact {
+		&>label {
+		}
+		div.checkbox {
+			display: inline-block;
+			label {
+				display: inline-block;
+				margin: .5rem 1rem 0 0 ;
+			}
+		}
+	}
+}
+
+// Stripe overrides
+.StripeElement {
+	padding: 10px 12px;
+	height: 40px;
+	border: 2px solid $color-border;
+	background-color: white;
+	font-family: $font-family--base;
+}
+
+.StripeElement--invalid {
+	border-color: $cosmeticrx-red;
+}
+
+.StripeElement--webkit-autofill {
+	background-color: #fefde5 !important;
+}
+
+#card-errors {
+	padding: 0.5rem;
+	color: $cosmeticrx-red;
+	font-size: smaller;
+}
+
+.slim-filter {
+	position: relative;
+	margin-bottom: 2rem;
+	height: 2.5rem;
+
+	$slimfilter-border-color: $cosmeticrx-blue;
+	select {
+		position: absolute;
+		box-sizing: border-box;
+		width: 10rem;
+		height: 100%;
+		border-color: $slimfilter-border-color;
+		background-color: $slimfilter-border-color;
+		background-image: url(../images/arrow-down-white.svg) ;
+		color: white;
+	}
+	.clear-cta {
+		position: absolute ;
+		top: .6rem;
+		right: 8.5rem;
+		i {
+			font-size: 1.2rem;
+		}
+	}
+	input[type=text] {
+		box-sizing: border-box;
+		margin: 0;
+		padding-right: 8.5rem;
+		padding-left: 10.5rem;
+		height: 100%;
+		border: 2px solid $slimfilter-border-color;
+		line-height: 20px;
+	}
+	&__no-filter {
+		input[type=text] {
+			padding-left: 1rem;
+		}
+	}
+	button {
+		position: absolute;
+		top: 0;
+		right: 0;
+		box-sizing: border-box;
+		width: 8rem;
+		height: 100%;
+		border-color: $slimfilter-border-color;
+		background-color: $slimfilter-border-color;
+		color: white;
+	}
+}
+
+form {
+	h2.icon-heading {
+		position: relative;
+		margin: 0 0 2rem 0;
+		padding: .5rem .7rem;
+		border-bottom: 2px solid $cosmeticrx-purple--really-dark;
+		background: transparentize($cosmeticrx-blue, 0.9);
+		color: $cosmeticrx-purple--really-dark;
+		font-weight: bold;
+		font-size: 1.1rem;
+		i {
+			position: absolute;
+			left: 50%;
+			display: inline-block;
+			margin-top: -1.2rem;
+			margin-left: -1.25rem;
+			width: 2.5rem;
+			height: 2.5rem;
+			border: 2px solid $cosmeticrx-purple--really-dark;
+			border-radius: 1.25rem;
+			background: #fff;
+			text-align: center;
+			line-height: 2.25rem;
+		}
+	}
+}
+
+form.user-form {
+	fieldset {
+		border-top: none;
+	}
+}
+
+form.consultation-form {
+	.form-group {
+		margin: 1.25rem 0;
+		label {
+			height: auto;
+		}
+	}
+	.radio-group {
+		input {
+			margin-bottom: .5rem;
+		}
+	}
+}
+
+fieldset.photos {
+	legend {
+		margin-bottom: 0;
+	}
+	p {
+		margin: 0;
+	}
+}
+
+.inputfile {
+	position: absolute;
+	z-index: -1;
+	overflow: hidden;
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	+ label {
+		display: inline-block;
+		overflow: hidden;
+		padding: 0.5rem 1rem;
+		border-radius: $btn-radius;
+		background-color: $cosmeticrx-blue;
+		color: $white;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		font-weight: 700;
+		cursor: pointer;
+	}
+}
+
+.notes-input {
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style:none;
+		li {
+			margin-bottom: 0.5rem;
+			font-size: 0.875rem;
+			&::before {
+				content: none;
+			}
+			a {
+				margin-left: 0.25rem;
+			}
+		}
+	}
+	input[type=text] {
+		max-width: calc(100% - 3rem);
+	}
+}
+
+.meet-the-derm {
+	margin-top: 1rem;
+	.provider {
+		margin-top: 1rem;
+		.avatar {
+			display: inline-block;
+			margin-right: .5rem;
+			max-width: 50px;
+		}
+		.details {
+			display: inline-block;
+			vertical-align: top;
+			.full-name {
+				font-size: 1.3rem;
+			}
+			.title {
+				font-size: .9rem;
+			}
+    }
+    .learn-more {
+      margin-top: 1rem;
+    }
+	}
+}
+
+.contact-form {
+	padding-top: 2rem;
+}
+
+.group-separation {
+	padding-bottom: 2rem;
+	&:last-child {
+		padding-bottom: 0;
+	}
+}
+
+.radio {
+	position: relative;
+	display: block;
+	padding-bottom: 0.35rem;
+	padding-left: 1.25rem;
+	input[type=radio] {
+		position: absolute;
+		margin-top: .3rem;
+		margin-left: -1.25rem;
+	}
+	label {
+		display: inline-block;
+		margin-bottom: 0;
+		margin-left: 0.25rem;
+		font-size: 1rem;
+	}
+}
+
+.form-notice {
+  margin: 0 0 1rem 0;
+  color: #606060;
+  font-size: 0.8rem;
+}
+
+// Login Form
+.login-container {
+  max-width: 31.5rem;
+}
+
+.login-form {
+  margin: 0 auto 2rem auto;
+
+  .forgot-password {
+    text-align: right;
+    font-size: 0.875rem;
+  }
+}
+
+.alert {
+  padding: 1rem;
+}
+
+.alert-success {
+  background-color: rgb(31,87,122);
+  color: white;
+}
+
+.card-review {
+  letter-spacing: 0.5px;
+
+  i {
+    position: relative;
+    top: 8px;
+    color: rgb(80, 88, 121);
+    font-size: 38px;
+    margin-right: 12px;
+  }
+}
+
+
+// this fixes an iphone focusing bug...
+
+#AcceptUIContainer {
+	display: none !important;
+}
+#AcceptUIContainer.show {
+	display: block !important;
+}
+
+.cc-icons {
+	display: inline-block;
+	width: 170px;
+	vertical-align: bottom;
+}

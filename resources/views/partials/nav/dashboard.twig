@@ -1,0 +1,46 @@
+{% if current_section is not defined %}
+    {% set current_section = null %}
+{% endif %}
+
+<nav class="primary">
+    <ul>
+        {% if Auth.user %}
+            {% if Auth.user.hasRoleByName(['Admin', 'Provider']) %}
+                <li {% if current_section == 'dashboard' %} class="active"{% endif %}>
+                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                </li>
+            {% endif %}
+
+            {% if Auth.user.hasRoleByName('Admin') %}
+                <li {% if current_section == 'users' %} class="active"{% endif %}>
+                    <a href="{{ route('users') }}">Users</a>
+                </li>
+            {% endif %}
+
+            {% if Auth.user.hasRoleByName('Provider') %}
+                <li {% if current_section == 'patients' %} class="active"{% endif %}>
+                    <a href="{{ route('patients') }}">Patients</a>
+                </li>
+            {% endif %}
+
+            {% if Auth.user.hasRoleByName('Provider') %}
+                <li {% if current_section == 'consultations' %} class="active"{% endif %}>
+                    <a href="{{ route('consultations') }}">Consultations</a>
+                </li>
+            {% endif %}
+
+            {% if Auth.user.hasRoleByName('Provider') %}
+                <li {% if current_section == 'campaigns' %} class="active"{% endif %}>
+                    <a href="{{ route('campaigns.index') }}">Campaigns</a>
+                </li>
+            {% endif %}
+        {% else %}
+            <li>
+                <a href="/">Return to site</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+<div class="login">
+	<a href="{% if Auth.check() %}/dashboard/logout{% else %}/login{% endif %}" class="button button-login{% if Auth.check() %} button-login--logout{% endif %}"></a>
+</div>

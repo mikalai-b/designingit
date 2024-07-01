@@ -1,0 +1,270 @@
+// -------------------
+// Button Styles
+// -------------------
+
+.button {
+	border: $btn-border-width;
+	cursor: pointer;
+	display: inline-block;
+	// letter-spacing: 1px;
+	line-height: .75;
+	outline: none;
+	text-align: center;
+	text-decoration: none;
+	user-select: none;
+	vertical-align: middle;
+	margin-bottom: .25rem;
+}
+
+// Button style mixin arguments 
+// -----------
+// $background, 
+// $border,
+// $border-radius,
+// $color,
+// $padding-y,
+// $padding-x,
+// $font-size,
+// $font-weight
+
+.button-login {
+	@include button-style(
+		$cosmeticrx-purple--really-dark,
+		$cosmeticrx-purple--really-dark,
+		$btn-radius,
+		$white,
+		$btn-padding-y--small,
+		$btn-padding-x--small,
+		$btn-font-size--small,
+		$btn-font-weight
+	);
+}
+
+.button-hero {
+	@include button-style(
+		$cosmeticrx-blue,
+		$cosmeticrx-blue,
+		$btn-radius--large,
+		$white,
+		$btn-padding-y--large,
+		$btn-padding-x,
+		$btn-font-size--large,
+		$btn-font-weight
+	);
+}
+
+.button-primary {
+	@include button-style(
+		$cosmeticrx-purple,
+		$cosmeticrx-purple,
+		$btn-radius,
+		$white,
+		$btn-padding-y,
+		$btn-padding-x,
+		$btn-font-size,
+		$btn-font-weight
+	);
+}
+
+.button-secondary {
+	@include button-style(
+		$cosmeticrx-gray--light,
+		$cosmeticrx-gray--light,
+		$btn-radius,
+		$cosmeticrx-purple,
+		$btn-padding-y,
+		$btn-padding-x,
+		$btn-font-size,
+		$btn-font-weight
+	);
+}
+
+.button-primary--small {
+	@include button-style(
+		$cosmeticrx-purple,
+		$cosmeticrx-purple,
+		$btn-radius,
+		$white,
+		$btn-padding-y,
+		$btn-padding-x--small,
+		$btn-font-size--small,
+		$btn-font-weight
+	);
+}
+
+.button-secondary--small {
+	@include button-style(
+		$cosmeticrx-gray--light,
+		$cosmeticrx-gray--light,
+		$btn-radius,
+		$cosmeticrx-purple,
+		$btn-padding-y,
+		$btn-padding-x--small,
+		$btn-font-size--small,
+		$btn-font-weight
+	);
+}
+
+.button-primary--mini {
+	@include button-style(
+		$cosmeticrx-purple,
+		$cosmeticrx-purple,
+		$btn-radius,
+		$white,
+		$btn-padding-y--mini,
+		$btn-padding-x--mini,
+		$btn-font-size--mini,
+		$btn-font-weight
+	);
+}
+
+.button-secondary--mini {
+	@include button-style(
+		$cosmeticrx-gray--light,
+		$cosmeticrx-gray--light,
+		$btn-radius,
+		$cosmeticrx-purple,
+		$btn-padding-y--mini,
+		$btn-padding-x--mini,
+		$btn-font-size--mini,
+		$btn-font-weight
+	);
+}
+
+.button-product {
+	@include button-style(
+		$cosmeticrx-purple--light,
+		$cosmeticrx-purple--light,
+		$btn-radius,
+		$white,
+		$btn-padding-y,
+		$btn-padding-x,
+		$btn-font-size,
+		$btn-font-weight
+	);
+}
+
+.button-product--small {
+	@include button-style(
+		$cosmeticrx-purple--light,
+		$cosmeticrx-purple--light,
+		$btn-radius,
+		$white,
+		$btn-padding-y,
+		$btn-padding-x--small,
+		$btn-font-size--small,
+		$btn-font-weight
+	);
+}
+
+.button-minimal {
+	@include button-style(
+		transparent,
+		transparent,
+		0,
+		$cosmeticrx-purple--light,
+		0,
+		0,
+		$btn-font-size,
+		$btn-font-weight
+	);
+	&::after {
+		border-style: solid;
+		border-width: 0.15rem 0.15rem 0 0;
+		content: '';
+		display: inline-block;
+		left: 0.3rem;
+		height: 0.45rem;
+		position: relative;
+		top: -0.05rem;
+		transform: rotate(45deg);
+		transition: 0.2s ease-in-out;
+		vertical-align: middle;
+		width: 0.45rem;
+	}
+	&:hover::after {
+		left: 0.5rem;
+	}
+}
+
+.button-skin {
+	@include button-style(
+		$cosmeticrx-skin,
+		$cosmeticrx-skin,
+		$btn-radius,
+		$white,
+		$btn-padding-y,
+		$btn-padding-x,
+		$btn-font-size,
+		$btn-font-weight
+	);
+}
+
+.button-skin--small {
+	@include button-style(
+		$cosmeticrx-skin,
+		$cosmeticrx-skin,
+		$btn-radius,
+		$white,
+		$btn-padding-y,
+		$btn-padding-x--small,
+		$btn-font-size--small,
+		$btn-font-weight
+	);
+}
+
+.button-blue {
+	@include button-style(
+		$cosmeticrx-blue--light,
+		$cosmeticrx-blue--light,
+		$btn-radius,
+		$white,
+		$btn-padding-y,
+		$btn-padding-x,
+		$btn-font-size,
+		$btn-font-weight
+	);
+}
+
+.button-blue--small {
+	@include button-style(
+		$cosmeticrx-blue--light,
+		$cosmeticrx-blue--light,
+		$btn-radius,
+		$white,
+		$btn-padding-y,
+		$btn-padding-x--small,
+		$btn-font-size--small,
+		$btn-font-weight
+	);
+}
+
+.button-messages {
+	margin-top: 2rem;
+	@include button-style(
+		$cosmeticrx-blue--light,
+		$cosmeticrx-blue--light,
+		$btn-radius,
+		$white,
+		$btn-padding-y,
+		$btn-padding-x--small,
+		$btn-font-size--small,
+		$btn-font-weight
+	);
+}
+
+.button-block {
+	display: block;
+}
+
+.button-icon {
+	i {
+		vertical-align: middle;
+		margin-right: .5em;
+		font-size: .9em;
+		line-height: 1;
+		display: inline-block;
+		height: 1em;
+		margin-top: -.25em;
+	}
+}

@@ -1,0 +1,53 @@
+{% set extreme_pages_limit = 3 %}
+{% set nearby_pages_limit  = 2 %}
+
+
+{% if (last_page > 1) %}
+    <nav class="pagination">
+        <ul>
+            {% if (page > 1) %}
+                <li><a aria-label="previous page" href="{{ request.fullUrlWithQuery({'page': page - 1} + request.query.all) }}"><i class="fa fa-angle-left"></i></a></li>
+            {% endif %}
+
+            {% for i in range(1, extreme_pages_limit) %}
+                {% if (i < page - nearby_pages_limit) %}
+                    <li><a href="{{ request.fullUrlWithQuery({'page': i} + request.query.all) }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if (extreme_pages_limit + 1 < page - nearby_pages_limit) %}
+                <li class="dots"><a href="#">...</a></li>
+            {% endif %}
+
+            {% for i in (range(page - nearby_pages_limit, page - 1)) %}
+                {% if (i > 0) %}
+                    <li><a href="{{ request.fullUrlWithQuery({'page': i} + request.query.all) }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            <li class="active"><a href="{{ request.fullUrlWithQuery({'page': page} + request.query.all) }}">{{ page }}</a></li>
+
+            {% if (page < last_page) %}
+                {% for i in range(page + 1, last_page)|slice(0, nearby_pages_limit) %}
+                    {% if (i <= last_page) %}
+                        <li><a href="{{ request.fullUrlWithQuery({'page': i} + request.query.all) }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if ((last_page - extreme_pages_limit) > (page + nearby_pages_limit)) %}
+                    <li class="dots"><a href="#">...</a></li>
+                {% endif %}
+
+                {% for i in (range(last_page - extreme_pages_limit + 1, last_page)) %}
+                    {% if (i > page + nearby_pages_limit) %}
+                        <li><a href="{{ request.fullUrlWithQuery({'page': i} + request.query.all) }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {% if (page < last_page) %}
+                <li><a aria-label="next page" href="{{ request.fullUrlWithQuery({'page': page + 1} + request.query.all) }}"><i class="fa fa-angle-right"></i></a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

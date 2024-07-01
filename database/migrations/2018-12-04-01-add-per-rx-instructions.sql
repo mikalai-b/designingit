@@ -1,0 +1,1 @@
+ALTER TABLE prescriptions ADD instructions VARCHAR(255) NOT NULL;

@@ -1,0 +1,21 @@
+<script type="text/javascript">
+    function showImageOnUpload(e) {
+        var target = e.target;
+        if (target.files && target.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var preview = target.parentElement.querySelector('.preview img');
+                preview.src = e.target.result;
+            };
+
+            reader.readAsDataURL(target.files[0]);
+        }
+    }
+
+    var image_inputs = document.querySelectorAll('form .photo input[type="file"]');
+
+    image_inputs.forEach(function(image_input) {
+        image_input.addEventListener('change', showImageOnUpload);
+    });
+</script>

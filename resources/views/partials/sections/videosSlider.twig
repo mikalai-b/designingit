@@ -1,0 +1,48 @@
+<div class="videoSlider">
+    <div class="container">
+        <div class="videoSlider__top">
+            {% if block.vidTitle %}
+                <h2>{{ block.vidTitle }}</h2>
+            {% endif %}
+            {% if block.vidText %}
+                <p>{{ block.vidText|nl2br }}</p>
+            {% endif %}
+        </div>
+        {% if block.sectionVideos|length %}
+            <div class="videoSlider__container">
+                <div class="videoSlider__carousel">
+                    {% for slide in block.sectionVideos %}
+                        <div 
+                            class="videoSlider__carousel__item"
+                            data-src="{{ slide.vidPopVideo.first().url }}"
+                        >
+                            {% if slide.vidTeaser %}
+                                <video width="100%" height="100%" autoplay muted playsinline loop>
+                                    <source src="{{ slide.vidTeaser.first().url }}" type="video/mp4">
+                                    Your browser does not support HTML video.
+                                </video>
+                            {% endif %}
+                            <div class="videoSlider__carousel__item__text">
+                                {% if slide.vidComment %}
+                                    <p>{{ slide.vidComment|nl2br }}</p>
+                                {% endif %}
+                                {% if slide.vidAuthor %}
+                                    <em>{{ slide.vidAuthor }}</em>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="siteOverlay"></div>
+<div class="videoPopupWrapper">
+    <span class="videoPopupWrapper__close"></span>
+    <video width="100%" height="100%" playsinline loop controls>
+        <source src="" type="video/mp4">
+        Your browser does not support HTML video.
+    </video>
+</div>

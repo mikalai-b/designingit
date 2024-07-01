@@ -1,0 +1,49 @@
+{% set portalTitle = 'Codes' %}
+{% extends 'layouts/full-width' %}
+
+{% set current_section = 'codes' %}
+
+{% block primary %}
+<section class="portal">
+    <div class="container">
+        {% include 'partials/messaging/flash.twig' %}
+        <div class="portal-headline">
+            <div class="breadcrumbs">
+                <a href="/dashboard" class="breadcrumb-item">Dashboard</a>
+                <span class="breadcrumb-item">Codes</span>
+            </div>
+            <h1>
+                Import Codes
+            </h1>
+            <p>There are currently {{ codeCount }} codes. Copy and paste codes into the form below to create new ones (one code per line).</p>
+            <form method="POST"  action="{{ url.full }}">
+                {{ csrf_field() }}
+                
+                <div class="form-group">
+                    <label for="campaign">Campaign:</label>
+                    <input type="text" id="campaign" name="campaign" value="" placeholder="e.g. Groupon 2020-02" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="products">Products:</label>
+                        {% for product in products %}
+                            <label><input type="checkbox" name="products[]" value="{{ product.id }}"> {{ product.name }} {{ product.strength }} ({{ product.quantity }})</label>
+                        {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label>Unlimited?:</label>
+                    <label><input type="hidden" name="unlimited" value="0"><input type="checkbox" name="unlimited" value="1"> Allow code(s) to be used an unlimited number of times.</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="codes">New Codes:</label>
+                    <div class="form-notice" style="margin-bottom: 0">Each code must be unique and may only consist of alphanumeric characters. One code per line.</div>
+                    <textarea id="codes" name="codes" style="height: 30em"></textarea>
+                </div>
+                <button type="submit" class="button button-primary">Import Codes</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

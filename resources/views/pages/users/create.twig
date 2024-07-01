@@ -1,0 +1,30 @@
+{% set portalTitle = 'Users' %}
+{% set portalTitle = 'Create user' %}
+{% extends 'layouts/full-width' %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% set current_section = 'users' %}
+
+{% block primary %}
+
+    <section class="portal">
+        <div class="container">
+            <div class="portal-headline">
+                <div class="breadcrumbs">
+                    <a href="{{ route('dashboard') }}" class="breadcrumb-item">Dashboard</a>
+                    <a href="{{ route('users') }}" class="breadcrumb-item">Users</a>
+                    <span class="breadcrumb-item">Add User</span>
+                </div>
+                <h1>
+                    Add User
+                </h1>
+            </div>
+            <form class="user-form" method="POST" action="{{ url.full }}">
+                {% include 'pages.users._form' %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

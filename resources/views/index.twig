@@ -1,0 +1,302 @@
+{% import "partials/_macros" as macros %}
+{% extends "layouts/full-width" %}
+{% set body_class = "home" %}
+
+{% block hero %}
+    {% set videoFile = entry.heroVideo %}
+    {% set preloadDesktopImage = entry.heroPreloaderImageDesktop %}
+    {% set preloadMobileImage = entry.heroPreloaderImageMobile %}
+    {% if videoFile|length %}
+        <div class="heroVideo">
+            {% if preloadDesktopImage %}
+                <img src="{{ preloadDesktopImage.first().url }}" class="heroDesktopImage">
+                <img src="{{ preloadMobileImage.first().url }}" class="heroMobileImage">
+            {% endif %}
+            <span class="heroVideo__soundBtn"></span>
+            {# <video 
+                width="100%111" 
+                height="100%" 
+                playsinline
+                autoplay
+                muted
+                loop
+            >
+                <source src="{{ videoFile.first().url }}" type="video/mp4">
+                Your browser does not support HTML video.
+            </video> #}
+            {# <div class="heroVideo__words">
+                <h2>
+                  <em>Healthcare</em>
+                  <span>
+                    <i>Reinvented</i>
+                    <i>Revolutionized</i>
+                    <i>Reimaged</i>
+                  </span>
+                </h2>
+                <p>
+                    The lowest prices of any US telehealth company for Latisse and Retin-A (Tretinoin).
+                    Prescribed online by our Board-Certified dermatologists and shipped directly to you within 24 hours.
+                </p>
+            </div> #}
+        </div>
+    {% endif %}
+    <div class="hero hero-home">
+        <h1>{{ entry.homepageHeroHeadline|raw }}</h1>
+        <div class="hero-subtext">
+            <div class="lede">{{ entry.homepageHeroSubheadline }}</div>
+        </div>
+        <div class="action">
+            <a href="{{ entry.homepageHeroButton.url }}" class="button button-product">{{ entry.homepageHeroButton.text }}</a>
+            <a href="{{ entry.homepageHeroButton2.url }}" class="button button-product">{{ entry.homepageHeroButton2.text }}</a>
+            {% if entry.homepageHeroButton3 %}
+                <a href="{{ entry.homepageHeroButton3.url }}" class="button button-product">{{ entry.homepageHeroButton3.text }}</a>
+            {% endif %}
+            {% if entry.homepageHeroButton4 %}
+                <a href="{{ entry.homepageHeroButton4.url }}" class="button button-product">{{ entry.homepageHeroButton4.text }}</a>
+            {% endif %}
+        </div>
+        <div class="hero-images">
+            {% if entry.homepageHeroImageLeft|length %}
+                <div class="hero-image hero-image--left">
+                    <img src="{{ entry.homepageHeroImageLeft.first().url }}" alt="CosmeticRx Hero Image">
+                </div>
+            {% endif %}
+            {% if entry.homepageHeroImageRight|length %}
+                <div class="hero-image hero-image--right">
+                    <img src="{{ entry.homepageHeroImageRight.first().url }}" alt="CosmeticRx Hero Image">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% if entry.endorsements|length %}
+        <div class="companyAllWrapper">
+            <div class="companies-wrapper">
+                <div class="companies">
+                    {% for companyLogo in entry.endorsements %}
+                        {% if companyLogo.type == "companyLogos" %}
+                            <div class="company-image">
+                                <img src="{{ companyLogo.logo.first().url }}" alt="CosmeticRx Third Party">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="companies-wrapper-mobile">
+                <div class="container">
+                    <div class="companies-mobile">
+                        {% for companyLogo in entry.endorsements %}
+                            {% if companyLogo.type == "companyLogos" %}
+                                <div class="company-image-mobile">
+                                    <img src="{{ companyLogo.logo.first().url }}" alt="CosmeticRx Third Party">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block primary %}
+
+    {% if entry.pageStructuredContent|length %}
+        {% for block in entry.pageStructuredContent %}
+            {% switch block.type %}
+
+                {% case "fullWidth" %}
+                    <section class="background--skin-tone">
+                        <div class="container-small">
+                            <h2>Our Difference</h2>
+                            <p>
+                                Our board certified dermatologists are dedicated to helping you achieve your best cosmetic results. You can message your dermatologist any time through your patient portal.
+                            </p>
+                        </div>
+                    </section>
+
+                {% case "imageWithText" %}
+                    <section>
+                        <div class="container">
+                            <div class="columns{% if block.position == 'left' %} reverse{% endif %}">
+                                <div class="copy">
+                                    {% if block.blockTitle %}
+                                        <h2>
+                                            {{ block.blockTitle }}
+                                            <span>{{ block.blockSubheadline }}</span>
+                                        </h2>
+                                    {% endif %}
+                                    {{ block.blockContent }}
+                                    <div class="action">
+                                        <a href="{{ block.action.url }}" class="button button-minimal">{{ block.action.text }}</a>
+                                    </div>
+                                </div>
+                                <div class="image">
+                                    <img src="{{ block.image.first().url }}" alt="{% if block.blockTitle %}{{ block.blockTitle }}{% endif %}">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                {% case "steps" %}
+                    {% if block.stepsEntry %}
+                        <section class="how-it-works">
+                            <div class="container">
+                                <h2>{{ steps.generalTitle }}</h2>
+
+                                <div class="steps">
+                                    {% if steps.step1Description|length %}
+                                        <div class="step">
+                                            <span class="number">1</span>
+                                            <p>
+                                                {{ steps.step1Description }}
+                                            </p>
+                                            <img src="{{ steps.step1Image.first().url }}" alt="Latisse and Tretinoin">
+                                        </div>
+                                    {% endif %}
+                                    {% if steps.step2Description|length %}
+                                    <div class="step">
+                                        <span class="number">2</span>
+                                        <p>
+                                            {{ steps.step2Description }}
+                                        </p>
+                                        <img src="{{ steps.step2Image.first().url }}" alt="">
+                                    </div>
+                                    {% endif %}
+                                    {% if steps.step3Description|length %}
+                                    <div class="step">
+                                        <span class="number">3</span>
+                                        <p>
+                                            {{ steps.step3Description }}
+                                        </p>
+                                        <div class="step3-image">
+                                            <img src="{{ steps.step3Image.first().url }}" alt="">
+                                            {# <div class="chat">
+                                                <div class="chat-bubble">
+                                                    <span class="chat-name">{{ steps.step3Dermatologist.first().title }}</span>
+                                                    <span class="chat-text">{{ steps.step3Quote }}</span>
+                                                </div>
+                                            </div> #}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </section>
+                    {% endif %}
+
+                {% case "icons" %}
+                    <section class="icons{% if block.backgroundColor == "lightBlue" %} background--light-blue{% elseif block.backgroundColor == "skinTone" %} background--skin-tone{% endif %}">
+                        <div class="container">
+                            {% if block.blockTitle %}
+                                <h2>{{ block.blockTitle }}</h2>
+                            {% endif %}
+                            {% if block.blockSubheadline|length %}
+                                <p class="subtitle">{{ block.blockSubheadline }}</p>
+                            {% endif %}
+
+                            <div class="icon-columns">
+                                {% if block.icon1Image|length %}
+                                    <div class="icon-column">
+                                        {% if block.icon1Image|length %}
+                                            <img src="{{ block.icon1Image.first().url }}" alt="{{ block.icon1Image.first().title }}">
+                                        {% endif %}
+                                        {% if block.icon1Title|length %}
+                                            <h4>{{ block.icon1Title }}</h4>
+                                        {% endif %}
+                                        {% if block.icon1Description|length %}
+                                            <p>
+                                                {{ block.icon1Description }}
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+
+                                {% if block.icon2Image|length %}
+                                    <div class="icon-column">
+                                        {% if block.icon2Image|length %}
+                                            <img src="{{ block.icon2Image.first().url }}" alt="{{ block.icon2Image.first().title }}">
+                                        {% endif %}
+                                        {% if block.icon2Title|length %}
+                                            <h4>{{ block.icon2Title }}</h4>
+                                        {% endif %}
+                                        {% if block.icon2Description|length %}
+                                            <p>
+                                                {{ block.icon2Description }}
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+
+                                {% if block.icon3Image|length %}
+                                    <div class="icon-column">
+                                        {% if block.icon3Image|length %}
+                                            <img src="{{ block.icon3Image.first().url }}" alt="{{ block.icon3Image.first().title }}">
+                                        {% endif %}
+                                        {% if block.icon3Title|length %}
+                                            <h4>{{ block.icon3Title }}</h4>
+                                        {% endif %}
+                                        {% if block.icon3Description|length %}
+                                            <p>
+                                                {{ block.icon3Description }}
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+
+                                {% if block.icon4Image|length %}
+                                    <div class="icon-column">
+                                        {% if block.icon4Image|length %}
+                                            <img src="{{ block.icon4Image.first().url }}" alt="{{ block.icon4Image.first().title }}">
+                                        {% endif %}
+                                        {% if block.icon4Title|length %}
+                                            <h4>{{ block.icon4Title }}</h4>
+                                        {% endif %}
+                                        {% if block.icon4Description|length %}
+                                            <p>
+                                                {{ block.icon4Description }}
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% if block.action|length or block.action2|length %}
+                                <div class="action">
+                                    {% if block.action|length %}
+                                        <a href="{{ block.action.url }}" class="button button-product">{{ block.action.text }}</a>
+                                    {% endif %}
+                                    {% if block.action2|length %}
+                                        <a href="{{ block.action2.url }}" class="button button-product">{{ block.action2.text }}</a>
+                                    {% endif %}
+                                    {% if block.action3|length %}
+                                        <a href="{{ block.action3.url }}" class="button button-product">{{ block.action3.text }}</a>
+                                    {% endif %}
+                                    {% if block.action4|length %}
+                                        <a href="{{ block.action4.url }}" class="button button-product">{{ block.action4.text }}</a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </section>
+
+                {% case "backgroundVideoWithText" %}
+                    {% include 'partials/sections/backgroundVideoWithText' %}
+
+                {% case "tickerPhotosCarousel" %}
+                    {% include 'partials/sections/tickerPhotosCarousel' %}
+
+                {% case "beforeAfterCarousel" %}
+                    {% include 'partials/sections/beforeAfterCarousel' %}
+
+                {% case "reviewsRate" %}
+                    {% include 'partials/sections/reviewsRate' %}
+                {% case "realReviewsSection" %}
+                    {% include 'partials/sections/reviewsApi' %}
+                {% case "videosSection" %}
+                    {% include 'partials/sections/videosSlider' %}
+                {% default %}
+
+
+            {% endswitch %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,83 @@
+<section 
+    class="
+    brxIcons icons
+    {% if block.backgroundColor == "lightBlue" %} background--light-blue
+    {% elseif block.backgroundColor == "skinTone" %} background--skin-tone
+    {% elseif block.backgroundColor == "lightGray" %} background--light-gray
+    {% endif %}"
+>
+    <div class="container">
+        {% if block.blockTitle|length %}
+            <h2>{{ block.blockTitle }}</h2>
+        {% endif %}
+        {% if block.blockSubheadline|length %}
+            <p class="subtitle">{{ block.blockSubheadline }}</p>
+        {% endif %}
+
+        <div class="icon-columns">
+            {% if block.icon1Image|length %}
+                <div class="icon-column">
+                    {% if block.icon1Image|length %}
+                        <img src="{{ block.icon1Image.first().url }}" alt="{{ block.icon1Image.first().title }}">
+                    {% endif %}
+                    {% if block.icon1Title|length %}
+                        <h4>{{ block.icon1Title }}</h4>
+                    {% endif %}
+                    {% if block.icon1Description|length %}
+                        <p>
+                            {{ block.icon1Description }}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if block.icon2Image|length %}
+                <div class="icon-column">
+                    {% if block.icon2Image|length %}
+                        <img src="{{ block.icon2Image.first().url }}" alt="{{ block.icon2Image.first().title }}">
+                    {% endif %}
+                    {% if block.icon2Title|length %}
+                        <h4>{{ block.icon2Title }}</h4>
+                    {% endif %}
+                    {% if block.icon2Description|length %}
+                        <p>
+                            {{ block.icon2Description }}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if block.icon3Image|length %}
+                <div class="icon-column">
+                    {% if block.icon3Image|length %}
+                        <img src="{{ block.icon3Image.first().url }}" alt="{{ block.icon3Image.first().title }}">
+                    {% endif %}
+                    {% if block.icon3Title|length %}
+                        <h4>{{ block.icon3Title }}</h4>
+                    {% endif %}
+                    {% if block.icon3Description|length %}
+                        <p>
+                            {{ block.icon3Description }}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if block.icon4Image|length %}
+                <div class="icon-column">
+                    {% if block.icon4Image|length %}
+                        <img src="{{ block.icon4Image.first().url }}" alt="{{ block.icon4Image.first().title }}">
+                    {% endif %}
+                    {% if block.icon4Title|length %}
+                        <h4>{{ block.icon4Title }}</h4>
+                    {% endif %}
+                    {% if block.icon4Description|length %}
+                        <p>
+                            {{ block.icon4Description }}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

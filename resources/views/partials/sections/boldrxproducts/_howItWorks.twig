@@ -1,0 +1,22 @@
+<div class="brxHowItWorks">
+    <div class="container">
+        {% if block.workTitle %}
+            <h2>{{ block.workTitle }}</h2>
+        {% endif %}
+        {% if block.workBlocks %}
+            <div class="brxHowItWorks__row">
+                {% for item in block.workBlocks %}
+                    <div class="brxHowItWorks__item">
+                        <div class="brxHowItWorks__item__inner">
+                            <div class="brxHowItWorks__item__image">
+                                <img src="{{ item.blockImage.first().url }}">
+                            </div>
+                            <h3>{{ item.blockTitle }}</h3>
+                            <p>{{ item.blockText|nl2br }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>

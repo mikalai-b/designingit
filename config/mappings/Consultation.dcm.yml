@@ -1,0 +1,92 @@
+Consultation:
+    type: entity
+    table: consultations
+    repositoryClass: Consultations
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        dateCreated:
+            type: datetime
+            nullable: false
+            column: date_created
+        dateModified:
+            type: datetime
+            nullable: true
+            column: date_modified
+        physicalExam:
+            type: json
+            nullable: true
+            column: physical_exam
+            length: null
+        diagnosis:
+            type: json
+            nullable: true
+            length: null
+        letter:
+            type: text
+            nullable: true
+            length: null
+        status:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+
+    oneToOne:
+        order:
+            targetEntity: Order
+            cascade: {  }
+            mappedBy: null
+            inversedBy: consultation
+            joinColumns:
+                order_id:
+                    referencedColumnName: id
+                    onDelete: CASCADE
+            orphanRemoval: false
+    oneToMany:
+        answers:
+            targetEntity: Answer
+            cascade: [ persist, remove ]
+            mappedBy: consultation
+            orphanRemoval: false
+        photos:
+            targetEntity: Photo
+            cascade: [ persist, remove ]
+            mappedBy: consultation
+            orphanRemoval: false
+        prescriptions:
+            targetEntity: Prescription
+            cascade: [ persist, remove ]
+            mappedBy: consultation
+            orphanRemoval: false
+    manyToMany:
+        symptoms:
+            targetEntity: Symptom
+            cascade: [ ]
+            fetch: EAGER
+            mappedBy: null
+            inversedBy: null
+            orderBy: null
+            joinTable:
+                name: consultation_symptoms
+                joinColumns:
+                    -
+                        name: consultation
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: symptom
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orphanRemoval: false
+
+    lifecycleCallbacks: {  }

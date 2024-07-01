@@ -1,0 +1,1 @@
+ALTER TABLE answers CHANGE type type INT DEFAULT NULL, CHANGE consultation consultation INT DEFAULT NULL, CHANGE date_modified date_modified DATETIME DEFAULT NULL, CHANGE answer content LONGTEXT NOT NULL;
