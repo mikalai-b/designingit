@@ -68,7 +68,7 @@ Person:
             column: date_of_birth
         email:
             type: string
-            nullable: true
+            nullable: false
             length: null
             options:
                 fixed: false
