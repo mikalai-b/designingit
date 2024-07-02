@@ -1,0 +1,1 @@
+ALTER TABLE people CHANGE email email VARCHAR(255) DEFAULT NULL;

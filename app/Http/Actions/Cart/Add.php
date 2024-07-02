@@ -37,6 +37,8 @@ class Add extends AbstractAction
      */
     public function __invoke(Request $request, Cart $cart, Products $products, Checkout $checkout, $product, Registration $registration)
     {
+        $newUser = $request->get('newuser');
+
         try {
             $product  = $products->findOneBySlug($product) ?? $products->find($product) ?? null;
 
@@ -80,6 +82,12 @@ class Add extends AbstractAction
             $this->session->flash('success', sprintf(static::MSG_SUCCESS, $product));
         } catch (\Exception $e) {
             $this->session->flash('error', $e->getMessage());
+        }
+
+        if ($newUser) {
+            $person = $registration->create(null, null, null);
+            $this->auth->login($person);
+            $this->redirect('cart.order');
         }
 
         return $this->redirect('cart');
